@@ -1,0 +1,72 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\lunip\\CodeProjects\\CSProjects\\end-of-work-time\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9C962C68-42CC-190F-1618-F571253FD88D}|src\\end-of-work-time\\end-of-work-time.csproj|c:\\users\\lunip\\codeprojects\\csprojects\\end-of-work-time\\src\\end-of-work-time\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{9C962C68-42CC-190F-1618-F571253FD88D}|src\\end-of-work-time\\end-of-work-time.csproj|solutionrelative:src\\end-of-work-time\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C962C68-42CC-190F-1618-F571253FD88D}|src\\end-of-work-time\\end-of-work-time.csproj|c:\\users\\lunip\\codeprojects\\csprojects\\end-of-work-time\\src\\end-of-work-time\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C962C68-42CC-190F-1618-F571253FD88D}|src\\end-of-work-time\\end-of-work-time.csproj|solutionrelative:src\\end-of-work-time\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 265,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainPage.xaml",
+              "DocumentMoniker": "C:\\Users\\lunip\\CodeProjects\\CSProjects\\end-of-work-time\\src\\end-of-work-time\\MainPage.xaml",
+              "RelativeDocumentMoniker": "src\\end-of-work-time\\MainPage.xaml",
+              "ToolTip": "C:\\Users\\lunip\\CodeProjects\\CSProjects\\end-of-work-time\\src\\end-of-work-time\\MainPage.xaml",
+              "RelativeToolTip": "src\\end-of-work-time\\MainPage.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-10T21:04:53.135Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MauiProgram.cs",
+              "DocumentMoniker": "C:\\Users\\lunip\\CodeProjects\\CSProjects\\end-of-work-time\\src\\end-of-work-time\\MauiProgram.cs",
+              "RelativeDocumentMoniker": "src\\end-of-work-time\\MauiProgram.cs",
+              "ToolTip": "C:\\Users\\lunip\\CodeProjects\\CSProjects\\end-of-work-time\\src\\end-of-work-time\\MauiProgram.cs",
+              "RelativeToolTip": "src\\end-of-work-time\\MauiProgram.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T21:04:46.546Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 175,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
