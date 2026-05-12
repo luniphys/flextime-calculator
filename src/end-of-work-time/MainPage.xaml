@@ -14,81 +14,137 @@
         <Style TargetType="Entry">
             <Setter Property="Text" Value="Time"/>
             <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Margin" Value="10,10,10,10"/>
         </Style>
 
+        <Style TargetType="HorizontalStackLayout">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+        
     </ContentPage.Resources>
 
     <Grid Background="#FF1e1e1e">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="15*"/>
-            <ColumnDefinition Width="40*"/>
-            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="95*"/>
         </Grid.ColumnDefinitions>
 
         <!-- Left Menu -->
-        <Grid>
+        <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="90*"/>
             </Grid.RowDefinitions>
 
             <Button Text="Menu"/>
-
         </Grid>
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
+                <RowDefinition Height="80*"/>
                 <RowDefinition Height="20*"/>
             </Grid.RowDefinitions>
 
-            <Label Text="Monday"/>
-            <Label Grid.Row="1" Text="Tuesday"/>
-            <Label Grid.Row="2" Text="Wednesday"/>
-            <Label Grid.Row="3" Text="Thursday"/>
-            <Label Grid.Row="4" Text="Friday"/>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="40*"/>
+                </Grid.ColumnDefinitions>
             
-        </Grid>
+                <!-- Days -->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                    </Grid.RowDefinitions>
 
-        <!-- Come time -->
-        <Grid Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-            </Grid.RowDefinitions>
+                    <Label Text="Monday"/>
+                    <Label Grid.Row="1" Text="Tuesday"/>
+                    <Label Grid.Row="2" Text="Wednesday"/>
+                    <Label Grid.Row="3" Text="Thursday"/>
+                    <Label Grid.Row="4" Text="Friday"/>
+                </Grid>
 
-            <Entry/>
-            <Entry Grid.Row="1"/>
-            <Entry Grid.Row="2"/>
-            <Entry Grid.Row="3"/>
-            <Entry Grid.Row="4"/>
-            
-        </Grid>
+                <!-- Come times -->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                    </Grid.RowDefinitions>
 
-        <!-- Go time -->
-        <Grid Grid.Column="3">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-            </Grid.RowDefinitions>
+                    <HorizontalStackLayout>
+                        <Label Text="Come:"/>
+                        <Entry/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Grid.Row="1">
+                        <Label Text="Come:"/>
+                        <Entry/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Grid.Row="2">
+                        <Label Text="Come:"/>
+                        <Entry/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Grid.Row="3">
+                        <Label Text="Come:"/>
+                        <Entry/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Grid.Row="4">
+                        <Label Text="Come:"/>
+                        <Entry/>
+                    </HorizontalStackLayout>
+                </Grid>
 
-            <Entry/>
-            <Entry Grid.Row="1"/>
-            <Entry Grid.Row="2"/>
-            <Entry Grid.Row="3"/>
-            <Entry Grid.Row="4"/>
-            
+                <!-- Go times -->
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                    </Grid.RowDefinitions>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Go:"/>
+                        <Entry/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Grid.Row="1">
+                        <Label Text="Go:"/>
+                        <Entry/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Grid.Row="2">
+                        <Label Text="Go:"/>
+                        <Entry/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Grid.Row="3">
+                        <Label Text="Go:"/>
+                        <Entry/>
+                    </HorizontalStackLayout>
+                    <Label/>
+                </Grid>
+
+            </Grid>
+
+            <!-- Resulting end of work time -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="49*"/>
+                    <ColumnDefinition  Width="2*"/>
+                    <ColumnDefinition  Width="49*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Text="Feierabend:" HorizontalTextAlignment="End"/>
+                <Label Grid.Column="1"/>
+                <Label Grid.Column="2" Text="Time" HorizontalTextAlignment="Start"/>
+            </Grid>
+
         </Grid>
 
     </Grid>
