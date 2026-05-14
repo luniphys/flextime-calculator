@@ -12,12 +12,12 @@ public partial class MainPage : ContentPage
         if (sender is Entry entry && entry.Text is not null)
         {
             // Timing issue: Focused event fires sometimes before Entry is Focused -> No event handler execution -> Use Dispatch Timer
-            entry.Dispatcher.DispatchDelayed(TimeSpan.FromMilliseconds(10), selectAllText);
+            entry.Dispatcher.DispatchDelayed(TimeSpan.FromMilliseconds(10), selectFirst);
             
-            void selectAllText()
+            void selectFirst()
             {
                 entry.CursorPosition = 0;
-                entry.SelectionLength = entry.Text.Length;
+                entry.SelectionLength = 1;
             };
         }
     }
@@ -26,20 +26,39 @@ public partial class MainPage : ContentPage
     {
         if (sender is not Entry entry) { return; }
 
-        if (entry.Text.Length > 5) { return; }
-
-        bool isValid = e.NewTextValue.All(character => char.IsDigit(character) || character == ':');
-
-        if (entry.Text.Length == 2)
+        if (entry.Text.Length > 5)
         {
-            entry.Text = e.NewTextValue + ":";
-            entry.CursorPosition = entry.Text.Length;
-        }
-
-        if (!isValid)
-        {
-            entry.Text = "";
             return;
         }
+
+        //bool isNumber = e.NewTextValue.All(character => char.IsDigit(character));
+
+        bool isNumber = e.NewTextValue.Length == e.OldTextValue.Length &&
+                        e.OldTextValue != e.NewTextValue &&
+                        char.IsDigit(e.NewTextValue[entry.CursorPosition > 0 ? entry.CursorPosition - 1 : 0]);
+
+        if (isNumber)
+        {
+            // Timing issue: Focused event fires sometimes before Entry is Focused -> No event handler execution -> Use Dispatch Timer
+            entry.Dispatcher.DispatchDelayed(TimeSpan.FromMilliseconds(50), selectNext);
+
+            void selectNext()
+            {
+                int cursor = entry.CursorPosition;
+                if (cursor == 2)
+                {
+                    cursor = 3;
+                }
+                if (cursor < entry.Text.Length)
+                {
+                    entry.CursorPosition = cursor;
+                    entry.SelectionLength = 1;
+                }
+            };
+        }
+
+        
+
+        
     }
 }
