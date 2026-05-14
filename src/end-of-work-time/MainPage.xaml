@@ -4,18 +4,6 @@
              x:Class="end_of_work_time.MainPage">
     <ContentPage.Resources>
 
-        <Style TargetType="Label">
-            <Setter Property="VerticalTextAlignment" Value="Center"/>
-            <Setter Property="HorizontalTextAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="FontAttributes" Value="Bold"/>
-        </Style>
-
-        <Style TargetType="Entry">
-            <Setter Property="Text" Value="Time"/>
-            <Setter Property="FontSize" Value="20"/>
-        </Style>
-
         <Style TargetType="HorizontalStackLayout">
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="VerticalOptions" Value="Center"/>
@@ -81,23 +69,23 @@
 
                     <HorizontalStackLayout>
                         <Label Text="Come:"/>
-                        <Entry/>
+                        <Entry Text="06:00" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Row="1">
                         <Label Text="Come:"/>
-                        <Entry/>
+                        <Entry Text="06:00" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Row="2">
                         <Label Text="Come:"/>
-                        <Entry/>
+                        <Entry Text="06:00" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Row="3">
                         <Label Text="Come:"/>
-                        <Entry/>
+                        <Entry Text="06:00" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Row="4">
                         <Label Text="Come:"/>
-                        <Entry/>
+                        <Entry Text="06:00" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
                     </HorizontalStackLayout>
                 </Grid>
 
@@ -111,23 +99,22 @@
                         <RowDefinition Height="20*"/>
                     </Grid.RowDefinitions>
 
-                    <HorizontalStackLayout>
+                    <HorizontalStackLayout Grid.Row="0">
                         <Label Text="Go:"/>
-                        <Entry/>
+                        <Entry Text="14:15" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Row="1">
                         <Label Text="Go:"/>
-                        <Entry/>
+                        <Entry Text="14:15" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Row="2">
                         <Label Text="Go:"/>
-                        <Entry/>
+                        <Entry Text="14:15" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Row="3">
                         <Label Text="Go:"/>
-                        <Entry/>
+                        <Entry Text="14:15" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
                     </HorizontalStackLayout>
-                    <Label/>
                 </Grid>
 
             </Grid>
