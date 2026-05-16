@@ -14,17 +14,25 @@
             <Style TargetType="Label">
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="18"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextColor" Value="White"/>
             </Style>
-            
-            <Style TargetType="Entry">
-                <Setter Property="FontSize" Value="20"/>
+
+            <Style TargetType="TimePicker">
+                <Setter Property="Format" Value="HH:mm"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextColor" Value="White"/>
-                <Setter Property="BackgroundColor" Value="#FF2e2e2e"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
             </Style>
-            
+
+            <Style TargetType="Border">
+                <Setter Property="StrokeShape" Value="RoundRectangle 12"/>
+                <Setter Property="Stroke" Value="#CCCCCC"/>
+                <Setter Property="Margin" Value="5,6"/>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

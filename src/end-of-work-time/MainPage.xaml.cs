@@ -2,63 +2,69 @@
 
 public partial class MainPage : ContentPage
 {
+	private bool _settingsOpen = false;
+
 	public MainPage()
 	{
 		InitializeComponent();
 	}
 
-    private void OnEntryFocused(object sender, FocusEventArgs e)
+    private void settingsButton_Clicked(object sender, EventArgs e)
     {
-        if (sender is Entry entry && entry.Text is not null)
-        {
-            // Timing issue: Focused event fires sometimes before Entry is Focused -> No event handler execution -> Use Dispatch Timer
-            entry.Dispatcher.DispatchDelayed(TimeSpan.FromMilliseconds(10), selectFirst);
-            
-            void selectFirst()
-            {
-                entry.CursorPosition = 0;
-                entry.SelectionLength = 1;
-            };
+        if (_settingsOpen)
+		{
+			CloseSettings();
+			_settingsOpen = false;
+        }
+		else
+		{
+			OpenSettings();
+            _settingsOpen = true;
         }
     }
 
-    private void OnEntryTextChanged(object sender, TextChangedEventArgs e)
+	private void OpenSettings()
+	{
+		dimOverlay.IsVisible = true;
+	}
+
+    private void CloseSettings()
     {
-        if (sender is not Entry entry) { return; }
-
-        if (entry.Text.Length > 5)
-        {
-            return;
-        }
-
-        //bool isNumber = e.NewTextValue.All(character => char.IsDigit(character));
-
-        bool isNumber = e.NewTextValue.Length == e.OldTextValue.Length &&
-                        e.OldTextValue != e.NewTextValue &&
-                        char.IsDigit(e.NewTextValue[entry.CursorPosition > 0 ? entry.CursorPosition - 1 : 0]);
-
-        if (isNumber)
-        {
-            // Timing issue: Focused event fires sometimes before Entry is Focused -> No event handler execution -> Use Dispatch Timer
-            entry.Dispatcher.DispatchDelayed(TimeSpan.FromMilliseconds(50), selectNext);
-
-            void selectNext()
-            {
-                int cursor = entry.CursorPosition;
-                if (cursor == 2)
-                {
-                    cursor = 3;
-                }
-                if (cursor < entry.Text.Length)
-                {
-                    entry.CursorPosition = cursor;
-                    entry.SelectionLength = 1;
-                }
-            };
-        }
-
-        
-
-        
+        dimOverlay.IsVisible = false;
     }
+
+    private void TimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+		if (sender is TimePicker picker)
+		{
+			CalculateFeierabend();
+        }
+    }
+
+	private void CalculateFeierabend()
+	{
+		TimeSpan smallBreak = TimeSpan.FromMinutes(15);
+        TimeSpan mainBreak = TimeSpan.FromMinutes(30);
+		TimeSpan totalBreak = smallBreak + mainBreak;
+
+        TimeSpan mondayDuration = (TimeSpan)goMon.Time! - (TimeSpan)comeMon.Time! - totalBreak;
+        TimeSpan tuesdayDuration = (TimeSpan)goTue.Time! - (TimeSpan)comeTue.Time! - totalBreak;
+        TimeSpan wednesdayDuration = (TimeSpan)goWed.Time! - (TimeSpan)comeWed.Time! - totalBreak;
+        TimeSpan thursdayDuration = (TimeSpan)goThu.Time! - (TimeSpan)comeThu.Time! - totalBreak;
+
+		TimeSpan fourDayDuration = mondayDuration + tuesdayDuration + wednesdayDuration + thursdayDuration;
+
+		TimeSpan weeklyHours = TimeSpan.FromHours(37.5); // TODO: Use adjustable time value
+		TimeSpan fridayHours = weeklyHours - fourDayDuration;
+
+		TimeSpan feierAbend = (TimeSpan)comeFri.Time! + fridayHours - smallBreak;
+
+		TimeSpan miniumumFriday = new TimeSpan(12, 0, 0);
+		if (feierAbend < miniumumFriday)
+		{
+			feierAbend = miniumumFriday;
+		}
+
+        feierabendTime.Text = $"{feierAbend.TotalHours}:{feierAbend.Minutes}";
+	}
 }

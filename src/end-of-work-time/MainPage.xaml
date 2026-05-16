@@ -8,13 +8,13 @@
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="VerticalOptions" Value="Center"/>
         </Style>
-        
+
     </ContentPage.Resources>
 
     <Grid Background="#FF1e1e1e">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="95*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="90*"/>
         </Grid.ColumnDefinitions>
 
         <!-- Left Menu -->
@@ -24,7 +24,7 @@
                 <RowDefinition Height="90*"/>
             </Grid.RowDefinitions>
 
-            <Button Text="Menu"/>
+            <Button x:Name="settingsButton" Text="Menu" Clicked="settingsButton_Clicked"/>
         </Grid>
 
         <Grid Grid.Column="1">
@@ -35,11 +35,11 @@
 
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="20*"/>
-                    <ColumnDefinition Width="40*"/>
-                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="35*"/>
+                    <ColumnDefinition Width="35*"/>
                 </Grid.ColumnDefinitions>
-            
+
                 <!-- Days -->
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
@@ -69,23 +69,33 @@
 
                     <HorizontalStackLayout>
                         <Label Text="Come:"/>
-                        <Entry Text="06:00" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
+                        <Border>
+                            <TimePicker x:Name="comeMon" PropertyChanged="TimePicker_PropertyChanged"/>
+                        </Border>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Row="1">
                         <Label Text="Come:"/>
-                        <Entry Text="06:00" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
+                        <Border>
+                            <TimePicker x:Name="comeTue" PropertyChanged="TimePicker_PropertyChanged"/>
+                        </Border>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Row="2">
                         <Label Text="Come:"/>
-                        <Entry Text="06:00" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
+                        <Border>
+                            <TimePicker x:Name="comeWed" PropertyChanged="TimePicker_PropertyChanged"/>
+                        </Border>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Row="3">
                         <Label Text="Come:"/>
-                        <Entry Text="06:00" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
+                        <Border>
+                            <TimePicker x:Name="comeThu" PropertyChanged="TimePicker_PropertyChanged"/>
+                        </Border>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Row="4">
                         <Label Text="Come:"/>
-                        <Entry Text="06:00" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
+                        <Border>
+                            <TimePicker x:Name="comeFri" PropertyChanged="TimePicker_PropertyChanged"/>
+                        </Border>
                     </HorizontalStackLayout>
                 </Grid>
 
@@ -99,21 +109,29 @@
                         <RowDefinition Height="20*"/>
                     </Grid.RowDefinitions>
 
-                    <HorizontalStackLayout Grid.Row="0">
+                    <HorizontalStackLayout>
                         <Label Text="Go:"/>
-                        <Entry Text="14:15" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
+                        <Border>
+                            <TimePicker x:Name="goMon" PropertyChanged="TimePicker_PropertyChanged"/>
+                        </Border>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Row="1">
                         <Label Text="Go:"/>
-                        <Entry Text="14:15" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
+                        <Border>
+                            <TimePicker x:Name="goTue" PropertyChanged="TimePicker_PropertyChanged"/>
+                        </Border>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Row="2">
                         <Label Text="Go:"/>
-                        <Entry Text="14:15" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
+                        <Border>
+                            <TimePicker x:Name="goWed" PropertyChanged="TimePicker_PropertyChanged"/>
+                        </Border>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Row="3">
                         <Label Text="Go:"/>
-                        <Entry Text="14:15" Focused="OnEntryFocused" TextChanged="OnEntryTextChanged"/>
+                        <Border>
+                            <TimePicker x:Name="goThu" PropertyChanged="TimePicker_PropertyChanged"/>
+                        </Border>
                     </HorizontalStackLayout>
                 </Grid>
 
@@ -127,13 +145,20 @@
                     <ColumnDefinition  Width="49*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Text="Feierabend:" HorizontalTextAlignment="End"/>
+                <Label Grid.Column="0" Text="Feierabend:" HorizontalTextAlignment="End" FontSize="22"/>
                 <Label Grid.Column="1"/>
-                <Label Grid.Column="2" Text="Time" HorizontalTextAlignment="Start"/>
+                <Label Grid.Column="2" x:Name="feierabendTime" Text="Time" HorizontalTextAlignment="Start" FontSize="22"/>
             </Grid>
 
         </Grid>
 
+
+        <!--<TimePicker x:Name="usualComeTime" Time="06:00"/>
+        <TimePicker x:Name="usualGoTime" Time="14:15"/>-->
+
+
+        <BoxView Grid.Column="1" x:Name="dimOverlay" IsVisible="False" Opacity="0.5"/>
+
     </Grid>
-    
+
 </ContentPage>
