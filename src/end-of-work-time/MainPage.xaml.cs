@@ -11,29 +11,26 @@ public partial class MainPage : ContentPage
 
     private void SettingsButton_Clicked(object sender, EventArgs e)
     {
+        double panelWidth = 0.85;
+        uint animationDuration = 100;
+
         if (_settingsOpen)
 		{
-			CloseSettings();
 			_settingsOpen = false;
+            dimOverlay.IsVisible = false;
+            daysGrid.IsEnabled = true;
+            settingsPanel.Animate("close", v => settingsPanel.WidthRequest = v, start: this.Width * panelWidth, end: 0, length: animationDuration, finished: (v, c) => settingsPanel.IsVisible = false);
         }
 		else
 		{
-			OpenSettings();
             _settingsOpen = true;
+            dimOverlay.IsVisible = true;
+            settingsPanel.IsVisible = true;
+            daysGrid.IsEnabled = false;
+            settingsPanel.Animate("open", v => settingsPanel.WidthRequest = v, start: 0, end: this.Width * panelWidth, length: animationDuration);
         }
     }
 
-	private void OpenSettings()
-	{
-		dimOverlay.IsVisible = true;
-		settingsPanel.IsVisible = true;
-	}
-
-    private void CloseSettings()
-    {
-        dimOverlay.IsVisible = false;
-        settingsPanel.IsVisible = false;
-    }
 
     private void TimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
@@ -86,9 +83,9 @@ public partial class MainPage : ContentPage
 			feierAbend = miniumumFriday;
 		}
 
-        feierabendTime.Text = $"{feierAbend.TotalHours}:{feierAbend.Minutes}";
+        feierabendTime.Text = $"{(int)feierAbend.TotalHours}:{feierAbend.Minutes}";
 	}
 }
 
-// TODO: dimOverlay needed?
 // TODO: Remove .NET Intro animation
+// TODO: Black line below timepicker

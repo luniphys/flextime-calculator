@@ -14,18 +14,18 @@
 
     <Grid Background="#FF1e1e1e">
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="90*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="92*"/>
         </Grid.RowDefinitions>
 
         <!-- Top Left Menu -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="80*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="85*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" x:Name="settingsButton" Text="Menu" Clicked="SettingsButton_Clicked"/>
+            <Button Grid.Column="0" x:Name="settingsButton" Text="☰" FontSize="30" Clicked="SettingsButton_Clicked"/>
         </Grid>
 
         <Grid Grid.Row="1">
@@ -34,7 +34,7 @@
                 <RowDefinition Height="20*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" x:Name="daysGrid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"/>
                     <ColumnDefinition Width="35*"/>
@@ -155,25 +155,38 @@
 
 
         <!-- Settings Panel -->
-        <BoxView Grid.Row="1" x:Name="dimOverlay" IsVisible="False" Opacity="0.5"/>
-        <Border Grid.Row="1" x:Name="settingsPanel" IsVisible="False" BackgroundColor="#FF2e2e2e">
-            <VerticalStackLayout>
-                <Label Text="Settings" FontSize="28"/>
-                <Label/>
-                <HorizontalStackLayout>
-                    <Label Text="Usual come time:"/>
-                    <Border>
-                        <TimePicker x:Name="usualComeTime" PropertyChanged="UsuaTimePicker_PropertyChanged"/>
-                    </Border>
-                </HorizontalStackLayout>
-                <HorizontalStackLayout>
-                    <Label Text="Usual go time:  "/>
-                    <Border>
-                        <TimePicker x:Name="usualGoTime" PropertyChanged="UsuaTimePicker_PropertyChanged"/>
-                    </Border>
-                </HorizontalStackLayout>
-                <Slider x:Name="weeklyHours" Minimum="25" Maximum="45" Value="37.5"/>
-            </VerticalStackLayout>
+        <BoxView Grid.Row="1" x:Name="dimOverlay" IsVisible="False" Opacity="0.3"/>
+        <Border Grid.Row="1" x:Name="settingsPanel" IsVisible="False" Margin="0,0" HorizontalOptions="Start" BackgroundColor="#FF2e2e2e" Stroke="Black" StrokeThickness="0.2" StrokeShape="Rectangle">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="90*"/>
+                    <RowDefinition Height="10*"/>
+                </Grid.RowDefinitions>
+
+                <VerticalStackLayout Grid.Row="0">
+                    <Label Text="Settings" FontSize="28"/>
+                    <HorizontalStackLayout Margin="0,30,0,0">
+                        <Label Text="Usual come time:"/>
+                        <Border>
+                            <TimePicker x:Name="usualComeTime" PropertyChanged="UsuaTimePicker_PropertyChanged"/>
+                        </Border>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label Text="Usual go time:  "/>
+                        <Border>
+                            <TimePicker x:Name="usualGoTime" PropertyChanged="UsuaTimePicker_PropertyChanged"/>
+                        </Border>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Margin="0,30,0,0">
+                        <Label Text="Total weekly hours"/>
+                        <Slider x:Name="weeklyHours" Minimum="25" Maximum="45" Value="37.5"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+                <Label Grid.Row="1" Text="©luniphys"/>
+
+            </Grid>
+            
         </Border>
 
     </Grid>
