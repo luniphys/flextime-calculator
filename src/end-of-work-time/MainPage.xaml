@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="end_of_work_time.MainPage">
+             x:Class="end_of_work_time.MainPage"
+             Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
 
         <Style TargetType="HorizontalStackLayout">
@@ -12,22 +13,22 @@
     </ContentPage.Resources>
 
     <Grid Background="#FF1e1e1e">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="90*"/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="90*"/>
+        </Grid.RowDefinitions>
 
-        <!-- Left Menu -->
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="90*"/>
-            </Grid.RowDefinitions>
+        <!-- Top Left Menu -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="80*"/>
+            </Grid.ColumnDefinitions>
 
-            <Button x:Name="settingsButton" Text="Menu" Clicked="settingsButton_Clicked"/>
+            <Button Grid.Column="0" x:Name="settingsButton" Text="Menu" Clicked="SettingsButton_Clicked"/>
         </Grid>
 
-        <Grid Grid.Column="1">
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="80*"/>
                 <RowDefinition Height="20*"/>
@@ -153,11 +154,27 @@
         </Grid>
 
 
-        <!--<TimePicker x:Name="usualComeTime" Time="06:00"/>
-        <TimePicker x:Name="usualGoTime" Time="14:15"/>-->
-
-
-        <BoxView Grid.Column="1" x:Name="dimOverlay" IsVisible="False" Opacity="0.5"/>
+        <!-- Settings Panel -->
+        <BoxView Grid.Row="1" x:Name="dimOverlay" IsVisible="False" Opacity="0.5"/>
+        <Border Grid.Row="1" x:Name="settingsPanel" IsVisible="False" BackgroundColor="#FF2e2e2e">
+            <VerticalStackLayout>
+                <Label Text="Settings" FontSize="28"/>
+                <Label/>
+                <HorizontalStackLayout>
+                    <Label Text="Usual come time:"/>
+                    <Border>
+                        <TimePicker x:Name="usualComeTime" PropertyChanged="UsuaTimePicker_PropertyChanged"/>
+                    </Border>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="Usual go time:  "/>
+                    <Border>
+                        <TimePicker x:Name="usualGoTime" PropertyChanged="UsuaTimePicker_PropertyChanged"/>
+                    </Border>
+                </HorizontalStackLayout>
+                <Slider x:Name="weeklyHours" Minimum="25" Maximum="45" Value="37.5"/>
+            </VerticalStackLayout>
+        </Border>
 
     </Grid>
 

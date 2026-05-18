@@ -9,7 +9,7 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 	}
 
-    private void settingsButton_Clicked(object sender, EventArgs e)
+    private void SettingsButton_Clicked(object sender, EventArgs e)
     {
         if (_settingsOpen)
 		{
@@ -26,11 +26,13 @@ public partial class MainPage : ContentPage
 	private void OpenSettings()
 	{
 		dimOverlay.IsVisible = true;
+		settingsPanel.IsVisible = true;
 	}
 
     private void CloseSettings()
     {
         dimOverlay.IsVisible = false;
+        settingsPanel.IsVisible = false;
     }
 
     private void TimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -41,7 +43,26 @@ public partial class MainPage : ContentPage
         }
     }
 
-	private void CalculateFeierabend()
+    private void UsuaTimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (sender is TimePicker picker)
+        {
+			comeMon.Time = (TimeSpan)usualComeTime.Time!;
+            comeTue.Time = (TimeSpan)usualComeTime.Time!;
+            comeWed.Time = (TimeSpan)usualComeTime.Time!;
+            comeThu.Time = (TimeSpan)usualComeTime.Time!;
+            comeFri.Time = (TimeSpan)usualComeTime.Time!;
+
+            goMon.Time = (TimeSpan)usualGoTime.Time!;
+            goTue.Time = (TimeSpan)usualGoTime.Time!;
+            goWed.Time = (TimeSpan)usualGoTime.Time!;
+            goThu.Time = (TimeSpan)usualGoTime.Time!;
+
+            CalculateFeierabend();
+        }
+    }
+
+    private void CalculateFeierabend()
 	{
 		TimeSpan smallBreak = TimeSpan.FromMinutes(15);
         TimeSpan mainBreak = TimeSpan.FromMinutes(30);
@@ -68,3 +89,6 @@ public partial class MainPage : ContentPage
         feierabendTime.Text = $"{feierAbend.TotalHours}:{feierAbend.Minutes}";
 	}
 }
+
+// TODO: dimOverlay needed?
+// TODO: Remove .NET Intro animation
