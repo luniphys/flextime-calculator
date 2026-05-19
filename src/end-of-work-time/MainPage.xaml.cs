@@ -88,4 +88,5 @@ public partial class MainPage : ContentPage
 }
 
 // TODO: Remove .NET Intro animation
-// TODO: Black line below timepicker
+// TODO: Moving settings panel by swiping left/right
+

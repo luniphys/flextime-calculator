@@ -15,20 +15,23 @@
     <Grid Background="#FF1e1e1e">
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="92*"/>
         </Grid.RowDefinitions>
 
         <!-- Top Left Menu -->
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" BackgroundColor="#FF1a1a1a">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="15*"/>
                 <ColumnDefinition Width="85*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" x:Name="settingsButton" Text="☰" FontSize="30" Clicked="SettingsButton_Clicked"/>
+            <Button Grid.Column="0" x:Name="settingsButton" Text="☰" FontSize="30" Clicked="SettingsButton_Clicked" CornerRadius="0"/>
         </Grid>
 
-        <Grid Grid.Row="1">
+        <BoxView Grid.Row="1" HeightRequest="0.5"/>
+
+        <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="80*"/>
                 <RowDefinition Height="20*"/>
@@ -155,8 +158,8 @@
 
 
         <!-- Settings Panel -->
-        <BoxView Grid.Row="1" x:Name="dimOverlay" IsVisible="False" Opacity="0.3"/>
-        <Border Grid.Row="1" x:Name="settingsPanel" IsVisible="False" Margin="0,0" HorizontalOptions="Start" BackgroundColor="#FF2e2e2e" Stroke="Black" StrokeThickness="0.2" StrokeShape="Rectangle">
+        <BoxView Grid.Row="2" x:Name="dimOverlay" IsVisible="False" Opacity="0.3"/>
+        <Border Grid.Row="2" x:Name="settingsPanel" IsVisible="False" Margin="0,0" HorizontalOptions="Start" BackgroundColor="#FF2e2e2e" StrokeThickness="0" StrokeShape="Rectangle">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="90*"/>
