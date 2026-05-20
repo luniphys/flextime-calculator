@@ -15,7 +15,6 @@
     <Grid Background="#FF1e1e1e">
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="92*"/>
         </Grid.RowDefinitions>
 
@@ -23,21 +22,21 @@
         <Grid Grid.Row="0" BackgroundColor="#FF1a1a1a">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="15*"/>
-                <ColumnDefinition Width="85*"/>
+                <ColumnDefinition Width="65*"/>
+                <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" x:Name="settingsButton" Text="☰" FontSize="30" Clicked="SettingsButton_Clicked" CornerRadius="0"/>
+            <Button Grid.Column="2" x:Name="switchButton" Text="Day" FontAttributes="Bold" Clicked="SwitchButton_Clicked" CornerRadius="0"/>
         </Grid>
 
-        <BoxView Grid.Row="1" HeightRequest="0.5"/>
-
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1" x:Name="mainPageGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="80*"/>
                 <RowDefinition Height="20*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" x:Name="daysGrid">
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"/>
                     <ColumnDefinition Width="35*"/>
@@ -138,7 +137,6 @@
                         </Border>
                     </HorizontalStackLayout>
                 </Grid>
-
             </Grid>
 
             <!-- Resulting end of work time -->
@@ -151,15 +149,43 @@
 
                 <Label Grid.Column="0" Text="Feierabend:" HorizontalTextAlignment="End" FontSize="22"/>
                 <Label Grid.Column="1"/>
-                <Label Grid.Column="2" x:Name="feierabendTime" Text="Time" HorizontalTextAlignment="Start" FontSize="22"/>
+                <Label Grid.Column="2" x:Name="feierabendTimeWeek" HorizontalTextAlignment="Start" FontSize="22"/>
             </Grid>
 
         </Grid>
 
+        <!-- Day page -->
+        <Grid Grid.Row="1" x:Name="dayPageGrid" IsVisible="False">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="85*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="49*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="49*"/>
+                </Grid.ColumnDefinitions>
+
+                <HorizontalStackLayout Grid.Column="0">
+                    <Label Text="Come:"/>
+                    <Border>
+                        <TimePicker x:Name="comeDay" PropertyChanged="TimePicker_PropertyChanged"/>
+                    </Border>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Grid.Column="2" HorizontalOptions="Start" Spacing="5">
+                    <Label Text="Feierabend:" HorizontalTextAlignment="End" FontSize="22"/>
+                    <Label x:Name="feierabendTimeDay" Text="Time" HorizontalTextAlignment="Start" FontSize="22"/>
+                </HorizontalStackLayout>
+            </Grid>
+        </Grid>
 
         <!-- Settings Panel -->
-        <BoxView Grid.Row="2" x:Name="dimOverlay" IsVisible="False" Opacity="0.3"/>
-        <Border Grid.Row="2" x:Name="settingsPanel" IsVisible="False" Margin="0,0" HorizontalOptions="Start" BackgroundColor="#FF2e2e2e" StrokeThickness="0" StrokeShape="Rectangle">
+        <BoxView Grid.Row="1" x:Name="dimOverlay" IsVisible="False" Opacity="0.3"/>
+        <Border Grid.Row="1" x:Name="settingsPanel" IsVisible="False" Margin="0,0" HorizontalOptions="Start" BackgroundColor="#FF2e2e2e" StrokeThickness="0" StrokeShape="Rectangle">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="90*"/>
@@ -175,21 +201,33 @@
                         </Border>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout>
-                        <Label Text="Usual go time:  "/>
+                        <Label Text="Usual go time:"/>
                         <Border>
                             <TimePicker x:Name="usualGoTime" PropertyChanged="UsuaTimePicker_PropertyChanged"/>
                         </Border>
                     </HorizontalStackLayout>
-                    <HorizontalStackLayout Margin="0,30,0,0">
-                        <Label Text="Total weekly hours"/>
+                    <VerticalStackLayout Margin="0,30,0,0">
+                        <HorizontalStackLayout>
+                            <Label Text="Total weekly hours:"/>
+                            <Border>
+                                <Entry Text="Value"/>
+                            </Border>
+                        </HorizontalStackLayout>
                         <Slider x:Name="weeklyHours" Minimum="25" Maximum="45" Value="37.5"/>
-                    </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Margin="0,30,0,0">
+                        <HorizontalStackLayout>
+                            <Label Text="Daily hours:"/>
+                            <Border>
+                                <Entry Text="Value"/>
+                            </Border>
+                        </HorizontalStackLayout>
+                        <Slider x:Name="dailyHours" Minimum="5" Maximum="10" Value="7.5"/>
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
 
                 <Label Grid.Row="1" Text="©luniphys"/>
-
             </Grid>
-            
         </Border>
 
     </Grid>

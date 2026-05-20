@@ -3,6 +3,7 @@
 public partial class MainPage : ContentPage
 {
 	private bool _settingsOpen = false;
+    private bool _weekMode = true;
 
 	public MainPage()
 	{
@@ -18,7 +19,8 @@ public partial class MainPage : ContentPage
 		{
 			_settingsOpen = false;
             dimOverlay.IsVisible = false;
-            daysGrid.IsEnabled = true;
+            mainPageGrid.IsEnabled = true;
+            dayPageGrid.IsEnabled = true;
             settingsPanel.Animate("close", v => settingsPanel.WidthRequest = v, start: this.Width * panelWidth, end: 0, length: animationDuration, finished: (v, c) => settingsPanel.IsVisible = false);
         }
 		else
@@ -26,8 +28,33 @@ public partial class MainPage : ContentPage
             _settingsOpen = true;
             dimOverlay.IsVisible = true;
             settingsPanel.IsVisible = true;
-            daysGrid.IsEnabled = false;
+            mainPageGrid.IsEnabled = false;
+            dayPageGrid.IsEnabled = false;
             settingsPanel.Animate("open", v => settingsPanel.WidthRequest = v, start: 0, end: this.Width * panelWidth, length: animationDuration);
+        }
+    }
+
+    private void SwitchButton_Clicked(object sender, EventArgs e)
+    {
+        if (_weekMode)
+        {
+            switchButton.Text = "Week";
+            mainPageGrid.IsEnabled = false;
+            mainPageGrid.IsVisible = false;
+            _weekMode = false;
+
+            dayPageGrid.IsEnabled = true;
+            dayPageGrid.IsVisible = true;
+        }
+        else
+        {
+            switchButton.Text = "Day";
+            mainPageGrid.IsEnabled = true;
+            mainPageGrid.IsVisible = true;
+            _weekMode = true;
+
+            dayPageGrid.IsEnabled = false;
+            dayPageGrid.IsVisible = false;
         }
     }
 
@@ -72,19 +99,25 @@ public partial class MainPage : ContentPage
 
 		TimeSpan fourDayDuration = mondayDuration + tuesdayDuration + wednesdayDuration + thursdayDuration;
 
-		TimeSpan weeklyHours = TimeSpan.FromHours(37.5); // TODO: Use adjustable time value
-		TimeSpan fridayHours = weeklyHours - fourDayDuration;
+		TimeSpan totalWeeklyHours = TimeSpan.FromHours(weeklyHours.Value);
+		TimeSpan fridayHours = totalWeeklyHours - fourDayDuration;
 
-		TimeSpan feierAbend = (TimeSpan)comeFri.Time! + fridayHours - smallBreak;
+		TimeSpan feierAbendWeek = (TimeSpan)comeFri.Time! + fridayHours - smallBreak;
 
 		TimeSpan miniumumFriday = new TimeSpan(12, 0, 0);
-		if (feierAbend < miniumumFriday)
+		if (feierAbendWeek < miniumumFriday)
 		{
-			feierAbend = miniumumFriday;
+            feierAbendWeek = miniumumFriday;
 		}
 
-        feierabendTime.Text = $"{(int)feierAbend.TotalHours}:{feierAbend.Minutes}";
-	}
+        feierabendTimeWeek.Text = $"{(int)feierAbendWeek.TotalHours}:{feierAbendWeek.Minutes}";
+
+
+        TimeSpan totalDailyHours = TimeSpan.FromHours(dailyHours.Value);
+        TimeSpan feierAbendDay = (TimeSpan)comeDay.Time! + totalDailyHours + totalBreak;
+
+        feierabendTimeDay.Text = $"{(int)feierAbendDay.TotalHours}:{feierAbendDay.Minutes}";
+    }
 }
 
 // TODO: Remove .NET Intro animation

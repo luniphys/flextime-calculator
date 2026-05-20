@@ -19,6 +19,14 @@
                 <Setter Property="TextColor" Value="White"/>
             </Style>
 
+            <Style TargetType="Entry">
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="White"/>
+            </Style>
+
             <Style TargetType="TimePicker">
                 <Setter Property="Format" Value="HH:mm"/>
                 <Setter Property="FontSize" Value="18"/>
