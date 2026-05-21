@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace end_of_work_time;
+namespace flextime_calculator;
 
 [Application]
 public class MainApplication : MauiApplication

@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="flextime_calculator.MainPage"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+
+        <Style TargetType="HorizontalStackLayout">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+
+    </ContentPage.Resources>
+
+    <Grid Background="#FF1e1e1e">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="92*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Menu -->
+        <Grid Grid.Row="0" BackgroundColor="#FF1a1a1a">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="65*"/>
+                <ColumnDefinition Width="20*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" x:Name="settingsButton" Text="☰" FontSize="30" Clicked="SettingsButton_Clicked" CornerRadius="0"/>
+            <Button Grid.Column="2" x:Name="switchButton" Text="Day" FontAttributes="Bold" Clicked="SwitchButton_Clicked" CornerRadius="0"/>
+        </Grid>
+        
+        <!-- Main Page -->
+        <Grid Grid.Row="1" x:Name="mainPageGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="85*"/>
+                <RowDefinition Height="15*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="25*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Days -->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="1" Text="Mon"/>
+                    <Label Grid.Row="2" Text="Tue"/>
+                    <Label Grid.Row="3" Text="Wed"/>
+                    <Label Grid.Row="4" Text="Thu"/>
+                    <Label Grid.Row="5" Text="Fri"/>
+                </Grid>
+
+                <!-- Come times -->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" VerticalOptions="End" Text="Come"/>
+                    <Border Grid.Row="1">
+                        <TimePicker x:Name="comeMon" PropertyChanged="TimePicker_PropertyChanged"/>
+                    </Border>
+                    <Border Grid.Row="2">
+                        <TimePicker x:Name="comeTue" PropertyChanged="TimePicker_PropertyChanged"/>
+                    </Border>
+                    <Border Grid.Row="3">
+                        <TimePicker x:Name="comeWed" PropertyChanged="TimePicker_PropertyChanged"/>
+                    </Border>
+                    <Border Grid.Row="4">
+                        <TimePicker x:Name="comeThu" PropertyChanged="TimePicker_PropertyChanged"/>
+                    </Border>
+                    <Border Grid.Row="5">
+                        <TimePicker x:Name="comeFri" PropertyChanged="TimePicker_PropertyChanged"/>
+                    </Border>
+                </Grid>
+
+                <!-- Go times -->
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" VerticalOptions="End" Text="Go"/>
+                    <Border Grid.Row="1">
+                        <TimePicker x:Name="goMon" PropertyChanged="TimePicker_PropertyChanged"/>
+                    </Border>
+                    <Border Grid.Row="2">
+                        <TimePicker x:Name="goTue" PropertyChanged="TimePicker_PropertyChanged"/>
+                    </Border>
+                    <Border Grid.Row="3">
+                        <TimePicker x:Name="goWed" PropertyChanged="TimePicker_PropertyChanged"/>
+                    </Border>
+                    <Border Grid.Row="4">
+                        <TimePicker x:Name="goThu" PropertyChanged="TimePicker_PropertyChanged"/>
+                    </Border>
+                </Grid>
+
+                <!-- Daily net -->
+                <Grid Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" VerticalOptions="End" Text="Day Delta"/>
+                    <Label Grid.Row="1" x:Name="dayDeltaMon" Text="+ 0 h 00 min"/>
+                    <Label Grid.Row="2" x:Name="dayDeltaTue" Text="+ 0 h 00 min"/>
+                    <Label Grid.Row="3" x:Name="dayDeltaWed" Text="+ 0 h 00 min"/>
+                    <Label Grid.Row="4" x:Name="dayDeltaThu" Text="+ 0 h 00 min"/>
+                </Grid>
+
+                <Grid Grid.Column="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="18*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" VerticalOptions="End" Text="Cum Delta"/>
+                    <Label Grid.Row="1" x:Name="cumDeltaMon" Text="+ 0 h 00 min"/>
+                    <Label Grid.Row="2" x:Name="cumDeltaTue" Text="+ 0 h 00 min"/>
+                    <Label Grid.Row="3" x:Name="cumDeltaWed" Text="+ 0 h 00 min"/>
+                    <Label Grid.Row="4" x:Name="cumDeltaThu" Text="+ 0 h 00 min"/>
+                </Grid>
+
+            </Grid>
+
+            <!-- Resulting feierabend time -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="49*"/>
+                    <ColumnDefinition  Width="2*"/>
+                    <ColumnDefinition  Width="49*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Text="Feierabend:" HorizontalTextAlignment="End" FontSize="22"/>
+                <Label Grid.Column="1"/>
+                <Label Grid.Column="2" x:Name="feierabendTimeWeek" HorizontalTextAlignment="Start" FontSize="22"/>
+            </Grid>
+
+        </Grid>
+
+        <!-- Day page -->
+        <Grid Grid.Row="1" x:Name="dayPageGrid" IsVisible="False">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="85*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="49*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="49*"/>
+                </Grid.ColumnDefinitions>
+
+                <HorizontalStackLayout Grid.Column="0">
+                    <Label Text="Come:"/>
+                    <Border>
+                        <TimePicker x:Name="comeDay" PropertyChanged="TimePicker_PropertyChanged"/>
+                    </Border>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Grid.Column="2" HorizontalOptions="Start" Spacing="5">
+                    <Label Text="Feierabend:" HorizontalTextAlignment="End" FontSize="22"/>
+                    <Label x:Name="feierabendTimeDay" Text="Time" HorizontalTextAlignment="Start" FontSize="22"/>
+                </HorizontalStackLayout>
+            </Grid>
+        </Grid>
+
+        <!-- Settings Panel -->
+        <BoxView Grid.Row="1" x:Name="dimOverlay" IsVisible="False" Opacity="0.3"/>
+        <Border Grid.Row="1" x:Name="settingsPanel" IsVisible="False" Margin="0,0" HorizontalOptions="Start" BackgroundColor="#FF2e2e2e" StrokeThickness="0" StrokeShape="Rectangle">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15*"/>
+                    <RowDefinition Height="75*"/>
+                    <RowDefinition Height="10*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Label Text="Settings" Margin="0,0,0,50" FontSize="30"/>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="60*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" HorizontalOptions="End" Text="Usual come time:"/>
+                            <Label Grid.Row="1" HorizontalOptions="End" Text="Usual go time:"/>
+                            <Label Grid.Row="2" HorizontalOptions="End" Text="Total weekly hours:"/>
+                            <Label Grid.Row="3" HorizontalOptions="End" Text="Daily hours:"/>
+                        </Grid>
+
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="60*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Margin="40,7">
+                                <TimePicker x:Name="usualComeTime" PropertyChanged="UsualTimePicker_PropertyChanged"/>
+                            </Border>
+                            <Border Grid.Row="1" Margin="40,7">
+                                <TimePicker x:Name="usualGoTime" PropertyChanged="UsualTimePicker_PropertyChanged"/>
+                            </Border>
+                            <HorizontalStackLayout Grid.Row="2">
+                                <Entry x:Name="weeklyHours" Text="37"/>
+                                <Label Text="h "/>
+                                <Entry x:Name="weeklyMinutes" Text="30"/>
+                                <Label Text="min"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Grid.Row="3">
+                                <Entry x:Name="dailyHours" Text="7"/>
+                                <Label Text="h "/>
+                                <Entry x:Name="dailyMinutes" Text="30"/>
+                                <Label Text="min"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                        
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Label Text="©github.com/luniphys"/>
+                </Grid>
+                
+            </Grid>
+        </Border>
+
+    </Grid>
+
+</ContentPage>

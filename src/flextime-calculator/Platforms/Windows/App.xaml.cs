@@ -3,7 +3,7 @@
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace end_of_work_time.WinUI;
+namespace flextime_calculator.WinUI;
 
 /// <summary>
 /// Provides application-specific behavior to supplement the default Application class.

@@ -1,4 +1,4 @@
-﻿namespace end_of_work_time;
+﻿namespace flextime_calculator;
 
 public partial class AppShell : Shell
 {

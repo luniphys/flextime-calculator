@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace end_of_work_time;
+namespace flextime_calculator;
 
 public class Program
 {

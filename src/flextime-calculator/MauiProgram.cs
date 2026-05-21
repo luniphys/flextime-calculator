@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace end_of_work_time;
+namespace flextime_calculator;
 
 public static class MauiProgram
 {

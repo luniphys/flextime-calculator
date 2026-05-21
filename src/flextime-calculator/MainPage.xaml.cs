@@ -1,4 +1,4 @@
-﻿namespace end_of_work_time;
+﻿namespace flextime_calculator;
 
 public partial class MainPage : ContentPage
 {
@@ -63,11 +63,12 @@ public partial class MainPage : ContentPage
     {
 		if (sender is TimePicker picker)
 		{
-			CalculateFeierabend();
+            UpdateDelta();
+            CalculateFeierabend();
         }
     }
 
-    private void UsuaTimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    private void UsualTimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (sender is TimePicker picker)
         {
@@ -82,8 +83,28 @@ public partial class MainPage : ContentPage
             goWed.Time = (TimeSpan)usualGoTime.Time!;
             goThu.Time = (TimeSpan)usualGoTime.Time!;
 
+            UpdateDelta();
             CalculateFeierabend();
         }
+    }
+
+    private void UpdateDelta()
+    {
+        TimeSpan smallBreak = TimeSpan.FromMinutes(15);
+        TimeSpan mainBreak = TimeSpan.FromMinutes(30);
+        TimeSpan totalBreak = smallBreak + mainBreak;
+
+        TimeSpan mondayDuration = (TimeSpan)goMon.Time! - (TimeSpan)comeMon.Time! - totalBreak;
+        TimeSpan tuesdayDuration = (TimeSpan)goTue.Time! - (TimeSpan)comeTue.Time! - totalBreak;
+        TimeSpan wednesdayDuration = (TimeSpan)goWed.Time! - (TimeSpan)comeWed.Time! - totalBreak;
+        TimeSpan thursdayDuration = (TimeSpan)goThu.Time! - (TimeSpan)comeThu.Time! - totalBreak;
+
+        double dailyTotal = VerifyTime(dailyHours.Text, dailyMinutes.Text);
+        TimeSpan totalDailyHours = TimeSpan.FromHours(dailyTotal);
+
+        double mondayDeltaHours = (mondayDuration - totalDailyHours).TotalHours;
+        double mondayDeltaMinutes = (mondayDuration - totalDailyHours).Minutes;
+        // deltaMon.Text = ;
     }
 
     private void CalculateFeierabend()
@@ -99,7 +120,8 @@ public partial class MainPage : ContentPage
 
 		TimeSpan fourDayDuration = mondayDuration + tuesdayDuration + wednesdayDuration + thursdayDuration;
 
-		TimeSpan totalWeeklyHours = TimeSpan.FromHours(weeklyHours.Value);
+        double weeklyTotal = VerifyTime(weeklyHours.Text, weeklyMinutes.Text);
+        TimeSpan totalWeeklyHours = TimeSpan.FromHours(weeklyTotal);
 		TimeSpan fridayHours = totalWeeklyHours - fourDayDuration;
 
 		TimeSpan feierAbendWeek = (TimeSpan)comeFri.Time! + fridayHours - smallBreak;
@@ -112,11 +134,33 @@ public partial class MainPage : ContentPage
 
         feierabendTimeWeek.Text = $"{(int)feierAbendWeek.TotalHours}:{feierAbendWeek.Minutes}";
 
-
-        TimeSpan totalDailyHours = TimeSpan.FromHours(dailyHours.Value);
+        double dailyTotal = VerifyTime(dailyHours.Text, dailyMinutes.Text);
+        TimeSpan totalDailyHours = TimeSpan.FromHours(dailyTotal);
         TimeSpan feierAbendDay = (TimeSpan)comeDay.Time! + totalDailyHours + totalBreak;
 
         feierabendTimeDay.Text = $"{(int)feierAbendDay.TotalHours}:{feierAbendDay.Minutes}";
+    }
+
+    double VerifyTime(string hours, string minutes)
+    {
+        double hoursDouble = 0.0;
+        double minutesDouble = 0.0;
+
+        if (double.TryParse(hours, out double parsedHours))
+        {
+
+            hoursDouble = parsedHours;
+        }
+
+        if (double.TryParse(minutes, out double parsedMinutes))
+        {
+            if (0 <= parsedHours && parsedMinutes <= 60.0)
+            {
+                minutesDouble = parsedMinutes;
+            }
+        }
+
+        return hoursDouble + minutesDouble / 60;
     }
 }
 

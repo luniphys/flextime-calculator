@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace end_of_work_time;
+namespace flextime_calculator;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate
