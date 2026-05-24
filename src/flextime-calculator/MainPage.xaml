@@ -196,20 +196,15 @@
                     <Label Grid.Row="3" x:Name="cumDeltaWed" FontSize="15"/>
                     <Label Grid.Row="4" x:Name="cumDeltaThu" FontSize="15"/>
                 </Grid>
-
+                
             </Grid>
 
             <!-- Feierabend time -->
             <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition  Width="49*"/>
-                    <ColumnDefinition  Width="2*"/>
-                    <ColumnDefinition  Width="49*"/>
-                </Grid.ColumnDefinitions>
-
-                <Label Grid.Column="0" Text="Feierabend:" HorizontalTextAlignment="End" FontSize="22"/>
-                <Label Grid.Column="1"/>
-                <Label Grid.Column="2" x:Name="feierabendTimeWeek" HorizontalTextAlignment="Start" FontSize="22"/>
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="Feierabend:" HorizontalTextAlignment="End" FontSize="28"/>
+                    <Label x:Name="feierabendTimeWeek" HorizontalTextAlignment="Start" FontSize="28"/>
+                </HorizontalStackLayout>
             </Grid>
 
         </Grid>
@@ -231,9 +226,9 @@
                 </Border>
             </HorizontalStackLayout>
 
-            <HorizontalStackLayout Grid.Row="2" Spacing="5">
-                <Label Text="Feierabend:" HorizontalTextAlignment="End" FontSize="25"/>
-                <Label x:Name="feierabendTimeDay" HorizontalTextAlignment="Start" FontSize="25"/>
+            <HorizontalStackLayout Grid.Row="2" Spacing="10">
+                <Label Text="Feierabend:" HorizontalTextAlignment="End" FontSize="28"/>
+                <Label x:Name="feierabendTimeDay" HorizontalTextAlignment="Start" FontSize="28"/>
             </HorizontalStackLayout>
             
         </Grid>
