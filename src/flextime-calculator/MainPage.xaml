@@ -265,13 +265,17 @@
                                 <RowDefinition Height="10*"/>
                                 <RowDefinition Height="10*"/>
                                 <RowDefinition Height="10*"/>
-                                <RowDefinition Height="60*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="40*"/>
                             </Grid.RowDefinitions>
 
                             <Label Grid.Row="0" HorizontalOptions="End" Text="Usual come time:"/>
                             <Label Grid.Row="1" HorizontalOptions="End" Text="Usual go time:"/>
                             <Label Grid.Row="2" HorizontalOptions="End" Text="Total weekly hours:"/>
                             <Label Grid.Row="3" HorizontalOptions="End" Text="Daily hours:"/>
+                            <Label Grid.Row="4" HorizontalOptions="End" Text="Small break:"/>
+                            <Label Grid.Row="5" HorizontalOptions="End" Text="Main break:"/>
                         </Grid>
 
                         <Grid Grid.Column="1">
@@ -280,7 +284,9 @@
                                 <RowDefinition Height="10*"/>
                                 <RowDefinition Height="10*"/>
                                 <RowDefinition Height="10*"/>
-                                <RowDefinition Height="60*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="40*"/>
                             </Grid.RowDefinitions>
 
                             <Border Grid.Row="0" Margin="40,7">
@@ -299,6 +305,14 @@
                                 <Entry x:Name="dailyHours" Text="7"/>
                                 <Label Text="h "/>
                                 <Entry x:Name="dailyMinutes" Text="30"/>
+                                <Label Text="min"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Grid.Row="4">
+                                <Entry x:Name="smallBreak" Text="15"/>
+                                <Label Text="min"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Grid.Row="5">
+                                <Entry x:Name="mainBreak" Text="30"/>
                                 <Label Text="min"/>
                             </HorizontalStackLayout>
                         </Grid>
