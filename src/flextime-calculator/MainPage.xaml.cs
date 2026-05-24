@@ -1,4 +1,6 @@
-﻿namespace flextime_calculator;
+﻿using Java.Security;
+
+namespace flextime_calculator;
 
 public partial class MainPage : ContentPage
 {
@@ -83,6 +85,8 @@ public partial class MainPage : ContentPage
             goWed.Time = (TimeSpan)usualGoTime.Time!;
             goThu.Time = (TimeSpan)usualGoTime.Time!;
 
+            comeDay.Time = (TimeSpan)usualComeTime.Time!;
+
             UpdateDelta();
             CalculateFeierabend();
         }
@@ -95,16 +99,77 @@ public partial class MainPage : ContentPage
         TimeSpan totalBreak = smallBreak + mainBreak;
 
         TimeSpan mondayDuration = (TimeSpan)goMon.Time! - (TimeSpan)comeMon.Time! - totalBreak;
-        TimeSpan tuesdayDuration = (TimeSpan)goTue.Time! - (TimeSpan)comeTue.Time! - totalBreak;
-        TimeSpan wednesdayDuration = (TimeSpan)goWed.Time! - (TimeSpan)comeWed.Time! - totalBreak;
-        TimeSpan thursdayDuration = (TimeSpan)goThu.Time! - (TimeSpan)comeThu.Time! - totalBreak;
+        TimeSpan tueDuration = (TimeSpan)goTue.Time! - (TimeSpan)comeTue.Time! - totalBreak;
+        TimeSpan wedDuration = (TimeSpan)goWed.Time! - (TimeSpan)comeWed.Time! - totalBreak;
+        TimeSpan thuDuration = (TimeSpan)goThu.Time! - (TimeSpan)comeThu.Time! - totalBreak;
 
         double dailyTotal = VerifyTime(dailyHours.Text, dailyMinutes.Text);
         TimeSpan totalDailyHours = TimeSpan.FromHours(dailyTotal);
 
-        double mondayDeltaHours = (mondayDuration - totalDailyHours).TotalHours;
-        double mondayDeltaMinutes = (mondayDuration - totalDailyHours).Minutes;
-        // deltaMon.Text = ;
+        double cumHours = 0.0;
+        double cumMinutes = 0.0;
+
+        double monDeltaHours = (mondayDuration - totalDailyHours).Hours;
+        double monDeltaMinutes = (mondayDuration - totalDailyHours).Minutes;
+        printDelta(dayDeltaMon, monDeltaHours, monDeltaMinutes);
+
+        cumHours += monDeltaHours;
+        cumMinutes += monDeltaMinutes;
+        printDelta(cumDeltaMon, cumHours, cumMinutes);
+
+
+        double tueDeltaHours = (tueDuration - totalDailyHours).Hours;
+        double tueDeltaMinutes = (tueDuration - totalDailyHours).Minutes;
+        printDelta(dayDeltaTue, tueDeltaHours, tueDeltaMinutes);
+
+        cumHours += tueDeltaHours;
+        cumMinutes += tueDeltaMinutes;
+        printDelta(cumDeltaTue, cumHours, cumMinutes);
+
+
+        double wedDeltaHours = (wedDuration - totalDailyHours).Hours;
+        double wedDeltaMinutes = (wedDuration - totalDailyHours).Minutes;
+        printDelta(dayDeltaWed, wedDeltaHours, tueDeltaMinutes);
+
+        cumHours += wedDeltaHours;
+        cumMinutes += wedDeltaMinutes;
+        printDelta(cumDeltaWed, cumHours, cumMinutes);
+
+
+        double thuDeltaHours = (thuDuration - totalDailyHours).Hours;
+        double thuDeltaMinutes = (thuDuration - totalDailyHours).Minutes;
+        printDelta(dayDeltaThu, thuDeltaHours, tueDeltaMinutes);
+
+        cumHours += thuDeltaHours;
+        cumMinutes += thuDeltaMinutes;
+        printDelta(cumDeltaThu, cumHours, cumMinutes);
+    }
+
+
+    private void printDelta(Label label, double hours, double minutes)
+    {
+        if (Math.Abs(hours) > 0)
+        {
+            if (hours > 0)
+            {
+                label.Text = $"+{hours}h {minutes}min";
+            }
+            else
+            {
+                label.Text = $"{hours}h {-minutes}min";
+            }
+        }
+        else
+        {
+            if (minutes > 0)
+            {
+                label.Text = $"+{minutes}min";
+            }
+            else
+            {
+                label.Text = $"{minutes}min";
+            }
+        }
     }
 
     private void CalculateFeierabend()
@@ -113,12 +178,12 @@ public partial class MainPage : ContentPage
         TimeSpan mainBreak = TimeSpan.FromMinutes(30);
 		TimeSpan totalBreak = smallBreak + mainBreak;
 
-        TimeSpan mondayDuration = (TimeSpan)goMon.Time! - (TimeSpan)comeMon.Time! - totalBreak;
-        TimeSpan tuesdayDuration = (TimeSpan)goTue.Time! - (TimeSpan)comeTue.Time! - totalBreak;
-        TimeSpan wednesdayDuration = (TimeSpan)goWed.Time! - (TimeSpan)comeWed.Time! - totalBreak;
-        TimeSpan thursdayDuration = (TimeSpan)goThu.Time! - (TimeSpan)comeThu.Time! - totalBreak;
+        TimeSpan monDuration = (TimeSpan)goMon.Time! - (TimeSpan)comeMon.Time! - totalBreak;
+        TimeSpan tueDuration = (TimeSpan)goTue.Time! - (TimeSpan)comeTue.Time! - totalBreak;
+        TimeSpan wedDuration = (TimeSpan)goWed.Time! - (TimeSpan)comeWed.Time! - totalBreak;
+        TimeSpan thuDuration = (TimeSpan)goThu.Time! - (TimeSpan)comeThu.Time! - totalBreak;
 
-		TimeSpan fourDayDuration = mondayDuration + tuesdayDuration + wednesdayDuration + thursdayDuration;
+		TimeSpan fourDayDuration = monDuration + tueDuration + wedDuration + thuDuration;
 
         double weeklyTotal = VerifyTime(weeklyHours.Text, weeklyMinutes.Text);
         TimeSpan totalWeeklyHours = TimeSpan.FromHours(weeklyTotal);
@@ -132,7 +197,8 @@ public partial class MainPage : ContentPage
             feierAbendWeek = miniumumFriday;
 		}
 
-        feierabendTimeWeek.Text = $"{(int)feierAbendWeek.TotalHours}:{feierAbendWeek.Minutes}";
+        feierabendTimeWeek.Text = $"{feierAbendWeek.Hours}:{feierAbendWeek.Minutes}";
+
 
         double dailyTotal = VerifyTime(dailyHours.Text, dailyMinutes.Text);
         TimeSpan totalDailyHours = TimeSpan.FromHours(dailyTotal);
@@ -148,16 +214,17 @@ public partial class MainPage : ContentPage
 
         if (double.TryParse(hours, out double parsedHours))
         {
-
             hoursDouble = parsedHours;
         }
 
         if (double.TryParse(minutes, out double parsedMinutes))
         {
-            if (0 <= parsedHours && parsedMinutes <= 60.0)
-            {
-                minutesDouble = parsedMinutes;
-            }
+            minutesDouble = parsedMinutes;
+        }
+
+        if (hoursDouble < 0 || minutesDouble < 0 || minutesDouble > 60)
+        {
+            return 0.0;
         }
 
         return hoursDouble + minutesDouble / 60;
