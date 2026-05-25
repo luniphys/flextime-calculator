@@ -1,12 +1,17 @@
-﻿namespace flextime_calculator;
+﻿using flextime_calculator.Constants;
+using System.Linq.Expressions;
+
+namespace flextime_calculator;
 
 public partial class MainPage : ContentPage
 {
 	private bool _settingsOpen = false;
     private bool _weekMode = true;
+    private bool _isLoadingSettings = true;
 
 
-	public MainPage()
+
+    public MainPage()
 	{
 		InitializeComponent();
 	}
@@ -22,7 +27,7 @@ public partial class MainPage : ContentPage
 
         //Preferences.Clear();
 
-        if (!Preferences.ContainsKey("setupComplete"))
+        if (!Preferences.ContainsKey(PreferenceKeys.SetupComplete))
         {
             await Navigation.PushModalAsync(new FirstTimeSetupPage(), animated: true);
             return;
@@ -120,8 +125,11 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void TimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-		if (sender is TimePicker picker)
+        if (_isLoadingSettings) { return; }
+
+        if (sender is TimePicker)
 		{
+            SaveCurrentState();
             CalculateFeierabend();
         }
     }
@@ -132,20 +140,25 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void UsualTimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        if (sender is TimePicker picker)
+        if (_isLoadingSettings) { return; }
+
+        if (sender is TimePicker)
         {
-			comeMon.Time = (TimeSpan)usualComeTime.Time!;
-            comeTue.Time = (TimeSpan)usualComeTime.Time!;
-            comeWed.Time = (TimeSpan)usualComeTime.Time!;
-            comeThu.Time = (TimeSpan)usualComeTime.Time!;
-            comeFri.Time = (TimeSpan)usualComeTime.Time!;
+            var uComeTime = usualComeTime.Time;
+            var uGoTime = usualGoTime.Time;
 
-            goMon.Time = (TimeSpan)usualGoTime.Time!;
-            goTue.Time = (TimeSpan)usualGoTime.Time!;
-            goWed.Time = (TimeSpan)usualGoTime.Time!;
-            goThu.Time = (TimeSpan)usualGoTime.Time!;
+			comeMon.Time = uComeTime;
+            comeTue.Time = uComeTime;
+            comeWed.Time = uComeTime;
+            comeThu.Time = uComeTime;
+            comeFri.Time = uComeTime;
 
-            comeDay.Time = (TimeSpan)usualComeTime.Time!;
+            goMon.Time = uGoTime;
+            goTue.Time = uGoTime;
+            goWed.Time = uGoTime;
+            goThu.Time = uGoTime;
+
+            comeDay.Time = uComeTime;
 
             CalculateFeierabend();
         }
@@ -189,26 +202,73 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void LoadSettings()
     {
-        if (TimeSpan.TryParse(Preferences.Get("usualComeTime", "06:00"), out TimeSpan comeTime))
-        {
-            usualComeTime.Time = comeTime;
-        }
+        _isLoadingSettings = true;
 
-        if (TimeSpan.TryParse(Preferences.Get("usualGoTime", "14:15"), out TimeSpan goTime))
-        {
-            usualGoTime.Time = goTime;
-        }
+        // Settings
+        TrySetTime(usualComeTime, PreferenceKeys.UsualComeTime, "06:00");
+        TrySetTime(usualGoTime, PreferenceKeys.UsualGoTime, "14:15");
 
-        weeklyHours.Text = Preferences.Get("weeklyHours", "37");
-        weeklyMinutes.Text = Preferences.Get("weeklyMinutes", "30");
+        weeklyHours.Text = Preferences.Get(PreferenceKeys.WeeklyHours, "37");
+        weeklyMinutes.Text = Preferences.Get(PreferenceKeys.WeeklyMinutes, "30");
 
         double weeklyTime = TimeToDouble(weeklyHours.Text, weeklyMinutes.Text);
         dailyHours.Text = (Math.Floor((weeklyTime / 5))).ToString();
         dailyMinutes.Text = (Math.Round(((weeklyTime / 5) % 1) * 60)).ToString();
 
+        smallBreak.Text = Preferences.Get(PreferenceKeys.SmallBreak, "15");
+        mainBreak.Text = Preferences.Get(PreferenceKeys.MainBreak, "30");
 
-        smallBreak.Text = Preferences.Get("smallBreak", "15");
-        mainBreak.Text = Preferences.Get("mainBreak", "30");
+        // Come and go times
+        string defaultCome = usualComeTime.Time.ToString()!;
+        string defaultGo = usualGoTime.Time.ToString()!;
+
+        TrySetTime(comeMon, PreferenceKeys.ComeMon, defaultCome);
+        TrySetTime(comeTue, PreferenceKeys.ComeTue, defaultCome);
+        TrySetTime(comeWed, PreferenceKeys.ComeWed, defaultCome);
+        TrySetTime(comeThu, PreferenceKeys.ComeThu, defaultCome);
+        TrySetTime(comeFri, PreferenceKeys.ComeFri, defaultCome);
+        TrySetTime(goMon, PreferenceKeys.GoMon, defaultGo);
+        TrySetTime(goTue, PreferenceKeys.GoTue, defaultGo);
+        TrySetTime(goWed, PreferenceKeys.GoWed, defaultGo);
+        TrySetTime(goThu, PreferenceKeys.GoThu, defaultGo);
+
+        TrySetTime(comeDay, PreferenceKeys.ComeDay, defaultCome);
+
+        _isLoadingSettings = false;
+
+        CalculateFeierabend();
+    }
+
+
+    /// <summary>
+    /// Attempts to set the time picker's time from a stored preference value.
+    /// </summary>
+    /// <param name="picker">The time picker to update.</param>
+    /// <param name="key">The preference key to retrieve.</param>
+    /// <param name="defaultValue">The default value to use if the key is not found.</param>
+    private static void TrySetTime(TimePicker picker, string key, string defaultValue)
+    {
+        if (TimeSpan.TryParse(Preferences.Get(key, defaultValue), out var time))
+        {
+            picker.Time = time;
+        }
+    }
+
+
+    /// <summary>
+    /// Saves the current come and go times to application preferences.
+    /// </summary>
+    private void SaveCurrentState()
+    {
+        Preferences.Set(PreferenceKeys.ComeMon, comeMon.Time.ToString());
+        Preferences.Set(PreferenceKeys.ComeTue, comeTue.Time.ToString());
+        Preferences.Set(PreferenceKeys.ComeWed, comeWed.Time.ToString());
+        Preferences.Set(PreferenceKeys.ComeThu, comeThu.Time.ToString());
+        Preferences.Set(PreferenceKeys.ComeFri, comeFri.Time.ToString());
+        Preferences.Set(PreferenceKeys.GoMon, goMon.Time.ToString());
+        Preferences.Set(PreferenceKeys.GoTue, goTue.Time.ToString());
+        Preferences.Set(PreferenceKeys.GoWed, goWed.Time.ToString());
+        Preferences.Set(PreferenceKeys.GoThu, goThu.Time.ToString());
     }
 
 
@@ -241,15 +301,15 @@ public partial class MainPage : ContentPage
         List<(Label, Label)> dayList = new List<(Label, Label)> { (dayDeltaMon, cumDeltaMon), (dayDeltaTue, cumDeltaTue), (dayDeltaWed, cumDeltaWed), (dayDeltaThu, cumDeltaThu) };
 
         TimeSpan deltaTime;
-        TimeSpan cumDelta = new TimeSpan(0, 0, 0);
+        TimeSpan cumDelta = TimeSpan.Zero;
 
         for (int i = 0; i < 4; i++)
         {
             deltaTime = durations[i] - totalDailyHours;
-            printDelta(dayList[i].Item1, deltaTime);
+            PrintDelta(dayList[i].Item1, deltaTime);
 
             cumDelta += deltaTime;
-            printDelta(dayList[i].Item2, cumDelta);
+            PrintDelta(dayList[i].Item2, cumDelta);
         }
     
 
@@ -264,17 +324,17 @@ public partial class MainPage : ContentPage
             feierAbendWeek += mainBreakTS;
         }
 
-        TimeSpan miniumumFriday = new TimeSpan(12, 0, 0); // Can't leave before 12:00
-		if (feierAbendWeek < miniumumFriday)
+        TimeSpan minimumFriday = new TimeSpan(12, 0, 0); // Can't leave before 12:00
+		if (feierAbendWeek < minimumFriday)
 		{
-            feierAbendWeek = miniumumFriday;
+            feierAbendWeek = minimumFriday;
 		}
-        printFeierabend(feierabendTimeWeek, feierAbendWeek);
+        feierabendTimeWeek.Text = $"{feierAbendWeek.Hours}:{feierAbendWeek.Minutes:D2}";
 
 
         // Calculating Feierabend day
         TimeSpan feierAbendDay = (TimeSpan)comeDay.Time! + totalDailyHours + totalBreak;
-        printFeierabend(feierabendTimeDay, feierAbendDay);
+        feierabendTimeDay.Text = $"{feierAbendDay.Hours}:{feierAbendDay.Minutes:D2}";
     }
 
 
@@ -312,7 +372,7 @@ public partial class MainPage : ContentPage
     /// </summary>
     /// <param name="label">The label which Text is to update with the formatted time.</param>
     /// <param name="time">The TimeSpan delta to format.</param>
-    private void printDelta(Label label, TimeSpan time)
+    private void PrintDelta(Label label, TimeSpan time)
     {
         double hours = time.Hours;
         double minutes = time.Minutes;
@@ -341,25 +401,7 @@ public partial class MainPage : ContentPage
         }
     }
 
-
-    /// <summary>
-    /// Displays the end-of-work time in the specified labels. Ensures 2 digit representation of minutes.
-    /// </summary>
-    /// <param name="label">The label which Text is to update.</param>
-    /// <param name="feierabend">The end-of-work time to display.</param>
-    private void printFeierabend(Label label, TimeSpan feierabend)
-    {
-        if (feierabend.Minutes < 10)
-        {
-            label.Text = $"{feierabend.Hours}:0{feierabend.Minutes}";
-        }
-        else
-        {
-            label.Text = $"{feierabend.Hours}:{feierabend.Minutes}";
-        }
-    }
-
     #endregion
 }
 
-// TODO: Remember last state instead of starting with usual times every time?
+// TODO: Opening settingspanel enters usualtimes from firstsetuppage every time.

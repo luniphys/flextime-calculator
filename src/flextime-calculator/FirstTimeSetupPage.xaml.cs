@@ -1,3 +1,5 @@
+using flextime_calculator.Constants;
+
 namespace flextime_calculator;
 
 public partial class FirstTimeSetupPage : ContentPage
@@ -77,8 +79,10 @@ public partial class FirstTimeSetupPage : ContentPage
         BackButton.IsEnabled = _pageIndex > 0;
         BackButton.Opacity = _pageIndex == 0 ? 0.5 : 1;
 
+        Color VSPurple = Color.FromRgb(80, 43, 212);
         NextButton.Text = _pageIndex == _gridList.Count - 1 ? "Done" : "Next";
-        NextButton.BackgroundColor = _pageIndex == _gridList.Count - 1 ? Colors.Green : Color.FromRgb(80, 43, 212);
+
+        NextButton.BackgroundColor = _pageIndex == _gridList.Count - 1 ? Colors.Green : VSPurple;
 
         if (_pageIndex == _gridList.Count)
         {
@@ -92,14 +96,14 @@ public partial class FirstTimeSetupPage : ContentPage
     /// </summary>
     private async void SaveSettings()
     {
-        Preferences.Set("usualComeTime", setupComeTime.Time.ToString());
-        Preferences.Set("usualGoTime", setupGoTime.Time.ToString());
-        Preferences.Set("weeklyHours", setupWeeklyHours.Text);
-        Preferences.Set("weeklyMinutes", setupWeeklyMinutes.Text);
-        Preferences.Set("smallBreak", setupSmallBreak.Text);
-        Preferences.Set("mainBreak", setupMainBreak.Text);
+        Preferences.Set(PreferenceKeys.UsualComeTime, setupComeTime.Time.ToString());
+        Preferences.Set(PreferenceKeys.UsualGoTime, setupGoTime.Time.ToString());
+        Preferences.Set(PreferenceKeys.WeeklyHours, setupWeeklyHours.Text);
+        Preferences.Set(PreferenceKeys.WeeklyMinutes, setupWeeklyMinutes.Text);
+        Preferences.Set(PreferenceKeys.SmallBreak, setupSmallBreak.Text);
+        Preferences.Set(PreferenceKeys.MainBreak, setupMainBreak.Text);
 
-        Preferences.Set("setupComplete", true);
+        Preferences.Set(PreferenceKeys.SetupComplete, true);
 
         await Navigation.PopModalAsync();
     }

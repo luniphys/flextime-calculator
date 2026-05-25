@@ -153,7 +153,7 @@
                     <Label Grid.Row="4" x:Name="cumDeltaThu" FontSize="15"/>
                 </Grid>
 
-                <Button Grid.Column="4" Grid.ColumnSpan="2" VerticalOptions="End" Margin="10,40" BackgroundColor="Red" Text="Restore Default" FontSize="15" Clicked="RestoreButton_Clicked"/>
+                <Button Grid.Column="4" Grid.ColumnSpan="2" VerticalOptions="End" Margin="10,40" BackgroundColor="Red" Text="Restore Defaults" FontSize="15" Clicked="RestoreButton_Clicked"/>
 
             </Grid>
 
@@ -253,23 +253,23 @@
                                 <TimePicker x:Name="usualGoTime" PropertyChanged="UsualTimePicker_PropertyChanged"/>
                             </Border>
                             <HorizontalStackLayout Grid.Row="2">
-                                <Entry x:Name="weeklyHours" Text="37" Focused="Entry_Focused"/>
+                                <Entry x:Name="weeklyHours" Text="00" Focused="Entry_Focused"/>
                                 <Label Text="h "/>
-                                <Entry x:Name="weeklyMinutes" Text="30" Focused="Entry_Focused"/>
+                                <Entry x:Name="weeklyMinutes" Text="00" Focused="Entry_Focused"/>
                                 <Label Text="min"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="3">
-                                <Entry x:Name="dailyHours" Text="7" Focused="Entry_Focused"/>
+                                <Entry x:Name="dailyHours" Text="00" Focused="Entry_Focused"/>
                                 <Label Text="h "/>
-                                <Entry x:Name="dailyMinutes" Text="30" Focused="Entry_Focused"/>
+                                <Entry x:Name="dailyMinutes" Text="00" Focused="Entry_Focused"/>
                                 <Label Text="min"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="4">
-                                <Entry x:Name="smallBreak" Text="15" Focused="Entry_Focused"/>
+                                <Entry x:Name="smallBreak" Text="00" Focused="Entry_Focused"/>
                                 <Label Text="min"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="5">
-                                <Entry x:Name="mainBreak" Text="30" Focused="Entry_Focused"/>
+                                <Entry x:Name="mainBreak" Text="00" Focused="Entry_Focused"/>
                                 <Label Text="min"/>
                             </HorizontalStackLayout>
                         </Grid>
