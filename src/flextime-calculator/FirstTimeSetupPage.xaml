@@ -5,6 +5,14 @@
              Title="FirstTimeSetupPage"
              BackgroundColor="#FF1e1e1e">
 
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="WidthRequest" Value="140"/>
+            <Setter Property="HeightRequest" Value="55"/>
+            <Setter Property="FontSize" Value="30"/>
+        </Style>
+    </ContentPage.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="15*"/>
@@ -25,10 +33,10 @@
             <Label Grid.Row="0" Text="Welcome! 👋" FontSize="30"/>
             <Label Grid.Row="1" Text="Please enter your usual come time for work:"/>
             <Border Grid.Row="2" Margin="135,25">
-                <TimePicker x:Name="setupComeTime" FontSize="30"/>
+                <TimePicker x:Name="setupComeTime" FontSize="30" Time="06:00"/>
             </Border>
             <HorizontalStackLayout Grid.Row="3">
-                <Button Text="Back" IsEnabled="False" Opacity="0.5" Clicked="BackButton_Clicked"/>
+                <Button Text="Back" IsEnabled="False" TextColor="White" Opacity="0.5" Clicked="BackButton_Clicked"/>
                 <Button Text="Next" Clicked="NextButton_Clicked"/>
             </HorizontalStackLayout>
         </Grid>
@@ -45,7 +53,7 @@
             <Label Grid.Row="0" Text="Welcome! 👋" FontSize="30"/>
             <Label Grid.Row="1" Text="Please enter your usual go time:"/>
             <Border Grid.Row="2" Margin="135,25">
-                <TimePicker x:Name="setupGoTime" FontSize="30"/>
+                <TimePicker x:Name="setupGoTime" FontSize="30" Time="14:15"/>
             </Border>
             <HorizontalStackLayout Grid.Row="3">
                 <Button Text="Back" BackgroundColor="#FF272727" Clicked="BackButton_Clicked"/>
@@ -64,9 +72,9 @@
             <Label Grid.Row="0" Text="Welcome! 👋" FontSize="30"/>
             <Label Grid.Row="1" Text="Please enter your weekly total hours:"/>
             <HorizontalStackLayout Grid.Row="2">
-                <Entry x:Name="setupWeeklyHours" Text="00" FontSize="25" Focused="Entry_Focused"/>
+                <Entry x:Name="setupWeeklyHours" Text="37" FontSize="25" Focused="Entry_Focused"/>
                 <Label Text="h " FontSize="25"/>
-                <Entry x:Name="setupWeeklyMinutes" Text="00" FontSize="25" Focused="Entry_Focused"/>
+                <Entry x:Name="setupWeeklyMinutes" Text="30" FontSize="25" Focused="Entry_Focused"/>
                 <Label Text="min" FontSize="25"/>
             </HorizontalStackLayout>
             <HorizontalStackLayout Grid.Row="3">
@@ -88,12 +96,12 @@
             <Label Grid.Row="1" Text="Please enter your break times:"/>
             <HorizontalStackLayout Grid.Row="2">
                 <Label Text="Small break: " FontSize="22"/>
-                <Entry x:Name="setupSmallBreak" Text="00" FontSize="22" Focused="Entry_Focused"/>
+                <Entry x:Name="setupSmallBreak" Text="15" FontSize="22" Focused="Entry_Focused"/>
                 <Label Text="min" FontSize="22"/>
             </HorizontalStackLayout>
             <HorizontalStackLayout Grid.Row="3">
                 <Label Text="Main break: " FontSize="22"/>
-                <Entry x:Name="setupMainBreak" Text="00" FontSize="22" Focused="Entry_Focused"/>
+                <Entry x:Name="setupMainBreak" Text="30" FontSize="22" Focused="Entry_Focused"/>
                 <Label Text="min" FontSize="22"/>
             </HorizontalStackLayout>
             <HorizontalStackLayout Grid.Row="4">

@@ -35,12 +35,12 @@ public partial class FirstTimeSetupPage : ContentPage
 
     private async void DoneButton_Clicked(object sender, EventArgs e)
     {
-        Preferences.Set("usualComeTime", setupComeTime.ToString());
-        Preferences.Set("usualGoTime", setupGoTime.ToString());
-        Preferences.Set("weeklyHours", setupWeeklyHours.ToString());
-        Preferences.Set("weeklyMinutes", setupWeeklyMinutes.ToString());
-        Preferences.Set("smallBreak", setupSmallBreak.ToString());
-        Preferences.Set("mainBreak", setupMainBreak.ToString());
+        Preferences.Set("usualComeTime", setupComeTime.Time.ToString());
+        Preferences.Set("usualGoTime", setupGoTime.Time.ToString());
+        Preferences.Set("weeklyHours", setupWeeklyHours.Text);
+        Preferences.Set("weeklyMinutes", setupWeeklyMinutes.Text);
+        Preferences.Set("smallBreak", setupSmallBreak.Text);
+        Preferences.Set("mainBreak", setupMainBreak.Text);
 
         Preferences.Set("setupComplete", true);
 

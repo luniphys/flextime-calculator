@@ -11,19 +11,33 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 	}
 
-
-    protected override async void OnAppearing()
+    
+    /// <summary>
+    /// Called when the mainpage appears. Displays the first-time setup page if setup has not been completed yet. Otherwise
+    /// it loads settings.
+    /// </summary>
+    protected override async void OnAppearing() // ContentPage Lifecycle: Constructor -> OnAppearing -> OnDisappearing -> Destructor
     {
         base.OnAppearing();
 
-        //Preferences.Remove("setupComplete");
+        //Preferences.Clear();
+
         if (!Preferences.ContainsKey("setupComplete"))
         {
             await Navigation.PushModalAsync(new FirstTimeSetupPage(), animated: true);
+            return;
         }
+
+        LoadSettings();
     }
 
 
+
+    #region Event handlers
+
+    /// <summary>
+    /// The settings button toggles the settings panel with a slide animation.
+    /// </summary>
     private void SettingsButton_Clicked(object sender, EventArgs e)
     {
         double panelWidth = 0.85;
@@ -49,6 +63,9 @@ public partial class MainPage : ContentPage
     }
 
 
+    /// <summary>
+    /// Handles the swipe gesture to close the settings panel.
+    /// </summary>
     private void CloseSettings_Swiped(object sender, SwipedEventArgs e)
     {
         if (_settingsOpen)
@@ -58,6 +75,9 @@ public partial class MainPage : ContentPage
     }
 
 
+    /// <summary>
+    /// Handles the swipe gesture to open the settings panel.
+    /// </summary>
     private void OpenSettings_Swiped(object sender, SwipedEventArgs e)
     {
         if (!_settingsOpen)
@@ -67,6 +87,9 @@ public partial class MainPage : ContentPage
     }
 
 
+    /// <summary>
+    /// The switch button is toggling between week and day view modes.
+    /// </summary>
     private void SwitchButton_Clicked(object sender, EventArgs e)
     {
         if (_weekMode)
@@ -92,6 +115,9 @@ public partial class MainPage : ContentPage
     }
 
 
+    /// <summary>
+    /// Recalculates Feierabend when a TimePicker property changes.
+    /// </summary>
     private void TimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
 		if (sender is TimePicker picker)
@@ -101,6 +127,9 @@ public partial class MainPage : ContentPage
     }
 
 
+    /// <summary>
+    /// Sets come and go times when a TimePicker property from settings changes. Then recalculates Feierabend.
+    /// </summary>
     private void UsualTimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (sender is TimePicker picker)
@@ -123,6 +152,9 @@ public partial class MainPage : ContentPage
     }
 
 
+    /// <summary>
+    /// Clicking Entry selects all text.
+    /// </summary>
     private void Entry_Focused(object sender, FocusEventArgs e)
     {
         if (sender is Entry entry)
@@ -137,8 +169,44 @@ public partial class MainPage : ContentPage
         }
     }
 
+    #endregion
 
 
+
+    #region Private (helper) methods
+
+    /// <summary>
+    /// Loads work/break times from storage and sets them as values.
+    /// </summary>
+    private void LoadSettings()
+    {
+        if (TimeSpan.TryParse(Preferences.Get("usualComeTime", "06:00"), out TimeSpan comeTime))
+        {
+            usualComeTime.Time = comeTime;
+        }
+
+        if (TimeSpan.TryParse(Preferences.Get("usualGoTime", "14:15"), out TimeSpan goTime))
+        {
+            usualGoTime.Time = goTime;
+        }
+
+        weeklyHours.Text = Preferences.Get("weeklyHours", "37");
+        weeklyMinutes.Text = Preferences.Get("weeklyMinutes", "30");
+
+        double weeklyTime = TimeToDouble(weeklyHours.Text, weeklyMinutes.Text);
+        dailyHours.Text = (Math.Floor((weeklyTime / 5))).ToString();
+        dailyMinutes.Text = (Math.Round(((weeklyTime / 5) % 1) * 60)).ToString();
+
+
+        smallBreak.Text = Preferences.Get("smallBreak", "15");
+        mainBreak.Text = Preferences.Get("mainBreak", "30");
+    }
+
+
+    /// <summary>
+    /// Calculates the end-of-work time (german: 'Feierabend') for Friday and a single day based on weekly and daily hours, break durations,
+    /// and hours worked Monday through Thursday. It also evaluates the time differences (deltas) between needed and actual working time.
+    /// </summary>
     private void CalculateFeierabend()
 	{
         double smallBreakDouble = TimeToDouble("0", smallBreak.Text);
@@ -201,6 +269,11 @@ public partial class MainPage : ContentPage
     }
 
 
+    /// <summary>
+    /// Converts time from string hours and minutes to a decimal hour representation.
+    /// </summary>
+    /// <returns>The time as a decimal value in hours, where minutes are converted to a fraction of an hour.</returns>
+    /// <remarks>Returns 0.0 if the input is invalid or if hours/minutes are negative or minutes exceed 60.</remarks>
     private double TimeToDouble(string hours, string minutes)
     {
         double hoursDouble = 0.0;
@@ -225,6 +298,11 @@ public partial class MainPage : ContentPage
     }
 
 
+    /// <summary>
+    /// Formats and displays a time delta in a label with sign indicators.
+    /// </summary>
+    /// <param name="label">The label which Text is to update with the formatted time.</param>
+    /// <param name="time">The TimeSpan delta to format.</param>
     private void printDelta(Label label, TimeSpan time)
     {
         double hours = time.Hours;
@@ -255,6 +333,11 @@ public partial class MainPage : ContentPage
     }
 
 
+    /// <summary>
+    /// Displays the end-of-work time in the specified labels. Ensures 2 digit representation of minutes.
+    /// </summary>
+    /// <param name="label">The label which Text is to update.</param>
+    /// <param name="feierabend">The end-of-work time to display.</param>
     private void printFeierabend(Label label, TimeSpan feierabend)
     {
         if (feierabend.Minutes < 10)
@@ -266,6 +349,6 @@ public partial class MainPage : ContentPage
             label.Text = $"{feierabend.Hours}:{feierabend.Minutes}";
         }
     }
-}
 
-// TODO: First time starting app: Enter setting times.
+    #endregion
+}
