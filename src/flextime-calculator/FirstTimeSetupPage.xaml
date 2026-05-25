@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="flextime_calculator.FirstTimeSetupPage"
-             Title="FirstTimeSetupPage"
-             BackgroundColor="#FF1e1e1e">
+             BackgroundColor="{StaticResource mainBackgroundColor}">
 
     <ContentPage.Resources>
         <Style TargetType="Button">
@@ -20,94 +19,86 @@
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="1" BackgroundColor="#FF2e2e2e"/>
+        <Border Grid.Row="1" BackgroundColor="{StaticResource settingsBackgroundColor}"/>
 
-        <Grid Grid.Row="1" x:Name="comeGrid" IsEnabled="True" IsVisible="True">
+
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
+                <RowDefinition Height="40*"/>
                 <RowDefinition Height="30*"/>
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Text="Welcome! 👋" FontSize="30"/>
-            <Label Grid.Row="1" Text="Please enter your usual come time for work:"/>
-            <Border Grid.Row="2" Margin="135,25">
-                <TimePicker x:Name="setupComeTime" FontSize="30" Time="06:00"/>
-            </Border>
-            <HorizontalStackLayout Grid.Row="3">
-                <Button Text="Back" IsEnabled="False" TextColor="White" Opacity="0.5" Clicked="BackButton_Clicked"/>
-                <Button Text="Next" Clicked="NextButton_Clicked"/>
-            </HorizontalStackLayout>
-        </Grid>
 
+            <!-- come Grid -->
+            <Grid Grid.Row="1" x:Name="comeGrid" IsEnabled="True" IsVisible="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="50*"/>
+                </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" x:Name="goGrid" IsEnabled="False" IsVisible="False">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="30*"/>
-            </Grid.RowDefinitions>
+                <Label Grid.Row="0" Text="Please enter your usual come time for work:"/>
+                <Border Grid.Row="1" Margin="135,25">
+                    <TimePicker x:Name="setupComeTime" FontSize="30" Time="06:00"/>
+                </Border>
+            </Grid>
 
-            <Label Grid.Row="0" Text="Welcome! 👋" FontSize="30"/>
-            <Label Grid.Row="1" Text="Please enter your usual go time:"/>
-            <Border Grid.Row="2" Margin="135,25">
-                <TimePicker x:Name="setupGoTime" FontSize="30" Time="14:15"/>
-            </Border>
-            <HorizontalStackLayout Grid.Row="3">
-                <Button Text="Back" BackgroundColor="#FF272727" Clicked="BackButton_Clicked"/>
-                <Button Text="Next" Clicked="NextButton_Clicked"/>
-            </HorizontalStackLayout>
-        </Grid>
+            <!-- go Grid -->
+            <Grid Grid.Row="1" x:Name="goGrid" IsEnabled="False" IsVisible="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="50*"/>
+                </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" x:Name="weeklyGrid" IsEnabled="False" IsVisible="False">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="30*"/>
-            </Grid.RowDefinitions>
+                <Label Grid.Row="0" Text="Please enter your usual go time:" FontSize="22"/>
+                <Border Grid.Row="1" Margin="135,25">
+                    <TimePicker x:Name="setupGoTime" FontSize="30" Time="14:15"/>
+                </Border>
+            </Grid>
 
-            <Label Grid.Row="0" Text="Welcome! 👋" FontSize="30"/>
-            <Label Grid.Row="1" Text="Please enter your weekly total hours:"/>
+            <!-- weekly Grid -->
+            <Grid Grid.Row="1" x:Name="weeklyGrid" IsEnabled="False" IsVisible="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="50*"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Text="Please enter your weekly total hours:" FontSize="21"/>
+                <HorizontalStackLayout Grid.Row="1">
+                    <Entry x:Name="setupWeeklyHours" Text="37" FontSize="30" Focused="Entry_Focused"/>
+                    <Label Text="h " FontSize="30"/>
+                    <Entry x:Name="setupWeeklyMinutes" Text="30" FontSize="30" Focused="Entry_Focused"/>
+                    <Label Text="min" FontSize="30"/>
+                </HorizontalStackLayout>
+            </Grid>
+
+            <!-- break Grid -->
+            <Grid Grid.Row="1" x:Name="breakGrid" IsEnabled="False" IsVisible="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="33*"/>
+                    <RowDefinition Height="33*"/>
+                    <RowDefinition Height="33*"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Text="Please enter your break times:" FontSize="22"/>
+                <HorizontalStackLayout Grid.Row="1">
+                    <Label Text="Small break: " FontSize="30"/>
+                    <Entry x:Name="setupSmallBreak" Text="15" FontSize="30" Focused="Entry_Focused"/>
+                    <Label Text="min" FontSize="30"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Row="2">
+                    <Label Text="Main break: " FontSize="30"/>
+                    <Entry x:Name="setupMainBreak" Text="30" FontSize="30" Focused="Entry_Focused"/>
+                    <Label Text="min" FontSize="30"/>
+                </HorizontalStackLayout>
+            </Grid>
+
             <HorizontalStackLayout Grid.Row="2">
-                <Entry x:Name="setupWeeklyHours" Text="37" FontSize="25" Focused="Entry_Focused"/>
-                <Label Text="h " FontSize="25"/>
-                <Entry x:Name="setupWeeklyMinutes" Text="30" FontSize="25" Focused="Entry_Focused"/>
-                <Label Text="min" FontSize="25"/>
+                <Button x:Name="BackButton" BackgroundColor="{StaticResource backButtonBackgroundColor}" IsEnabled="False" Opacity="0.5" Text="Back" TextColor="White" Clicked="BackButton_Clicked"/>
+                <Button x:Name="NextButton" Text="Next" Clicked="NextButton_Clicked"/>
             </HorizontalStackLayout>
-            <HorizontalStackLayout Grid.Row="3">
-                <Button Text="Back" BackgroundColor="#FF272727" Clicked="BackButton_Clicked"/>
-                <Button Text="Next" Clicked="NextButton_Clicked"/>
-            </HorizontalStackLayout>
-        </Grid>
 
-        <Grid Grid.Row="1" x:Name="breakGrid" IsEnabled="False" IsVisible="False">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="15*"/>
-                <RowDefinition Height="15*"/>
-                <RowDefinition Height="30*"/>
-            </Grid.RowDefinitions>
-
-            <Label Grid.Row="0" Text="Welcome! 👋" FontSize="30"/>
-            <Label Grid.Row="1" Text="Please enter your break times:"/>
-            <HorizontalStackLayout Grid.Row="2">
-                <Label Text="Small break: " FontSize="22"/>
-                <Entry x:Name="setupSmallBreak" Text="15" FontSize="22" Focused="Entry_Focused"/>
-                <Label Text="min" FontSize="22"/>
-            </HorizontalStackLayout>
-            <HorizontalStackLayout Grid.Row="3">
-                <Label Text="Main break: " FontSize="22"/>
-                <Entry x:Name="setupMainBreak" Text="30" FontSize="22" Focused="Entry_Focused"/>
-                <Label Text="min" FontSize="22"/>
-            </HorizontalStackLayout>
-            <HorizontalStackLayout Grid.Row="4">
-                <Button Text="Back" BackgroundColor="#FF272727" Clicked="BackButton_Clicked"/>
-                <Button Text="Done" BackgroundColor="Green" Clicked="DoneButton_Clicked"/>
-            </HorizontalStackLayout>
         </Grid>
 
     </Grid>

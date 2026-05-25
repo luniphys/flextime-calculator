@@ -169,6 +169,15 @@ public partial class MainPage : ContentPage
         }
     }
 
+
+    /// <summary>
+    /// Restore default button restores usual come and go times by triggering the usual time picker property changed handler.
+    /// </summary>
+    private void RestoreButton_Clicked(object sender, EventArgs e)
+    {
+        UsualTimePicker_PropertyChanged(usualComeTime, new System.ComponentModel.PropertyChangedEventArgs(nameof(TimePicker.Time)));
+    }
+
     #endregion
 
 

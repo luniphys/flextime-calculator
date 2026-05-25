@@ -11,6 +11,16 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <Color x:Key="mainBackgroundColor">
+                #FF1e1e1e
+            </Color>
+            <Color x:Key="settingsBackgroundColor">
+                #FF2e2e2e
+            </Color>
+            <Color x:Key="backButtonBackgroundColor">
+                #FF272727
+            </Color>
+
             <Style TargetType="Label">
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>

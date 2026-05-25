@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="flextime_calculator.MainPage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#FF1e1e1e">
+             BackgroundColor="{StaticResource mainBackgroundColor}">
 
     <Grid>
         <Grid.GestureRecognizers>
@@ -152,7 +152,9 @@
                     <Label Grid.Row="3" x:Name="cumDeltaWed" FontSize="15"/>
                     <Label Grid.Row="4" x:Name="cumDeltaThu" FontSize="15"/>
                 </Grid>
-                
+
+                <Button Grid.Column="4" Grid.ColumnSpan="2" VerticalOptions="End" Margin="10,40" BackgroundColor="Red" Text="Restore Default" FontSize="15" Clicked="RestoreButton_Clicked"/>
+
             </Grid>
 
             <!-- Feierabend time -->
@@ -195,7 +197,7 @@
                 <SwipeGestureRecognizer Direction="Left" Swiped="CloseSettings_Swiped"/>
             </BoxView.GestureRecognizers>    
         </BoxView>
-        <Border Grid.Row="1" x:Name="settingsPanel" IsVisible="False" Margin="0,0" HorizontalOptions="Start" BackgroundColor="#FF2e2e2e" StrokeThickness="0" StrokeShape="Rectangle">
+        <Border Grid.Row="1" x:Name="settingsPanel" IsVisible="False" Margin="0,0" HorizontalOptions="Start" BackgroundColor="{StaticResource settingsBackgroundColor}" StrokeThickness="0" StrokeShape="Rectangle">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="15*"/>
