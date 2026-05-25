@@ -2,13 +2,16 @@ namespace flextime_calculator;
 
 public partial class FirstTimeSetupPage : ContentPage
 {
-    private uint _pageIndex = 0;
+    private int _pageIndex = 0;
+    private readonly List<Grid> _gridList;
 
 
-	public FirstTimeSetupPage()
+    public FirstTimeSetupPage()
 	{
 		InitializeComponent();
-	}
+        _gridList = new List<Grid> { comeGrid, goGrid, weeklyGrid, breakGrid };
+
+    }
 
 
     #region Event handlers
@@ -34,8 +37,11 @@ public partial class FirstTimeSetupPage : ContentPage
     /// </summary>
     private void BackButton_Clicked(object sender, EventArgs e)
     {
-        _pageIndex -= 1;
-        updatePage();
+        if (_pageIndex > 0)
+        {
+            _pageIndex--;
+            UpdatePage();
+        }
     }
 
 
@@ -44,8 +50,11 @@ public partial class FirstTimeSetupPage : ContentPage
     /// </summary>
     private void NextButton_Clicked(object sender, EventArgs e)
     {
-        _pageIndex += 1;
-        updatePage();
+        if (_pageIndex < _gridList.Count)
+        {
+            _pageIndex++;
+            UpdatePage();
+        }
     }
 
     #endregion
@@ -57,71 +66,23 @@ public partial class FirstTimeSetupPage : ContentPage
     /// <summary>
     /// Updates the enabled and visibility state of UI grids based on the current page index.
     /// </summary>
-    private void updatePage()
+    private void UpdatePage()
     {
-        switch(_pageIndex)
+        for (int i = 0; i < _gridList.Count; i++)
         {
-            case 0:
-                comeGrid.IsEnabled = true;
-                comeGrid.IsVisible = true;
-                goGrid.IsEnabled = false;
-                goGrid.IsVisible = false;
-                weeklyGrid.IsEnabled = false;
-                weeklyGrid.IsVisible = false;
-                breakGrid.IsEnabled = false;
-                breakGrid.IsVisible = false;
+            _gridList[i].IsVisible = i == _pageIndex;
+            _gridList[i].IsEnabled = i == _pageIndex;
+        }
 
-                BackButton.IsEnabled = false;
-                BackButton.Opacity = 0.5;
-                BackButton.TextColor = Colors.White;
-                break;
+        BackButton.IsEnabled = _pageIndex > 0;
+        BackButton.Opacity = _pageIndex == 0 ? 0.5 : 1;
 
-            case 1:
-                comeGrid.IsEnabled = false;
-                comeGrid.IsVisible = false;
-                goGrid.IsEnabled = true;
-                goGrid.IsVisible = true;
-                weeklyGrid.IsEnabled = false;
-                weeklyGrid.IsVisible = false;
-                breakGrid.IsEnabled = false;
-                breakGrid.IsVisible = false;
+        NextButton.Text = _pageIndex == _gridList.Count - 1 ? "Done" : "Next";
+        NextButton.BackgroundColor = _pageIndex == _gridList.Count - 1 ? Colors.Green : Color.FromRgb(80, 43, 212);
 
-                BackButton.IsEnabled = true;
-                BackButton.Opacity = 1;
-                break;
-
-            case 2:
-                comeGrid.IsEnabled = false;
-                comeGrid.IsVisible = false;
-                goGrid.IsEnabled = false;
-                goGrid.IsVisible = false;
-                weeklyGrid.IsEnabled = true;
-                weeklyGrid.IsVisible = true;
-                breakGrid.IsEnabled = false;
-                breakGrid.IsVisible = false;
-
-                NextButton.BackgroundColor = Color.FromRgb(80, 43, 212);
-                NextButton.Text = "Next";
-                break;
-
-            case 3:
-                comeGrid.IsEnabled = false;
-                comeGrid.IsVisible = false;
-                goGrid.IsEnabled = false;
-                goGrid.IsVisible = false;
-                weeklyGrid.IsEnabled = false;
-                weeklyGrid.IsVisible = false;
-                breakGrid.IsEnabled = true;
-                breakGrid.IsVisible = true;
-
-                NextButton.BackgroundColor = Colors.Green;
-                NextButton.Text = "Done";
-
-                break;
-
-            case 4:
-                UploadSettings();
-                break;
+        if (_pageIndex == _gridList.Count)
+        {
+            SaveSettings();
         }
     }
 
@@ -129,7 +90,7 @@ public partial class FirstTimeSetupPage : ContentPage
     /// <summary>
     /// Saves setup preferences and closes the setup modal.
     /// </summary>
-    private async void UploadSettings()
+    private async void SaveSettings()
     {
         Preferences.Set("usualComeTime", setupComeTime.Time.ToString());
         Preferences.Set("usualGoTime", setupGoTime.Time.ToString());

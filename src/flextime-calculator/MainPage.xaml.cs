@@ -361,3 +361,5 @@ public partial class MainPage : ContentPage
 
     #endregion
 }
+
+// TODO: Remember last state instead of starting with usual times every time?
