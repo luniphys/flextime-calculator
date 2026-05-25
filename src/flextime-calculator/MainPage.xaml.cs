@@ -12,6 +12,18 @@ public partial class MainPage : ContentPage
 	}
 
 
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        //Preferences.Remove("setupComplete");
+        if (!Preferences.ContainsKey("setupComplete"))
+        {
+            await Navigation.PushModalAsync(new FirstTimeSetupPage(), animated: true);
+        }
+    }
+
+
     private void SettingsButton_Clicked(object sender, EventArgs e)
     {
         double panelWidth = 0.85;
@@ -33,6 +45,24 @@ public partial class MainPage : ContentPage
             mainPageGrid.IsEnabled = false;
             dayPageGrid.IsEnabled = false;
             settingsPanel.Animate("open", v => settingsPanel.WidthRequest = v, start: 0, end: this.Width * panelWidth, length: animationDuration);
+        }
+    }
+
+
+    private void CloseSettings_Swiped(object sender, SwipedEventArgs e)
+    {
+        if (_settingsOpen)
+        {
+            SettingsButton_Clicked(sender, e);
+        }
+    }
+
+
+    private void OpenSettings_Swiped(object sender, SwipedEventArgs e)
+    {
+        if (!_settingsOpen)
+        {
+            SettingsButton_Clicked(sender, e);
         }
     }
 
@@ -89,6 +119,21 @@ public partial class MainPage : ContentPage
             comeDay.Time = (TimeSpan)usualComeTime.Time!;
 
             CalculateFeierabend();
+        }
+    }
+
+
+    private void Entry_Focused(object sender, FocusEventArgs e)
+    {
+        if (sender is Entry entry)
+        {
+            Dispatcher.DispatchDelayed(TimeSpan.FromMilliseconds(50), selectAll);
+
+            void selectAll()
+            {
+                entry.CursorPosition = 0;
+                entry.SelectionLength = entry.Text?.Length ?? 0; // x = y ?? z -> x = y if y is not null. If y is null then x = z
+            }
         }
     }
 
@@ -223,8 +268,4 @@ public partial class MainPage : ContentPage
     }
 }
 
-// TODO: Remove .NET Intro animation
-// TODO: Moving settings panel by swiping left/right
-// TODO: Typing only integers and select all for setting times.
 // TODO: First time starting app: Enter setting times.
-

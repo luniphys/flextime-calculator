@@ -2,64 +2,20 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="flextime_calculator.MainPage"
-             Shell.NavBarIsVisible="False">
-    <ContentPage.Resources>
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#FF1e1e1e">
 
-        <Style TargetType="Label">
-            <Setter Property="VerticalTextAlignment" Value="Center"/>
-            <Setter Property="HorizontalTextAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="FontAttributes" Value="Bold"/>
-            <Setter Property="TextColor" Value="White"/>
-        </Style>
-
-        <Style TargetType="Entry">
-            <Setter Property="VerticalTextAlignment" Value="Center"/>
-            <Setter Property="HorizontalTextAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="FontAttributes" Value="Bold"/>
-            <Setter Property="TextColor" Value="White"/>
-        </Style>
-
-        <Style TargetType="Button">
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="FontAttributes" Value="Bold"/>
-            <Setter Property="TextColor" Value="White"/>
-        </Style>
-
-        <Style TargetType="TimePicker">
-            <Setter Property="HorizontalOptions" Value="Center"/>
-            <Setter Property="VerticalOptions" Value="Center"/>
-            <Setter Property="Format" Value="HH:mm"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="FontAttributes" Value="Bold"/>
-            <Setter Property="TextColor" Value="White"/>
-            <Setter Property="BackgroundColor" Value="Transparent"/>
-        </Style>
-
-        <Style TargetType="Border">
-            <Setter Property="StrokeShape" Value="RoundRectangle 12"/>
-            <Setter Property="Stroke" Value="#CCCCCC"/>
-            <Setter Property="Margin" Value="15,25"/>
-        </Style>
-
-        <Style TargetType="HorizontalStackLayout">
-            <Setter Property="HorizontalOptions" Value="Center"/>
-            <Setter Property="VerticalOptions" Value="Center"/>
-        </Style>
-        
-    </ContentPage.Resources>
-
-    
-    
-    <Grid Background="#FF1e1e1e">
+    <Grid>
+        <Grid.GestureRecognizers>
+            <SwipeGestureRecognizer Direction="Right" Swiped="OpenSettings_Swiped"/>
+        </Grid.GestureRecognizers>
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="92*"/>
         </Grid.RowDefinitions>
 
         <!-- Top Menu -->
-        <Grid Grid.Row="0" BackgroundColor="#FF1a1a1a">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="15*"/>
                 <ColumnDefinition Width="65*"/>
@@ -234,7 +190,11 @@
         </Grid>
 
         <!-- Settings Panel -->
-        <BoxView Grid.Row="1" x:Name="dimOverlay" IsVisible="False" Opacity="0.3"/>
+        <BoxView Grid.Row="1" x:Name="dimOverlay" IsVisible="False" Opacity="0.3">
+            <BoxView.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Left" Swiped="CloseSettings_Swiped"/>
+            </BoxView.GestureRecognizers>    
+        </BoxView>
         <Border Grid.Row="1" x:Name="settingsPanel" IsVisible="False" Margin="0,0" HorizontalOptions="Start" BackgroundColor="#FF2e2e2e" StrokeThickness="0" StrokeShape="Rectangle">
             <Grid>
                 <Grid.RowDefinitions>
@@ -291,23 +251,23 @@
                                 <TimePicker x:Name="usualGoTime" PropertyChanged="UsualTimePicker_PropertyChanged"/>
                             </Border>
                             <HorizontalStackLayout Grid.Row="2">
-                                <Entry x:Name="weeklyHours" Text="37"/>
+                                <Entry x:Name="weeklyHours" Text="37" Focused="Entry_Focused"/>
                                 <Label Text="h "/>
-                                <Entry x:Name="weeklyMinutes" Text="30"/>
+                                <Entry x:Name="weeklyMinutes" Text="30" Focused="Entry_Focused"/>
                                 <Label Text="min"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="3">
-                                <Entry x:Name="dailyHours" Text="7"/>
+                                <Entry x:Name="dailyHours" Text="7" Focused="Entry_Focused"/>
                                 <Label Text="h "/>
-                                <Entry x:Name="dailyMinutes" Text="30"/>
+                                <Entry x:Name="dailyMinutes" Text="30" Focused="Entry_Focused"/>
                                 <Label Text="min"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="4">
-                                <Entry x:Name="smallBreak" Text="15"/>
+                                <Entry x:Name="smallBreak" Text="15" Focused="Entry_Focused"/>
                                 <Label Text="min"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="5">
-                                <Entry x:Name="mainBreak" Text="30"/>
+                                <Entry x:Name="mainBreak" Text="30" Focused="Entry_Focused"/>
                                 <Label Text="min"/>
                             </HorizontalStackLayout>
                         </Grid>
