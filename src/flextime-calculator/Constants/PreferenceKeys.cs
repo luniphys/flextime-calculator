@@ -10,6 +10,8 @@ internal static class PreferenceKeys
     public const string UsualGoTime = "UsualGoTime";
     public const string WeeklyHours = "WeeklyHours";
     public const string WeeklyMinutes = "WeeklyMinutes";
+    public const string DailyHours = "DailyHours";
+    public const string DailyMinutes = "DailyMinutes";
     public const string SmallBreak = "SmallBreak";
     public const string MainBreak = "MainBreak";
 

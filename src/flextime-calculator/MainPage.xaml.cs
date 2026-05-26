@@ -1,5 +1,4 @@
 ﻿using flextime_calculator.Constants;
-using System.Linq.Expressions;
 
 namespace flextime_calculator;
 
@@ -121,11 +120,12 @@ public partial class MainPage : ContentPage
 
 
     /// <summary>
-    /// Recalculates Feierabend when a TimePicker property changes.
+    /// Recalculates Feierabend and saves current state when a TimePicker property changes.
     /// </summary>
     private void TimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (_isLoadingSettings) { return; }
+        if (e.PropertyName != nameof(TimePicker.Time)) { return; }
 
         if (sender is TimePicker)
 		{
@@ -141,6 +141,7 @@ public partial class MainPage : ContentPage
     private void UsualTimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (_isLoadingSettings) { return; }
+        if (e.PropertyName != nameof(TimePicker.Time)) { return; }
 
         if (sender is TimePicker)
         {
@@ -160,6 +161,21 @@ public partial class MainPage : ContentPage
 
             comeDay.Time = uComeTime;
 
+            CalculateFeierabend();
+        }
+    }
+
+
+    /// <summary>
+    /// Recalculates Feierabend and saves current state when a change in text of an entry happens.
+    /// </summary>
+    private void Entry_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (_isLoadingSettings) { return; }
+
+        if (sender is Entry)
+        {
+            SaveCurrentState();
             CalculateFeierabend();
         }
     }
@@ -211,9 +227,11 @@ public partial class MainPage : ContentPage
         weeklyHours.Text = Preferences.Get(PreferenceKeys.WeeklyHours, "37");
         weeklyMinutes.Text = Preferences.Get(PreferenceKeys.WeeklyMinutes, "30");
 
-        double weeklyTime = TimeToDouble(weeklyHours.Text, weeklyMinutes.Text);
-        dailyHours.Text = (Math.Floor((weeklyTime / 5))).ToString();
-        dailyMinutes.Text = (Math.Round(((weeklyTime / 5) % 1) * 60)).ToString();
+        double weeklyTimeDouble = TimeToDouble(weeklyHours.Text, weeklyMinutes.Text);
+        double dailyHoursDouble = Math.Floor((weeklyTimeDouble / 5));
+        double dailyMinutesDouble = Math.Round(((weeklyTimeDouble / 5) % 1) * 60);
+        dailyHours.Text = Preferences.Get(PreferenceKeys.DailyHours, dailyHoursDouble.ToString());
+        dailyMinutes.Text = Preferences.Get(PreferenceKeys.DailyMinutes, dailyMinutesDouble.ToString());
 
         smallBreak.Text = Preferences.Get(PreferenceKeys.SmallBreak, "15");
         mainBreak.Text = Preferences.Get(PreferenceKeys.MainBreak, "30");
@@ -269,6 +287,15 @@ public partial class MainPage : ContentPage
         Preferences.Set(PreferenceKeys.GoTue, goTue.Time.ToString());
         Preferences.Set(PreferenceKeys.GoWed, goWed.Time.ToString());
         Preferences.Set(PreferenceKeys.GoThu, goThu.Time.ToString());
+
+        Preferences.Set(PreferenceKeys.UsualComeTime, usualComeTime.Time.ToString());
+        Preferences.Set(PreferenceKeys.UsualGoTime, usualGoTime.Time.ToString());
+        Preferences.Set(PreferenceKeys.WeeklyHours, weeklyHours.Text);
+        Preferences.Set(PreferenceKeys.WeeklyMinutes, weeklyMinutes.Text);
+        Preferences.Set(PreferenceKeys.DailyHours, dailyHours.Text);
+        Preferences.Set(PreferenceKeys.DailyMinutes, dailyMinutes.Text);
+        Preferences.Set(PreferenceKeys.SmallBreak, smallBreak.Text);
+        Preferences.Set(PreferenceKeys.MainBreak, mainBreak.Text);
     }
 
 
@@ -298,7 +325,7 @@ public partial class MainPage : ContentPage
 
         // Updating delta times
         List<TimeSpan> durations = new List<TimeSpan> { monDuration, tueDuration, wedDuration, thuDuration };
-        List<(Label, Label)> dayList = new List<(Label, Label)> { (dayDeltaMon, cumDeltaMon), (dayDeltaTue, cumDeltaTue), (dayDeltaWed, cumDeltaWed), (dayDeltaThu, cumDeltaThu) };
+        List<(Label dayDelta, Label cumDelta)> dayList = new List<(Label, Label)> { (dayDeltaMon, cumDeltaMon), (dayDeltaTue, cumDeltaTue), (dayDeltaWed, cumDeltaWed), (dayDeltaThu, cumDeltaThu) };
 
         TimeSpan deltaTime;
         TimeSpan cumDelta = TimeSpan.Zero;
@@ -306,10 +333,10 @@ public partial class MainPage : ContentPage
         for (int i = 0; i < 4; i++)
         {
             deltaTime = durations[i] - totalDailyHours;
-            PrintDelta(dayList[i].Item1, deltaTime);
+            UpdateDeltaLabel(dayList[i].dayDelta, deltaTime);
 
             cumDelta += deltaTime;
-            PrintDelta(dayList[i].Item2, cumDelta);
+            UpdateDeltaLabel(dayList[i].cumDelta, cumDelta);
         }
     
 
@@ -372,7 +399,7 @@ public partial class MainPage : ContentPage
     /// </summary>
     /// <param name="label">The label which Text is to update with the formatted time.</param>
     /// <param name="time">The TimeSpan delta to format.</param>
-    private void PrintDelta(Label label, TimeSpan time)
+    private void UpdateDeltaLabel(Label label, TimeSpan time)
     {
         double hours = time.Hours;
         double minutes = time.Minutes;
@@ -402,6 +429,7 @@ public partial class MainPage : ContentPage
     }
 
     #endregion
+    
 }
 
 // TODO: Opening settingspanel enters usualtimes from firstsetuppage every time.

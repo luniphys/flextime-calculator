@@ -28,7 +28,7 @@
 		<MauiXamlInflator>SourceGen</MauiXamlInflator>
 
 		<!-- Display name -->
-		<ApplicationTitle>flextime_calculator</ApplicationTitle>
+		<ApplicationTitle>Flextime Calculator</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.flextime_calculator</ApplicationId>

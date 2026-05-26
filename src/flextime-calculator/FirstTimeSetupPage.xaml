@@ -38,7 +38,7 @@
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Text="Please enter your usual come time for work:"/>
+                <Label Grid.Row="0" Text="Please enter your usual come time:" FontSize="21"/>
                 <Border Grid.Row="1" Margin="135,25">
                     <TimePicker x:Name="setupComeTime" FontSize="30" Time="06:00"/>
                 </Border>
@@ -64,7 +64,7 @@
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Text="Please enter your weekly total hours:" FontSize="21"/>
+                <Label Grid.Row="0" Text="Please enter your weekly total hours:" FontSize="19"/>
                 <HorizontalStackLayout Grid.Row="1">
                     <Entry x:Name="setupWeeklyHours" Text="37" FontSize="30" Focused="Entry_Focused"/>
                     <Label Text="h " FontSize="30"/>
@@ -96,7 +96,7 @@
 
             <HorizontalStackLayout Grid.Row="2">
                 <Button x:Name="BackButton" BackgroundColor="{StaticResource backButtonBackgroundColor}" IsEnabled="False" Opacity="0.5" Text="Back" TextColor="White" Clicked="BackButton_Clicked"/>
-                <Button x:Name="NextButton" Text="Next" Clicked="NextButton_Clicked"/>
+                <Button x:Name="NextButton" Text="Next" TextColor="White" Clicked="NextButton_Clicked"/>
             </HorizontalStackLayout>
 
         </Grid>

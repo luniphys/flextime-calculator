@@ -80,9 +80,8 @@ public partial class FirstTimeSetupPage : ContentPage
         BackButton.Opacity = _pageIndex == 0 ? 0.5 : 1;
 
         Color VSPurple = Color.FromRgb(80, 43, 212);
-        NextButton.Text = _pageIndex == _gridList.Count - 1 ? "Done" : "Next";
-
         NextButton.BackgroundColor = _pageIndex == _gridList.Count - 1 ? Colors.Green : VSPurple;
+        NextButton.Text = _pageIndex == _gridList.Count - 1 ? "Done" : "Next";
 
         if (_pageIndex == _gridList.Count)
         {

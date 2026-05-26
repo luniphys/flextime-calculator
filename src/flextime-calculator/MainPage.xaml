@@ -17,8 +17,8 @@
         <!-- Top Menu -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="15*"/>
-                <ColumnDefinition Width="65*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="60*"/>
                 <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions>
 
@@ -128,7 +128,7 @@
                         <RowDefinition Height="18*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" VerticalOptions="End" FontSize="16" Text="Day Delta"/>
+                    <Label Grid.Row="0" VerticalOptions="End" FontSize="16" Text="Daily"/>
                     <Label Grid.Row="1" x:Name="dayDeltaMon" FontSize="15"/>
                     <Label Grid.Row="2" x:Name="dayDeltaTue" FontSize="15"/>
                     <Label Grid.Row="3" x:Name="dayDeltaWed" FontSize="15"/>
@@ -146,14 +146,14 @@
                         <RowDefinition Height="18*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" VerticalOptions="End" FontSize="16" Text="Cum Delta"/>
+                    <Label Grid.Row="0" VerticalOptions="End" FontSize="16" Text="Cumulative"/>
                     <Label Grid.Row="1" x:Name="cumDeltaMon" FontSize="15"/>
                     <Label Grid.Row="2" x:Name="cumDeltaTue" FontSize="15"/>
                     <Label Grid.Row="3" x:Name="cumDeltaWed" FontSize="15"/>
                     <Label Grid.Row="4" x:Name="cumDeltaThu" FontSize="15"/>
                 </Grid>
 
-                <Button Grid.Column="4" Grid.ColumnSpan="2" VerticalOptions="End" Margin="10,40" BackgroundColor="Red" Text="Restore Defaults" FontSize="15" Clicked="RestoreButton_Clicked"/>
+                <Button Grid.Column="4" Grid.ColumnSpan="2" VerticalOptions="End" Margin="8,40" BackgroundColor="Red" Text="Restore Defaults" FontSize="14" Clicked="RestoreButton_Clicked"/>
 
             </Grid>
 
@@ -246,30 +246,30 @@
                                 <RowDefinition Height="40*"/>
                             </Grid.RowDefinitions>
 
-                            <Border Grid.Row="0" Margin="40,7">
+                            <Border Grid.Row="0" Margin="40,2">
                                 <TimePicker x:Name="usualComeTime" PropertyChanged="UsualTimePicker_PropertyChanged"/>
                             </Border>
-                            <Border Grid.Row="1" Margin="40,7">
+                            <Border Grid.Row="1" Margin="40,2">
                                 <TimePicker x:Name="usualGoTime" PropertyChanged="UsualTimePicker_PropertyChanged"/>
                             </Border>
                             <HorizontalStackLayout Grid.Row="2">
-                                <Entry x:Name="weeklyHours" Text="00" Focused="Entry_Focused"/>
+                                <Entry x:Name="weeklyHours" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
                                 <Label Text="h "/>
-                                <Entry x:Name="weeklyMinutes" Text="00" Focused="Entry_Focused"/>
+                                <Entry x:Name="weeklyMinutes" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
                                 <Label Text="min"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="3">
-                                <Entry x:Name="dailyHours" Text="00" Focused="Entry_Focused"/>
+                                <Entry x:Name="dailyHours" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
                                 <Label Text="h "/>
-                                <Entry x:Name="dailyMinutes" Text="00" Focused="Entry_Focused"/>
+                                <Entry x:Name="dailyMinutes" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
                                 <Label Text="min"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="4">
-                                <Entry x:Name="smallBreak" Text="00" Focused="Entry_Focused"/>
+                                <Entry x:Name="smallBreak" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
                                 <Label Text="min"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="5">
-                                <Entry x:Name="mainBreak" Text="00" Focused="Entry_Focused"/>
+                                <Entry x:Name="mainBreak" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
                                 <Label Text="min"/>
                             </HorizontalStackLayout>
                         </Grid>
