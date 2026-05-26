@@ -146,7 +146,7 @@
                         <RowDefinition Height="18*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" VerticalOptions="End" FontSize="16" Text="Cumulative"/>
+                    <Label Grid.Row="0" VerticalOptions="End" FontSize="16" Text="Cumul."/>
                     <Label Grid.Row="1" x:Name="cumDeltaMon" FontSize="15"/>
                     <Label Grid.Row="2" x:Name="cumDeltaTue" FontSize="15"/>
                     <Label Grid.Row="3" x:Name="cumDeltaWed" FontSize="15"/>
@@ -246,10 +246,10 @@
                                 <RowDefinition Height="40*"/>
                             </Grid.RowDefinitions>
 
-                            <Border Grid.Row="0" Margin="40,2">
+                            <Border Grid.Row="0" Margin="45,4">
                                 <TimePicker x:Name="usualComeTime" PropertyChanged="UsualTimePicker_PropertyChanged"/>
                             </Border>
-                            <Border Grid.Row="1" Margin="40,2">
+                            <Border Grid.Row="1" Margin="45,4">
                                 <TimePicker x:Name="usualGoTime" PropertyChanged="UsualTimePicker_PropertyChanged"/>
                             </Border>
                             <HorizontalStackLayout Grid.Row="2">
