@@ -10,7 +10,7 @@ This project is a small flex-time tracking app for employees to manage their wee
 <br/>
 
 <p align="center">
-    <img src="docs/Images/gui_example.png" width="800" alt="GUI image">
+    <img src="docs/Images/gui_example.png" width="600" alt="GUI image">
 </p>
 
 ## Table of Contents

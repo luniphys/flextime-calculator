@@ -296,6 +296,8 @@ public partial class MainPage : ContentPage
         Preferences.Set(PreferenceKeys.DailyMinutes, dailyMinutes.Text);
         Preferences.Set(PreferenceKeys.SmallBreak, smallBreak.Text);
         Preferences.Set(PreferenceKeys.MainBreak, mainBreak.Text);
+
+        Preferences.Set(PreferenceKeys.ComeDay, comeDay.Time.ToString());
     }
 
 
