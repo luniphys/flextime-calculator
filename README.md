@@ -5,7 +5,7 @@
 
 # Flextime Calculator
 
-This project is a small flex-time tracking app for employees to manage their weekly working hours. Users can enter their arrival and departure times for each day, while the app calculates overtime or missing hours throughout the week. Based on the accumulated hours, the app dynamically updates and displays the earliest possible leaving time for Friday.
+A cross-platform .NET MAUI app for workers to track their weekly working time. Enter beginning and ending working times for each workday and the app calculates daily overtime or deficit, cumulative weekly overtimes/deficits, and the earliest possible ending time on Friday (german: "Feierabend").
 
 <br/>
 
@@ -22,46 +22,60 @@ This project is a small flex-time tracking app for employees to manage their wee
 - [Build & Run](#build--run)
 - [License](#license)
 
-
 ## Overview
 
-Summary
+The first time starting the app, a setup wizard runs where the user sets their usual begin/end working times, total weekly hours, and break durations. These settings are persisted across sessions via MAUI's `Preferences`.
 
-The program pipeline is:
+The main screen has two views:
 
-1. Step1
-2. Step2
+1. **Week view** — Enter working times from Monday to Friday morning. The app calculates daily and cumulative overtimes/deficits by the needed daily hours and determines the earliest time one can leave on Friday to fulfill the weekly hours.
+2. **Day view** — Enter a single begin time and get the earliest end of work time for that day based on the daily needed hours.
 
+A slide-in settings panel lets you adjust usual beginning/ending times weekly and daily hours, and break times.
 
 ## Features
 
-- Feature1
-- Feature2
-
+- First-time setup wizard for initial configuration
+- Week view with Mon–Fri inputs
+- Daily and cumulative time deltas
+- Automatic Friday end of work time calculation
+- Day view for single-day end of work time calculation
+- Configurable usual beginning/end times, weekly hours, and break durations in settings panel
+- Restore button to reset all times to usual times.
+- All time states stored across app restarts
 
 ## Project Structure
 
 ```
-src/flextime-calculator/    # description
-docs/                       # description
+src/flextime-calculator/    # .NET MAUI app source
+docs/                       # Documentation assets
 ```
-
 
 ## Requirements
 
-- Windows
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
-- MAUI Package
-
+- **.NET Multi-platform App UI development** (MAUI)
 
 ## Build & Run
 
-Clone the repository and run the application from the solution root:
+Clone the repository:
 
 ```sh
 git clone https://github.com/luniphys/flextime-calculator
 cd flextime-calculator
-dotnet run --project src/flextime-calculator
+```
+
+Run for a specific target platform:
+
+```sh
+# Android
+dotnet run --project src/flextime-calculator -f net10.0-android
+
+# Windows
+dotnet run --project src/flextime-calculator -f net10.0-windows10.0.19041.0
+
+# iOS (requires macOS)
+dotnet run --project src/flextime-calculator -f net10.0-ios
 ```
 
 To build without running:
