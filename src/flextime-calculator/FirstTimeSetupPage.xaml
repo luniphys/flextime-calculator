@@ -6,7 +6,7 @@
 
     <ContentPage.Resources>
         <Style TargetType="Button">
-            <Setter Property="WidthRequest" Value="140"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
             <Setter Property="HeightRequest" Value="55"/>
             <Setter Property="FontSize" Value="30"/>
         </Style>
@@ -29,7 +29,7 @@
                 <RowDefinition Height="30*"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Text="Welcome! 👋" FontSize="30"/>
+            <Label Grid.Row="0" Text="Welcome! 👋" FontSize="28"/>
 
             <!-- come Grid -->
             <Grid Grid.Row="1" x:Name="comeGrid" IsEnabled="True" IsVisible="True">
@@ -38,9 +38,9 @@
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Text="Please enter your usual come time:" FontSize="21"/>
-                <Border Grid.Row="1" Margin="135,25">
-                    <TimePicker x:Name="setupComeTime" FontSize="30" Time="06:00"/>
+                <Label Grid.Row="0" Text="Enter your usual come time:" FontSize="Large"/>
+                <Border Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
+                    <TimePicker x:Name="setupComeTime" FontSize="28" Time="06:00"/>
                 </Border>
             </Grid>
 
@@ -51,9 +51,9 @@
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Text="Please enter your usual go time:" FontSize="22"/>
-                <Border Grid.Row="1" Margin="135,25">
-                    <TimePicker x:Name="setupGoTime" FontSize="30" Time="14:15"/>
+                <Label Grid.Row="0" Text="Enter your usual go time:" FontSize="Large"/>
+                <Border Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
+                    <TimePicker x:Name="setupGoTime" FontSize="28" Time="14:15"/>
                 </Border>
             </Grid>
 
@@ -64,12 +64,12 @@
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Text="Please enter your weekly total hours:" FontSize="19"/>
+                <Label Grid.Row="0" Text="Enter your weekly total hours:" FontSize="Large"/>
                 <HorizontalStackLayout Grid.Row="1">
-                    <Entry x:Name="setupWeeklyHours" Text="37" FontSize="30" Focused="Entry_Focused"/>
-                    <Label Text="h " FontSize="30"/>
-                    <Entry x:Name="setupWeeklyMinutes" Text="30" FontSize="30" Focused="Entry_Focused"/>
-                    <Label Text="min" FontSize="30"/>
+                    <Entry x:Name="setupWeeklyHours" Text="37" FontSize="28" Focused="Entry_Focused"/>
+                    <Label Text="h " FontSize="28"/>
+                    <Entry x:Name="setupWeeklyMinutes" Text="30" FontSize="28" Focused="Entry_Focused"/>
+                    <Label Text="min" FontSize="28"/>
                 </HorizontalStackLayout>
             </Grid>
 
@@ -81,16 +81,16 @@
                     <RowDefinition Height="33*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Text="Please enter your break times:" FontSize="22"/>
+                <Label Grid.Row="0" Text="Enter your break times:" FontSize="Large"/>
                 <HorizontalStackLayout Grid.Row="1">
-                    <Label Text="Small break: " FontSize="30"/>
-                    <Entry x:Name="setupSmallBreak" Text="15" FontSize="30" Focused="Entry_Focused"/>
-                    <Label Text="min" FontSize="30"/>
+                    <Label Text="Small break: " FontSize="Large"/>
+                    <Entry x:Name="setupSmallBreak" Text="15" FontSize="28" Focused="Entry_Focused"/>
+                    <Label Text="min" FontSize="28"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Grid.Row="2">
-                    <Label Text="Main break: " FontSize="30"/>
-                    <Entry x:Name="setupMainBreak" Text="30" FontSize="30" Focused="Entry_Focused"/>
-                    <Label Text="min" FontSize="30"/>
+                    <Label Text="Main break: " FontSize="Large"/>
+                    <Entry x:Name="setupMainBreak" Text="30" FontSize="28" Focused="Entry_Focused"/>
+                    <Label Text="min" FontSize="28"/>
                 </HorizontalStackLayout>
             </Grid>
 

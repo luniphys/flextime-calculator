@@ -24,7 +24,7 @@
             <Style TargetType="Label">
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
-                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontSize" Value="Body"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextColor" Value="White"/>
             </Style>
@@ -32,14 +32,14 @@
             <Style TargetType="Entry">
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
-                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontSize" Value="Medium"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextColor" Value="White"/>
                 <Setter Property="Keyboard" Value="Numeric"/>
             </Style>
 
             <Style TargetType="Button">
-                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontSize" Value="Medium"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextColor" Value="White"/>
             </Style>
@@ -48,7 +48,7 @@
                 <Setter Property="HorizontalOptions" Value="Center"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="Format" Value="HH:mm"/>
-                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontSize" Value="Medium"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextColor" Value="White"/>
                 <Setter Property="BackgroundColor" Value="Transparent"/>
@@ -57,7 +57,8 @@
             <Style TargetType="Border">
                 <Setter Property="StrokeShape" Value="RoundRectangle 12"/>
                 <Setter Property="Stroke" Value="#CCCCCC"/>
-                <Setter Property="Margin" Value="15,25"/>
+                <Setter Property="Margin" Value="4,4"/>
+                <Setter Property="Padding" Value="2,0"/>
             </Style>
 
             <Style TargetType="HorizontalStackLayout">

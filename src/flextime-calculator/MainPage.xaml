@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" x:Name="settingsButton" Text="☰" FontSize="30" Clicked="SettingsButton_Clicked" CornerRadius="0"/>
+            <Button Grid.Column="0" x:Name="settingsButton" Text="☰" FontSize="28" Clicked="SettingsButton_Clicked" CornerRadius="0"/>
             <Button Grid.Column="2" x:Name="switchButton" Text="Day" FontAttributes="Bold" Clicked="SwitchButton_Clicked" CornerRadius="0"/>
         </Grid>
         
@@ -36,9 +36,9 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="23*"/>
-                    <ColumnDefinition Width="23*"/>
+                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="22*"/>
+                    <ColumnDefinition Width="22*"/>
                     <ColumnDefinition Width="20*"/>
                     <ColumnDefinition Width="20*"/>
                     <ColumnDefinition Width="2*"/>
@@ -55,11 +55,11 @@
                         <RowDefinition Height="18*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="1" Text="Mon"/>
-                    <Label Grid.Row="2" Text="Tue"/>
-                    <Label Grid.Row="3" Text="Wed"/>
-                    <Label Grid.Row="4" Text="Thu"/>
-                    <Label Grid.Row="5" Text="Fri"/>
+                    <Label Grid.Row="1" Text="Mon" FontSize="20"/>
+                    <Label Grid.Row="2" Text="Tue" FontSize="20"/>
+                    <Label Grid.Row="3" Text="Wed" FontSize="20"/>
+                    <Label Grid.Row="4" Text="Thu" FontSize="20"/>
+                    <Label Grid.Row="5" Text="Fri" FontSize="20"/>
                 </Grid>
 
                 <!-- Come times -->
@@ -73,20 +73,20 @@
                         <RowDefinition Height="18*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" VerticalOptions="End" Text="Come"/>
-                    <Border Grid.Row="1">
+                    <Label Grid.Row="0" VerticalOptions="End" Text="Come" FontSize="Large"/>
+                    <Border Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="62">
                         <TimePicker x:Name="comeMon" PropertyChanged="TimePicker_PropertyChanged"/>
                     </Border>
-                    <Border Grid.Row="2">
+                    <Border Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="62">
                         <TimePicker x:Name="comeTue" PropertyChanged="TimePicker_PropertyChanged"/>
                     </Border>
-                    <Border Grid.Row="3">
+                    <Border Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="62">
                         <TimePicker x:Name="comeWed" PropertyChanged="TimePicker_PropertyChanged"/>
                     </Border>
-                    <Border Grid.Row="4">
+                    <Border Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="62">
                         <TimePicker x:Name="comeThu" PropertyChanged="TimePicker_PropertyChanged"/>
                     </Border>
-                    <Border Grid.Row="5">
+                    <Border Grid.Row="5" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="62">
                         <TimePicker x:Name="comeFri" PropertyChanged="TimePicker_PropertyChanged"/>
                     </Border>
                 </Grid>
@@ -102,23 +102,23 @@
                         <RowDefinition Height="18*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" VerticalOptions="End" Text="Go"/>
-                    <Border Grid.Row="1">
+                    <Label Grid.Row="0" VerticalOptions="End" Text="Go" FontSize="Large"/>
+                    <Border Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="62">
                         <TimePicker x:Name="goMon" PropertyChanged="TimePicker_PropertyChanged"/>
                     </Border>
-                    <Border Grid.Row="2">
+                    <Border Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="62">
                         <TimePicker x:Name="goTue" PropertyChanged="TimePicker_PropertyChanged"/>
                     </Border>
-                    <Border Grid.Row="3">
+                    <Border Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="62">
                         <TimePicker x:Name="goWed" PropertyChanged="TimePicker_PropertyChanged"/>
                     </Border>
-                    <Border Grid.Row="4">
+                    <Border Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="62">
                         <TimePicker x:Name="goThu" PropertyChanged="TimePicker_PropertyChanged"/>
                     </Border>
                 </Grid>
 
-                <!-- Daily delta -->
-                <Grid Grid.Column="4">
+                <!-- Daily & Cumulative delta -->
+                <Grid Grid.Column="4" Grid.ColumnSpan="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="18*"/>
@@ -127,34 +127,27 @@
                         <RowDefinition Height="18*"/>
                         <RowDefinition Height="18*"/>
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" VerticalOptions="End" FontSize="16" Text="Daily"/>
-                    <Label Grid.Row="1" x:Name="dayDeltaMon" FontSize="15"/>
-                    <Label Grid.Row="2" x:Name="dayDeltaTue" FontSize="15"/>
-                    <Label Grid.Row="3" x:Name="dayDeltaWed" FontSize="15"/>
-                    <Label Grid.Row="4" x:Name="dayDeltaThu" FontSize="15"/>
+                    <Label Grid.Row="0" Grid.Column="0" VerticalOptions="End" Text="Daily" FontSize="Large"/>
+                    <Label Grid.Row="0" Grid.Column="1" VerticalOptions="End" Text="Cumul." FontSize="Large"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" x:Name="dayDeltaMon"/>
+                    <Label Grid.Row="2" Grid.Column="0" x:Name="dayDeltaTue"/>
+                    <Label Grid.Row="3" Grid.Column="0" x:Name="dayDeltaWed"/>
+                    <Label Grid.Row="4" Grid.Column="0" x:Name="dayDeltaThu"/>
+
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="cumDeltaMon"/>
+                    <Label Grid.Row="2" Grid.Column="1" x:Name="cumDeltaTue"/>
+                    <Label Grid.Row="3" Grid.Column="1" x:Name="cumDeltaWed"/>
+                    <Label Grid.Row="4" Grid.Column="1" x:Name="cumDeltaThu"/>
+
+                    <Button Grid.Row="5" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red" Text="Restore Defaults" FontSize="Small" Clicked="RestoreButton_Clicked"/>
                 </Grid>
                 
-                <!-- Cumulative delta -->
-                <Grid Grid.Column="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="18*"/>
-                        <RowDefinition Height="18*"/>
-                        <RowDefinition Height="18*"/>
-                        <RowDefinition Height="18*"/>
-                        <RowDefinition Height="18*"/>
-                    </Grid.RowDefinitions>
-
-                    <Label Grid.Row="0" VerticalOptions="End" FontSize="16" Text="Cumul."/>
-                    <Label Grid.Row="1" x:Name="cumDeltaMon" FontSize="15"/>
-                    <Label Grid.Row="2" x:Name="cumDeltaTue" FontSize="15"/>
-                    <Label Grid.Row="3" x:Name="cumDeltaWed" FontSize="15"/>
-                    <Label Grid.Row="4" x:Name="cumDeltaThu" FontSize="15"/>
-                </Grid>
-
-                <Button Grid.Column="4" Grid.ColumnSpan="2" VerticalOptions="End" Margin="8,40" BackgroundColor="Red" Text="Restore Defaults" FontSize="14" Clicked="RestoreButton_Clicked"/>
-
             </Grid>
 
             <!-- Feierabend time -->
@@ -178,9 +171,9 @@
             </Grid.RowDefinitions>
 
             <HorizontalStackLayout Grid.Row="1">
-                <Label Text="Come:" FontSize="22"/>
-                <Border>
-                    <TimePicker x:Name="comeDay" Margin="5,10" FontSize="22" PropertyChanged="TimePicker_PropertyChanged"/>
+                <Label Text="Come: " FontSize="Large"/>
+                <Border HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
+                    <TimePicker x:Name="comeDay" FontSize="Large" PropertyChanged="TimePicker_PropertyChanged"/>
                 </Border>
             </HorizontalStackLayout>
 
@@ -206,7 +199,7 @@
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
-                    <Label Text="Settings" Margin="0,0,0,50" FontSize="30"/>
+                    <Label Text="Settings" VerticalOptions="Start" Margin="0,12,0,0" FontSize="28"/>
                 </Grid>
 
                 <Grid Grid.Row="1">
@@ -218,59 +211,59 @@
 
                         <Grid Grid.Column="0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="40*"/>
+                                <RowDefinition Height="13*"/>
+                                <RowDefinition Height="13*"/>
+                                <RowDefinition Height="13*"/>
+                                <RowDefinition Height="13*"/>
+                                <RowDefinition Height="13*"/>
+                                <RowDefinition Height="13*"/>
+                                <RowDefinition Height="22*"/>
                             </Grid.RowDefinitions>
 
-                            <Label Grid.Row="0" HorizontalOptions="End" Text="Usual come time:"/>
-                            <Label Grid.Row="1" HorizontalOptions="End" Text="Usual go time:"/>
-                            <Label Grid.Row="2" HorizontalOptions="End" Text="Total weekly hours:"/>
-                            <Label Grid.Row="3" HorizontalOptions="End" Text="Daily hours:"/>
-                            <Label Grid.Row="4" HorizontalOptions="End" Text="Small break:"/>
-                            <Label Grid.Row="5" HorizontalOptions="End" Text="Main break:"/>
+                            <Label Grid.Row="0" HorizontalOptions="End" Text="Usual come time:" FontSize="19"/>
+                            <Label Grid.Row="1" HorizontalOptions="End" Text="Usual go time:" FontSize="19"/>
+                            <Label Grid.Row="2" HorizontalOptions="End" Text="Total weekly hours:" FontSize="19"/>
+                            <Label Grid.Row="3" HorizontalOptions="End" Text="Daily hours:" FontSize="19"/>
+                            <Label Grid.Row="4" HorizontalOptions="End" Text="Small break:" FontSize="19"/>
+                            <Label Grid.Row="5" HorizontalOptions="End" Text="Main break:" FontSize="19"/>
                         </Grid>
 
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="40*"/>
+                                <RowDefinition Height="13*"/>
+                                <RowDefinition Height="13*"/>
+                                <RowDefinition Height="13*"/>
+                                <RowDefinition Height="13*"/>
+                                <RowDefinition Height="13*"/>
+                                <RowDefinition Height="13*"/>
+                                <RowDefinition Height="22*"/>
                             </Grid.RowDefinitions>
 
-                            <Border Grid.Row="0" Margin="45,4">
+                            <Border Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
                                 <TimePicker x:Name="usualComeTime" PropertyChanged="UsualTimePicker_PropertyChanged"/>
                             </Border>
-                            <Border Grid.Row="1" Margin="45,4">
+                            <Border Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
                                 <TimePicker x:Name="usualGoTime" PropertyChanged="UsualTimePicker_PropertyChanged"/>
                             </Border>
                             <HorizontalStackLayout Grid.Row="2">
-                                <Entry x:Name="weeklyHours" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
-                                <Label Text="h "/>
-                                <Entry x:Name="weeklyMinutes" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
-                                <Label Text="min"/>
+                                <Entry x:Name="weeklyHours" Text="00" FontSize="19" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
+                                <Label Text="h " FontSize="19"/>
+                                <Entry x:Name="weeklyMinutes" Text="00" FontSize="19" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
+                                <Label Text="min" FontSize="19"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="3">
-                                <Entry x:Name="dailyHours" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
-                                <Label Text="h "/>
-                                <Entry x:Name="dailyMinutes" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
-                                <Label Text="min"/>
+                                <Entry x:Name="dailyHours" Text="00" FontSize="19" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
+                                <Label Text="h " FontSize="19"/>
+                                <Entry x:Name="dailyMinutes" Text="00" FontSize="19" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
+                                <Label Text="min" FontSize="19"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="4">
-                                <Entry x:Name="smallBreak" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
-                                <Label Text="min"/>
+                                <Entry x:Name="smallBreak" Text="00" FontSize="19" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
+                                <Label Text="min" FontSize="19"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="5">
-                                <Entry x:Name="mainBreak" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
-                                <Label Text="min"/>
+                                <Entry x:Name="mainBreak" Text="00" FontSize="19" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
+                                <Label Text="min" FontSize="19"/>
                             </HorizontalStackLayout>
                         </Grid>
                         
