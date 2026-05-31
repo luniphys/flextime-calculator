@@ -7,6 +7,7 @@ public partial class MainPage : ContentPage
 	private bool _settingsOpen = false;
     private bool _weekMode = true;
     private bool _isLoadingSettings = true;
+    private bool _infoTextOpen = false;
 
 
 
@@ -98,7 +99,8 @@ public partial class MainPage : ContentPage
     {
         if (_weekMode)
         {
-            switchButton.Text = "Week";
+            switchButton.Text = "Woche";
+            switchButton.FontSize = 14;
             mainPageGrid.IsEnabled = false;
             mainPageGrid.IsVisible = false;
             _weekMode = false;
@@ -108,7 +110,8 @@ public partial class MainPage : ContentPage
         }
         else
         {
-            switchButton.Text = "Day";
+            switchButton.Text = "Tag";
+            switchButton.FontSize = 22;
             mainPageGrid.IsEnabled = true;
             mainPageGrid.IsVisible = true;
             _weekMode = true;
@@ -205,6 +208,34 @@ public partial class MainPage : ContentPage
     private void RestoreButton_Clicked(object sender, EventArgs e)
     {
         UsualTimePicker_PropertyChanged(usualComeTime, new System.ComponentModel.PropertyChangedEventArgs(nameof(TimePicker.Time)));
+    }
+
+
+    /// <summary>
+    /// Info button opens text bubble giving information about Feierabend rules.
+    /// </summary>
+    private void QuestionMarkButton_Clicked(object sender, EventArgs e)
+    {
+        if (!_infoTextOpen)
+        {
+            feierabendInfo.IsVisible = true;
+            dimOverlay.IsVisible = true;
+            _infoTextOpen = true;
+        }
+    }
+
+
+    /// <summary>
+    /// Tapping anywhere on screen to make info text bubble disappear.
+    /// </summary>
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+        if (_infoTextOpen)
+        {
+            feierabendInfo.IsVisible = false;
+            dimOverlay.IsVisible = false;
+            _infoTextOpen = false;
+        }
     }
 
     #endregion
@@ -431,7 +462,5 @@ public partial class MainPage : ContentPage
     }
 
     #endregion
-    
-}
 
-// TODO: Opening settingspanel enters usualtimes from firstsetuppage every time.
+}

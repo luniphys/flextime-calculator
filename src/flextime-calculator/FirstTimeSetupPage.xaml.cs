@@ -81,7 +81,7 @@ public partial class FirstTimeSetupPage : ContentPage
 
         Color VSPurple = Color.FromRgb(80, 43, 212);
         NextButton.BackgroundColor = _pageIndex == _gridList.Count - 1 ? Colors.Green : VSPurple;
-        NextButton.Text = _pageIndex == _gridList.Count - 1 ? "Done" : "Next";
+        NextButton.Text = _pageIndex == _gridList.Count - 1 ? "Fertig" : "Nächste";
 
         if (_pageIndex == _gridList.Count)
         {

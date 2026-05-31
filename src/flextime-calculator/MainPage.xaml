@@ -23,7 +23,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" x:Name="settingsButton" Text="☰" FontSize="28" Clicked="SettingsButton_Clicked" CornerRadius="0"/>
-            <Button Grid.Column="2" x:Name="switchButton" Text="Day" FontAttributes="Bold" Clicked="SwitchButton_Clicked" CornerRadius="0"/>
+            <Button Grid.Column="2" x:Name="switchButton" Text="Tag" FontAttributes="Bold" Clicked="SwitchButton_Clicked" CornerRadius="0"/>
         </Grid>
         
         <!-- Main Page -->
@@ -36,11 +36,11 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="21*"/>
+                    <ColumnDefinition Width="21*"/>
                     <ColumnDefinition Width="22*"/>
                     <ColumnDefinition Width="22*"/>
-                    <ColumnDefinition Width="20*"/>
-                    <ColumnDefinition Width="20*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
@@ -55,11 +55,11 @@
                         <RowDefinition Height="18*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="1" Text="Mon" FontSize="20"/>
-                    <Label Grid.Row="2" Text="Tue" FontSize="20"/>
-                    <Label Grid.Row="3" Text="Wed" FontSize="20"/>
-                    <Label Grid.Row="4" Text="Thu" FontSize="20"/>
-                    <Label Grid.Row="5" Text="Fri" FontSize="20"/>
+                    <Label Grid.Row="1" Text="Mo" FontSize="20"/>
+                    <Label Grid.Row="2" Text="Di" FontSize="20"/>
+                    <Label Grid.Row="3" Text="Mi" FontSize="20"/>
+                    <Label Grid.Row="4" Text="Do" FontSize="20"/>
+                    <Label Grid.Row="5" Text="Fr" FontSize="20"/>
                 </Grid>
 
                 <!-- Come times -->
@@ -73,7 +73,7 @@
                         <RowDefinition Height="18*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" VerticalOptions="End" Text="Come" FontSize="Large"/>
+                    <Label Grid.Row="0" VerticalOptions="End" Text="Kommen" FontSize="20"/>
                     <Border Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="62">
                         <TimePicker x:Name="comeMon" PropertyChanged="TimePicker_PropertyChanged"/>
                     </Border>
@@ -102,7 +102,7 @@
                         <RowDefinition Height="18*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" VerticalOptions="End" Text="Go" FontSize="Large"/>
+                    <Label Grid.Row="0" VerticalOptions="End" Text="Gehen" FontSize="20"/>
                     <Border Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="62">
                         <TimePicker x:Name="goMon" PropertyChanged="TimePicker_PropertyChanged"/>
                     </Border>
@@ -132,8 +132,8 @@
                         <ColumnDefinition Width="50*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" VerticalOptions="End" Text="Daily" FontSize="Large"/>
-                    <Label Grid.Row="0" Grid.Column="1" VerticalOptions="End" Text="Cumul." FontSize="Large"/>
+                    <Label Grid.Row="0" Grid.Column="0" VerticalOptions="End" Text="+/-" FontSize="18"/>
+                    <Label Grid.Row="0" Grid.Column="1" VerticalOptions="End" Text="Kumul." FontSize="18"/>
 
                     <Label Grid.Row="1" Grid.Column="0" x:Name="dayDeltaMon"/>
                     <Label Grid.Row="2" Grid.Column="0" x:Name="dayDeltaTue"/>
@@ -145,7 +145,8 @@
                     <Label Grid.Row="3" Grid.Column="1" x:Name="cumDeltaWed"/>
                     <Label Grid.Row="4" Grid.Column="1" x:Name="cumDeltaThu"/>
 
-                    <Button Grid.Row="5" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red" Text="Restore Defaults" FontSize="Small" Clicked="RestoreButton_Clicked"/>
+                    <Button Grid.Row="5" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red"
+                            Text="Standardzeiten" FontSize="Small" Clicked="RestoreButton_Clicked"/>
                 </Grid>
                 
             </Grid>
@@ -153,6 +154,8 @@
             <!-- Feierabend time -->
             <Grid Grid.Row="1">
                 <HorizontalStackLayout Spacing="10">
+                    <Button HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="20" HeightRequest="20" Padding="0" BackgroundColor="Transparent"
+                            Text="?" FontSize="15" TextColor="White" BorderColor="White" CornerRadius="15" Clicked="QuestionMarkButton_Clicked"/>
                     <Label Text="Feierabend:" HorizontalTextAlignment="End" FontSize="28"/>
                     <Label x:Name="feierabendTimeWeek" HorizontalTextAlignment="Start" FontSize="28"/>
                 </HorizontalStackLayout>
@@ -171,7 +174,7 @@
             </Grid.RowDefinitions>
 
             <HorizontalStackLayout Grid.Row="1">
-                <Label Text="Come: " FontSize="Large"/>
+                <Label Text="Kommen: " FontSize="Large"/>
                 <Border HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
                     <TimePicker x:Name="comeDay" FontSize="Large" PropertyChanged="TimePicker_PropertyChanged"/>
                 </Border>
@@ -185,12 +188,14 @@
         </Grid>
 
         <!-- Settings Panel -->
-        <BoxView Grid.Row="1" x:Name="dimOverlay" IsVisible="False" Opacity="0.3">
+        <BoxView Grid.Row="1" x:Name="dimOverlay" IsVisible="False" Opacity="0.5">
             <BoxView.GestureRecognizers>
                 <SwipeGestureRecognizer Direction="Left" Swiped="CloseSettings_Swiped"/>
-            </BoxView.GestureRecognizers>    
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </BoxView.GestureRecognizers>
         </BoxView>
-        <Border Grid.Row="1" x:Name="settingsPanel" IsVisible="False" Margin="0,0" HorizontalOptions="Start" BackgroundColor="{StaticResource settingsBackgroundColor}" StrokeThickness="0" StrokeShape="Rectangle">
+        <Border Grid.Row="1" x:Name="settingsPanel" IsVisible="False" Margin="0,0" HorizontalOptions="Start"
+                BackgroundColor="{StaticResource settingsBackgroundColor}" StrokeThickness="0" StrokeShape="Rectangle">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="15*"/>
@@ -199,14 +204,14 @@
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
-                    <Label Text="Settings" VerticalOptions="Start" Margin="0,12,0,0" FontSize="28"/>
+                    <Label Text="Einstellungen" VerticalOptions="Start" Margin="0,12,0,0" FontSize="28"/>
                 </Grid>
 
                 <Grid Grid.Row="1">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50*"/>
-                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="55*"/>
+                            <ColumnDefinition Width="45*"/>
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
@@ -220,12 +225,12 @@
                                 <RowDefinition Height="22*"/>
                             </Grid.RowDefinitions>
 
-                            <Label Grid.Row="0" HorizontalOptions="End" Text="Usual come time:" FontSize="19"/>
-                            <Label Grid.Row="1" HorizontalOptions="End" Text="Usual go time:" FontSize="19"/>
-                            <Label Grid.Row="2" HorizontalOptions="End" Text="Total weekly hours:" FontSize="19"/>
-                            <Label Grid.Row="3" HorizontalOptions="End" Text="Daily hours:" FontSize="19"/>
-                            <Label Grid.Row="4" HorizontalOptions="End" Text="Small break:" FontSize="19"/>
-                            <Label Grid.Row="5" HorizontalOptions="End" Text="Main break:" FontSize="19"/>
+                            <Label Grid.Row="0" HorizontalOptions="End" Text="Std. Kommen Zeit:" FontSize="19"/>
+                            <Label Grid.Row="1" HorizontalOptions="End" Text="Std. Gehen Zeit:" FontSize="19"/>
+                            <Label Grid.Row="2" HorizontalOptions="End" Text="Wöchentl. Stunden:" FontSize="19"/>
+                            <Label Grid.Row="3" HorizontalOptions="End" Text="Tägl. Stunden:" FontSize="19"/>
+                            <Label Grid.Row="4" HorizontalOptions="End" Text="Brotzeitpause:" FontSize="19"/>
+                            <Label Grid.Row="5" HorizontalOptions="End" Text="Mittagspause:" FontSize="19"/>
                         </Grid>
 
                         <Grid Grid.Column="1">
@@ -266,15 +271,26 @@
                                 <Label Text="min" FontSize="19"/>
                             </HorizontalStackLayout>
                         </Grid>
-                        
+
                     </Grid>
                 </Grid>
 
                 <Grid Grid.Row="2">
                     <Label Text="©github.com/luniphys"/>
                 </Grid>
-                
+
             </Grid>
+        </Border>
+
+        <!-- Feierabend Info text bubble -->
+        <Border Grid.Row="1" x:Name="feierabendInfo" IsVisible="False" VerticalOptions="End" Margin="25,0,25,90" Padding="8,8"
+                BackgroundColor="{StaticResource settingsBackgroundColor}">
+            <VerticalStackLayout>
+                <Label HorizontalOptions="Start" HorizontalTextAlignment="Start"
+                       Text="• Man kann nicht vor 12:00 Uhr gehen." FontSize="18"/>
+                <Label HorizontalOptions="Start" HorizontalTextAlignment="Start"
+                       Text="• Geht man vor 13:00 Uhr wird die&#10;   Mittagspause nicht dazu gerechnet." FontSize="18"/>
+            </VerticalStackLayout>
         </Border>
 
     </Grid>
