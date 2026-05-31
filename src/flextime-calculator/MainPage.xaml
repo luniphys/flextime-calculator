@@ -55,11 +55,11 @@
                         <RowDefinition Height="18*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="1" Text="Mo" FontSize="20"/>
-                    <Label Grid.Row="2" Text="Di" FontSize="20"/>
-                    <Label Grid.Row="3" Text="Mi" FontSize="20"/>
-                    <Label Grid.Row="4" Text="Do" FontSize="20"/>
-                    <Label Grid.Row="5" Text="Fr" FontSize="20"/>
+                    <Label Grid.Row="1" Text="Mo" FontSize="Large"/>
+                    <Label Grid.Row="2" Text="Di" FontSize="Large"/>
+                    <Label Grid.Row="3" Text="Mi" FontSize="Large"/>
+                    <Label Grid.Row="4" Text="Do" FontSize="Large"/>
+                    <Label Grid.Row="5" Text="Fr" FontSize="Large"/>
                 </Grid>
 
                 <!-- Come times -->
@@ -73,7 +73,7 @@
                         <RowDefinition Height="18*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" VerticalOptions="End" Text="Kommen" FontSize="20"/>
+                    <Label Grid.Row="0" VerticalOptions="End" Text="Kommen"/>
                     <Border Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="62">
                         <TimePicker x:Name="comeMon" PropertyChanged="TimePicker_PropertyChanged"/>
                     </Border>
@@ -102,7 +102,7 @@
                         <RowDefinition Height="18*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" VerticalOptions="End" Text="Gehen" FontSize="20"/>
+                    <Label Grid.Row="0" VerticalOptions="End" Text="Gehen"/>
                     <Border Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="62">
                         <TimePicker x:Name="goMon" PropertyChanged="TimePicker_PropertyChanged"/>
                     </Border>
@@ -132,8 +132,8 @@
                         <ColumnDefinition Width="50*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" VerticalOptions="End" Text="+/-" FontSize="18"/>
-                    <Label Grid.Row="0" Grid.Column="1" VerticalOptions="End" Text="Kumul." FontSize="18"/>
+                    <Label Grid.Row="0" Grid.Column="0" VerticalOptions="End" Text="+/-"/>
+                    <Label Grid.Row="0" Grid.Column="1" VerticalOptions="End" Text="Kumul."/>
 
                     <Label Grid.Row="1" Grid.Column="0" x:Name="dayDeltaMon"/>
                     <Label Grid.Row="2" Grid.Column="0" x:Name="dayDeltaTue"/>
@@ -155,9 +155,9 @@
             <Grid Grid.Row="1">
                 <HorizontalStackLayout Spacing="10">
                     <Button HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="20" HeightRequest="20" Padding="0" BackgroundColor="Transparent"
-                            Text="?" FontSize="15" TextColor="White" BorderColor="White" CornerRadius="15" Clicked="QuestionMarkButton_Clicked"/>
-                    <Label Text="Feierabend:" HorizontalTextAlignment="End" FontSize="28"/>
-                    <Label x:Name="feierabendTimeWeek" HorizontalTextAlignment="Start" FontSize="28"/>
+                            Text="?" FontSize="Small" TextColor="White" BorderColor="White" CornerRadius="15" Clicked="QuestionMarkButton_Clicked"/>
+                    <Label Text="Feierabend:" HorizontalTextAlignment="End" FontSize="Title"/>
+                    <Label x:Name="feierabendTimeWeek" HorizontalTextAlignment="Start" FontSize="Title"/>
                 </HorizontalStackLayout>
             </Grid>
 
@@ -181,14 +181,14 @@
             </HorizontalStackLayout>
 
             <HorizontalStackLayout Grid.Row="2" Spacing="10">
-                <Label Text="Feierabend:" HorizontalTextAlignment="End" FontSize="28"/>
-                <Label x:Name="feierabendTimeDay" HorizontalTextAlignment="Start" FontSize="28"/>
+                <Label Text="Feierabend:" HorizontalTextAlignment="End" FontSize="Title"/>
+                <Label x:Name="feierabendTimeDay" HorizontalTextAlignment="Start" FontSize="Title"/>
             </HorizontalStackLayout>
             
         </Grid>
 
         <!-- Settings Panel -->
-        <BoxView Grid.Row="1" x:Name="dimOverlay" IsVisible="False" Opacity="0.5">
+        <BoxView Grid.Row="1" x:Name="dimOverlay" IsVisible="False" Opacity="0.6">
             <BoxView.GestureRecognizers>
                 <SwipeGestureRecognizer Direction="Left" Swiped="CloseSettings_Swiped"/>
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
@@ -204,7 +204,7 @@
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
-                    <Label Text="Einstellungen" VerticalOptions="Start" Margin="0,12,0,0" FontSize="28"/>
+                    <Label Text="Einstellungen" VerticalOptions="Start" Margin="0,12,0,0" FontSize="Title"/>
                 </Grid>
 
                 <Grid Grid.Row="1">
@@ -225,12 +225,12 @@
                                 <RowDefinition Height="22*"/>
                             </Grid.RowDefinitions>
 
-                            <Label Grid.Row="0" HorizontalOptions="End" Text="Std. Kommen Zeit:" FontSize="19"/>
-                            <Label Grid.Row="1" HorizontalOptions="End" Text="Std. Gehen Zeit:" FontSize="19"/>
-                            <Label Grid.Row="2" HorizontalOptions="End" Text="Wöchentl. Stunden:" FontSize="19"/>
-                            <Label Grid.Row="3" HorizontalOptions="End" Text="Tägl. Stunden:" FontSize="19"/>
-                            <Label Grid.Row="4" HorizontalOptions="End" Text="Brotzeitpause:" FontSize="19"/>
-                            <Label Grid.Row="5" HorizontalOptions="End" Text="Mittagspause:" FontSize="19"/>
+                            <Label Grid.Row="0" HorizontalOptions="End" Text="Standard Kommen Zeit:"/>
+                            <Label Grid.Row="1" HorizontalOptions="End" Text="Standard Gehen Zeit:"/>
+                            <Label Grid.Row="2" HorizontalOptions="End" Text="Wöchentl. Stunden:"/>
+                            <Label Grid.Row="3" HorizontalOptions="End" Text="Tägl. Stunden:"/>
+                            <Label Grid.Row="4" HorizontalOptions="End" Text="Brotzeitpause:"/>
+                            <Label Grid.Row="5" HorizontalOptions="End" Text="Mittagspause:"/>
                         </Grid>
 
                         <Grid Grid.Column="1">
@@ -251,24 +251,24 @@
                                 <TimePicker x:Name="usualGoTime" PropertyChanged="UsualTimePicker_PropertyChanged"/>
                             </Border>
                             <HorizontalStackLayout Grid.Row="2">
-                                <Entry x:Name="weeklyHours" Text="00" FontSize="19" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
-                                <Label Text="h " FontSize="19"/>
-                                <Entry x:Name="weeklyMinutes" Text="00" FontSize="19" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
-                                <Label Text="min" FontSize="19"/>
+                                <Entry x:Name="weeklyHours" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
+                                <Label Text="h "/>
+                                <Entry x:Name="weeklyMinutes" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
+                                <Label Text="min"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="3">
-                                <Entry x:Name="dailyHours" Text="00" FontSize="19" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
-                                <Label Text="h " FontSize="19"/>
-                                <Entry x:Name="dailyMinutes" Text="00" FontSize="19" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
-                                <Label Text="min" FontSize="19"/>
+                                <Entry x:Name="dailyHours" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
+                                <Label Text="h "/>
+                                <Entry x:Name="dailyMinutes" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
+                                <Label Text="min"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="4">
-                                <Entry x:Name="smallBreak" Text="00" FontSize="19" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
-                                <Label Text="min" FontSize="19"/>
+                                <Entry x:Name="smallBreak" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
+                                <Label Text="min"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="5">
-                                <Entry x:Name="mainBreak" Text="00" FontSize="19" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
-                                <Label Text="min" FontSize="19"/>
+                                <Entry x:Name="mainBreak" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
+                                <Label Text="min"/>
                             </HorizontalStackLayout>
                         </Grid>
 
@@ -286,10 +286,25 @@
         <Border Grid.Row="1" x:Name="feierabendInfo" IsVisible="False" VerticalOptions="End" Margin="25,0,25,90" Padding="8,8"
                 BackgroundColor="{StaticResource settingsBackgroundColor}">
             <VerticalStackLayout>
-                <Label HorizontalOptions="Start" HorizontalTextAlignment="Start"
-                       Text="• Man kann nicht vor 12:00 Uhr gehen." FontSize="18"/>
-                <Label HorizontalOptions="Start" HorizontalTextAlignment="Start"
-                       Text="• Geht man vor 13:00 Uhr wird die&#10;   Mittagspause nicht dazu gerechnet." FontSize="18"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="90*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="•" VerticalOptions="Start"/>
+                    <Label Grid.Column="1" Text="Man kann nicht vor 12:00 Uhr gehen." HorizontalOptions="Start" HorizontalTextAlignment="Start"/>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="90*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="•" VerticalOptions="Start"/>
+                    <Label Grid.Column="1" Text="Geht man vor 13:00 Uhr wird die Mittagspause nicht dazu gerechnet." HorizontalOptions="Start" HorizontalTextAlignment="Start"/>
+                </Grid>
+                
             </VerticalStackLayout>
         </Border>
 

@@ -8,7 +8,7 @@
         <Style TargetType="Button">
             <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
             <Setter Property="HeightRequest" Value="55"/>
-            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontSize" Value="Title"/>
         </Style>
     </ContentPage.Resources>
 
@@ -25,77 +25,81 @@
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30*"/>
-                <RowDefinition Height="40*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="30*"/>
                 <RowDefinition Height="30*"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Text="Willkommen! 👋🏼" FontSize="28"/>
+            <Label Grid.Row="0" Text="Willkommen! 👋🏼" FontSize="Title"/>
+            <Label Grid.Row="1" VerticalOptions="End" Text="Geben Sie Ihre" FontSize="Title"/>
 
             <!-- come Grid -->
-            <Grid Grid.Row="1" x:Name="comeGrid" IsEnabled="True" IsVisible="True">
+            <Grid Grid.Row="2" x:Name="comeGrid" IsEnabled="True" IsVisible="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50*"/>
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Text="Geben Sie Ihre Standard&#10;Kommen Zeit an:" FontSize="24"/>
+                <Label Grid.Row="0" VerticalOptions="Start" Text="Standard Kommen Zeit an:" FontSize="Title" LineBreakMode="WordWrap"/>
                 <Border Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
-                    <TimePicker x:Name="setupComeTime" FontSize="28" Time="06:00"/>
+                    <TimePicker x:Name="setupComeTime" FontSize="Title" Time="06:00"/>
                 </Border>
             </Grid>
 
             <!-- go Grid -->
-            <Grid Grid.Row="1" x:Name="goGrid" IsEnabled="False" IsVisible="False">
+            <Grid Grid.Row="2" x:Name="goGrid" IsEnabled="False" IsVisible="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50*"/>
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Text="Geben Sie Ihre Standard&#10;Gehen Zeit an:" FontSize="24"/>
+                <Label Grid.Row="0" VerticalOptions="Start" Text="Standard Gehen Zeit an:" FontSize="Title" LineBreakMode="WordWrap"/>
                 <Border Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
-                    <TimePicker x:Name="setupGoTime" FontSize="28" Time="14:15"/>
+                    <TimePicker x:Name="setupGoTime" FontSize="Title" Time="14:15"/>
                 </Border>
             </Grid>
 
             <!-- weekly Grid -->
-            <Grid Grid.Row="1" x:Name="weeklyGrid" IsEnabled="False" IsVisible="False">
+            <Grid Grid.Row="2" x:Name="weeklyGrid" IsEnabled="False" IsVisible="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50*"/>
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Text="Geben Sie Ihre wöchentliche&#10;Stundenzahl an:" FontSize="24"/>
+                <Label Grid.Row="0" VerticalOptions="Start" Text="wöchentliche Stundenzahl an:" FontSize="Title" LineBreakMode="WordWrap"/>
                 <HorizontalStackLayout Grid.Row="1">
-                    <Entry x:Name="setupWeeklyHours" Text="37" FontSize="28" Focused="Entry_Focused"/>
-                    <Label Text="h " FontSize="28"/>
-                    <Entry x:Name="setupWeeklyMinutes" Text="30" FontSize="28" Focused="Entry_Focused"/>
-                    <Label Text="min" FontSize="28"/>
+                    <Entry x:Name="setupWeeklyHours" Text="37" FontSize="Title" Focused="Entry_Focused"/>
+                    <Label Text="h " FontSize="Title"/>
+                    <Entry x:Name="setupWeeklyMinutes" Text="30" FontSize="Title" Focused="Entry_Focused"/>
+                    <Label Text="min" FontSize="Title"/>
                 </HorizontalStackLayout>
             </Grid>
 
             <!-- break Grid -->
-            <Grid Grid.Row="1" x:Name="breakGrid" IsEnabled="False" IsVisible="False">
+            <Grid Grid.Row="2" x:Name="breakGrid" IsEnabled="False" IsVisible="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="33*"/>
                     <RowDefinition Height="33*"/>
                     <RowDefinition Height="33*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Text="Geben Sie Ihre Pausen Zeiten an:" FontSize="Large"/>
+                <Label Grid.Row="0" VerticalOptions="Start" Text="Pausen Zeiten an:" FontSize="Title"/>
                 <HorizontalStackLayout Grid.Row="1">
                     <Label Text="Brotzeitpause: " FontSize="Large"/>
-                    <Entry x:Name="setupSmallBreak" Text="15" FontSize="28" Focused="Entry_Focused"/>
-                    <Label Text="min" FontSize="28"/>
+                    <Entry x:Name="setupSmallBreak" Text="15" FontSize="Title" Focused="Entry_Focused"/>
+                    <Label Text="min" FontSize="Title"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Grid.Row="2">
                     <Label Text="Mittagspause: " FontSize="Large"/>
-                    <Entry x:Name="setupMainBreak" Text="30" FontSize="28" Focused="Entry_Focused"/>
-                    <Label Text="min" FontSize="28"/>
+                    <Entry x:Name="setupMainBreak" Text="30" FontSize="Title" Focused="Entry_Focused"/>
+                    <Label Text="min" FontSize="Title"/>
                 </HorizontalStackLayout>
             </Grid>
-
-            <HorizontalStackLayout Grid.Row="2">
-                <Button x:Name="BackButton" BackgroundColor="{StaticResource backButtonBackgroundColor}" IsEnabled="False" Opacity="0.5" Text="Zurück" TextColor="White" Clicked="BackButton_Clicked"/>
+            
+            <!-- Menu buttons -->
+            <HorizontalStackLayout Grid.Row="3">
+                <Button x:Name="BackButton" BackgroundColor="{StaticResource backButtonBackgroundColor}" IsEnabled="False" Opacity="0.5"
+                        Text="Zurück" TextColor="White" Clicked="BackButton_Clicked"/>
                 <Button x:Name="NextButton" Text="Nächste" TextColor="White" Clicked="NextButton_Clicked"/>
             </HorizontalStackLayout>
 

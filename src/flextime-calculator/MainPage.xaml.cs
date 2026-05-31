@@ -65,6 +65,13 @@ public partial class MainPage : ContentPage
             dayPageGrid.IsEnabled = false;
             settingsPanel.Animate("open", v => settingsPanel.WidthRequest = v, start: 0, end: this.Width * panelWidth, length: animationDuration);
         }
+
+        if (_infoTextOpen)
+        {
+            feierabendInfo.IsVisible = false;
+            dimOverlay.IsVisible = false;
+            _infoTextOpen = false;
+        }
     }
 
 
@@ -100,7 +107,7 @@ public partial class MainPage : ContentPage
         if (_weekMode)
         {
             switchButton.Text = "Woche";
-            switchButton.FontSize = 14;
+            switchButton.FontSize = GetNamedFontSize("Small");
             mainPageGrid.IsEnabled = false;
             mainPageGrid.IsVisible = false;
             _weekMode = false;
@@ -111,13 +118,20 @@ public partial class MainPage : ContentPage
         else
         {
             switchButton.Text = "Tag";
-            switchButton.FontSize = 22;
+            switchButton.FontSize = GetNamedFontSize("Medium");
             mainPageGrid.IsEnabled = true;
             mainPageGrid.IsVisible = true;
             _weekMode = true;
 
             dayPageGrid.IsEnabled = false;
             dayPageGrid.IsVisible = false;
+        }
+
+        if (_infoTextOpen)
+        {
+            feierabendInfo.IsVisible = false;
+            dimOverlay.IsVisible = false;
+            _infoTextOpen = false;
         }
     }
 
@@ -459,6 +473,16 @@ public partial class MainPage : ContentPage
                 label.Text = $"{minutes}min";
             }
         }
+    }
+
+
+    /// <summary>
+    /// Gets double representation of named FontSize as string input.
+    /// </summary>
+    private double GetNamedFontSize(string namedSize)
+    {
+        var converter = new FontSizeConverter();
+        return (double)converter.ConvertFromInvariantString(namedSize)!;
     }
 
     #endregion
