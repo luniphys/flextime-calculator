@@ -10,7 +10,7 @@ A cross-platform .NET MAUI app for workers to track their weekly working time. E
 <br/>
 
 <p align="center">
-    <img src="docs/Images/gui_example.png" width="600" alt="GUI image">
+    <img src="docs/Images/screenshots.png" width="600" alt="GUI image">
 </p>
 
 ## Table of Contents
