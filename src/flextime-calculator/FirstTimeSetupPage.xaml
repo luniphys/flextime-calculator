@@ -66,7 +66,7 @@
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" VerticalOptions="Start" Text="wöchentliche Stundenzahl an:" FontSize="Title" LineBreakMode="WordWrap"/>
+                <Label Grid.Row="0" VerticalOptions="Start" Text="wöchentl. Stundenzahl an:" FontSize="Title" LineBreakMode="WordWrap"/>
                 <HorizontalStackLayout Grid.Row="1">
                     <Entry x:Name="setupWeeklyHours" Text="37" FontSize="Title" Focused="Entry_Focused"/>
                     <Label Text="h " FontSize="Title"/>

@@ -23,7 +23,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" x:Name="settingsButton" Text="☰" FontSize="28" Clicked="SettingsButton_Clicked" CornerRadius="0"/>
-            <Button Grid.Column="2" x:Name="switchButton" Text="Tag" FontAttributes="Bold" Clicked="SwitchButton_Clicked" CornerRadius="0"/>
+            <Button Grid.Column="2" x:Name="switchButton" Padding="0" Text="Tag" FontAttributes="Bold" Clicked="SwitchButton_Clicked" CornerRadius="0"/>
         </Grid>
         
         <!-- Main Page -->
@@ -210,8 +210,8 @@
                 <Grid Grid.Row="1">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="55*"/>
-                            <ColumnDefinition Width="45*"/>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
@@ -225,8 +225,8 @@
                                 <RowDefinition Height="22*"/>
                             </Grid.RowDefinitions>
 
-                            <Label Grid.Row="0" HorizontalOptions="End" Text="Standard Kommen Zeit:"/>
-                            <Label Grid.Row="1" HorizontalOptions="End" Text="Standard Gehen Zeit:"/>
+                            <Label Grid.Row="0" HorizontalOptions="End" Text="Standard Kommen:"/>
+                            <Label Grid.Row="1" HorizontalOptions="End" Text="Standard Gehen:"/>
                             <Label Grid.Row="2" HorizontalOptions="End" Text="Wöchentl. Stunden:"/>
                             <Label Grid.Row="3" HorizontalOptions="End" Text="Tägl. Stunden:"/>
                             <Label Grid.Row="4" HorizontalOptions="End" Text="Brotzeitpause:"/>

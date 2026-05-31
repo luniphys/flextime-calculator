@@ -107,7 +107,7 @@ public partial class MainPage : ContentPage
         if (_weekMode)
         {
             switchButton.Text = "Woche";
-            switchButton.FontSize = GetNamedFontSize("Small");
+            switchButton.FontSize = GetNamedFontSize("Caption");
             mainPageGrid.IsEnabled = false;
             mainPageGrid.IsVisible = false;
             _weekMode = false;
