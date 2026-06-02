@@ -75,27 +75,52 @@
                 </HorizontalStackLayout>
             </Grid>
 
-            <!-- break Grid -->
-            <Grid Grid.Row="2" x:Name="breakGrid" IsEnabled="False" IsVisible="False">
+            <!-- small break Grid -->
+            <Grid Grid.Row="2" x:Name="smallBreakGrid" IsEnabled="False" IsVisible="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="33*"/>
                     <RowDefinition Height="33*"/>
                     <RowDefinition Height="33*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" VerticalOptions="Start" Text="Pausen Zeiten an:" FontSize="Title"/>
+                <Label Grid.Row="0" VerticalOptions="Start" Text="kleine Pause an:" FontSize="Title"/>
                 <HorizontalStackLayout Grid.Row="1">
-                    <Label Text="Brotzeitpause: " FontSize="Large"/>
-                    <Entry x:Name="setupSmallBreak" Text="15" FontSize="Title" Focused="Entry_Focused"/>
-                    <Label Text="min" FontSize="Title"/>
+                    <Label Text="Beginn: " FontSize="Large"/>
+                    <Border HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
+                        <TimePicker x:Name="setupSmallBreakStart" FontSize="Title" Time="09:00"/>
+                    </Border>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Grid.Row="2">
-                    <Label Text="Mittagspause: " FontSize="Large"/>
-                    <Entry x:Name="setupMainBreak" Text="30" FontSize="Title" Focused="Entry_Focused"/>
-                    <Label Text="min" FontSize="Title"/>
+                    <Label Text="   Ende:  " FontSize="Large"/>
+                    <Border HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
+                        <TimePicker x:Name="setupSmallBreakEnd" FontSize="Title" Time="09:15"/>
+                    </Border>
                 </HorizontalStackLayout>
             </Grid>
-            
+
+            <!-- main break Grid -->
+            <Grid Grid.Row="2" x:Name="mainBreakGrid" IsEnabled="False" IsVisible="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="33*"/>
+                    <RowDefinition Height="33*"/>
+                    <RowDefinition Height="33*"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" VerticalOptions="Start" Text="Mittagspause an:" FontSize="Title"/>
+                <HorizontalStackLayout Grid.Row="1">
+                    <Label Text="Beginn: " FontSize="Large"/>
+                    <Border HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
+                        <TimePicker x:Name="setupMainBreakStart" FontSize="Title" Time="12:00"/>
+                    </Border>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Row="2">
+                    <Label Text="   Ende:  " FontSize="Large"/>
+                    <Border HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
+                        <TimePicker x:Name="setupMainBreakEnd" FontSize="Title" Time="12:30"/>
+                    </Border>
+                </HorizontalStackLayout>
+            </Grid>
+
             <!-- Menu buttons -->
             <HorizontalStackLayout Grid.Row="3">
                 <Button x:Name="BackButton" BackgroundColor="{StaticResource backButtonBackgroundColor}" IsEnabled="False" Opacity="0.5"

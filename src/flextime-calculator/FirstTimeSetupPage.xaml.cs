@@ -11,7 +11,7 @@ public partial class FirstTimeSetupPage : ContentPage
     public FirstTimeSetupPage()
 	{
 		InitializeComponent();
-        _gridList = new List<Grid> { comeGrid, goGrid, weeklyGrid, breakGrid };
+        _gridList = new List<Grid> { comeGrid, goGrid, weeklyGrid, smallBreakGrid, mainBreakGrid };
 
     }
 
@@ -99,8 +99,10 @@ public partial class FirstTimeSetupPage : ContentPage
         Preferences.Set(PreferenceKeys.UsualGoTime, setupGoTime.Time.ToString());
         Preferences.Set(PreferenceKeys.WeeklyHours, setupWeeklyHours.Text);
         Preferences.Set(PreferenceKeys.WeeklyMinutes, setupWeeklyMinutes.Text);
-        Preferences.Set(PreferenceKeys.SmallBreak, setupSmallBreak.Text);
-        Preferences.Set(PreferenceKeys.MainBreak, setupMainBreak.Text);
+        Preferences.Set(PreferenceKeys.SmallBreakStart, setupSmallBreakStart.Time.ToString());
+        Preferences.Set(PreferenceKeys.SmallBreakEnd, setupSmallBreakEnd.Time.ToString());
+        Preferences.Set(PreferenceKeys.MainBreakStart, setupMainBreakStart.Time.ToString());
+        Preferences.Set(PreferenceKeys.MainBreakEnd, setupMainBreakEnd.Time.ToString());
 
         Preferences.Set(PreferenceKeys.SetupComplete, true);
 

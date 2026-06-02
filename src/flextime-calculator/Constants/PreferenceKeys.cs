@@ -12,8 +12,10 @@ internal static class PreferenceKeys
     public const string WeeklyMinutes = "WeeklyMinutes";
     public const string DailyHours = "DailyHours";
     public const string DailyMinutes = "DailyMinutes";
-    public const string SmallBreak = "SmallBreak";
-    public const string MainBreak = "MainBreak";
+    public const string SmallBreakStart = "SmallBreakStart";
+    public const string SmallBreakEnd = "SmallBreakEnd";
+    public const string MainBreakStart = "MainBreakStart";
+    public const string MainBreakEnd = "MainBreakEnd";
 
     // States
     public const string ComeMon = "ComeMon";
@@ -27,4 +29,6 @@ internal static class PreferenceKeys
     public const string GoThu = "GoThu";
 
     public const string ComeDay = "ComeDay";
+
+    public const string LateShift = "LateShift";
 }

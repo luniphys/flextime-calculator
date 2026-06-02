@@ -8,7 +8,7 @@ public partial class MainPage : ContentPage
     private bool _weekMode = true;
     private bool _isLoadingSettings = true;
     private bool _infoTextOpen = false;
-
+    private bool _lateShift = false;
 
 
     public MainPage()
@@ -45,32 +45,35 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void SettingsButton_Clicked(object sender, EventArgs e)
     {
-        double panelWidth = 0.85;
-        uint animationDuration = 100;
-
-        if (_settingsOpen)
-		{
-			_settingsOpen = false;
-            dimOverlay.IsVisible = false;
-            mainPageGrid.IsEnabled = true;
-            dayPageGrid.IsEnabled = true;
-            settingsPanel.Animate("close", v => settingsPanel.WidthRequest = v, start: this.Width * panelWidth, end: 0, length: animationDuration, finished: (v, c) => settingsPanel.IsVisible = false);
-        }
-		else
-		{
-            _settingsOpen = true;
-            dimOverlay.IsVisible = true;
-            settingsPanel.IsVisible = true;
-            mainPageGrid.IsEnabled = false;
-            dayPageGrid.IsEnabled = false;
-            settingsPanel.Animate("open", v => settingsPanel.WidthRequest = v, start: 0, end: this.Width * panelWidth, length: animationDuration);
-        }
-
-        if (_infoTextOpen)
+        if (sender is Button)
         {
-            feierabendInfo.IsVisible = false;
-            dimOverlay.IsVisible = false;
-            _infoTextOpen = false;
+            double panelWidth = 0.85;
+            uint animationDuration = 100;
+
+            if (_settingsOpen)
+		    {
+			    _settingsOpen = false;
+                dimOverlay.IsVisible = false;
+                mainPageGrid.IsEnabled = true;
+                dayPageGrid.IsEnabled = true;
+                settingsPanel.Animate("close", v => settingsPanel.WidthRequest = v, start: this.Width * panelWidth, end: 0, length: animationDuration, finished: (v, c) => settingsPanel.IsVisible = false);
+            }
+		    else
+		    {
+                _settingsOpen = true;
+                dimOverlay.IsVisible = true;
+                settingsPanel.IsVisible = true;
+                mainPageGrid.IsEnabled = false;
+                dayPageGrid.IsEnabled = false;
+                settingsPanel.Animate("open", v => settingsPanel.WidthRequest = v, start: 0, end: this.Width * panelWidth, length: animationDuration);
+            }
+
+            if (_infoTextOpen)
+            {
+                feierabendInfo.IsVisible = false;
+                dimOverlay.IsVisible = false;
+                _infoTextOpen = false;
+            }
         }
     }
 
@@ -80,9 +83,12 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void CloseSettings_Swiped(object sender, SwipedEventArgs e)
     {
-        if (_settingsOpen)
+        if (sender is SwipeGestureRecognizer)
         {
-            SettingsButton_Clicked(sender, e);
+            if (_settingsOpen)
+            {
+                SettingsButton_Clicked(sender, e);
+            }
         }
     }
 
@@ -92,9 +98,12 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void OpenSettings_Swiped(object sender, SwipedEventArgs e)
     {
-        if (!_settingsOpen)
+        if (sender is SwipeGestureRecognizer)
         {
-            SettingsButton_Clicked(sender, e);
+            if (!_settingsOpen)
+            {
+                SettingsButton_Clicked(sender, e);
+            }
         }
     }
 
@@ -104,34 +113,37 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void SwitchButton_Clicked(object sender, EventArgs e)
     {
-        if (_weekMode)
+        if (sender is Button)
         {
-            switchButton.Text = "Woche";
-            switchButton.FontSize = GetNamedFontSize("Caption");
-            mainPageGrid.IsEnabled = false;
-            mainPageGrid.IsVisible = false;
-            _weekMode = false;
+            if (_weekMode)
+            {
+                switchButton.Text = "Woche";
+                switchButton.FontSize = GetNamedFontSize("Caption");
+                mainPageGrid.IsEnabled = false;
+                mainPageGrid.IsVisible = false;
+                _weekMode = false;
 
-            dayPageGrid.IsEnabled = true;
-            dayPageGrid.IsVisible = true;
-        }
-        else
-        {
-            switchButton.Text = "Tag";
-            switchButton.FontSize = GetNamedFontSize("Medium");
-            mainPageGrid.IsEnabled = true;
-            mainPageGrid.IsVisible = true;
-            _weekMode = true;
+                dayPageGrid.IsEnabled = true;
+                dayPageGrid.IsVisible = true;
+            }
+            else
+            {
+                switchButton.Text = "Tag";
+                switchButton.FontSize = GetNamedFontSize("Medium");
+                mainPageGrid.IsEnabled = true;
+                mainPageGrid.IsVisible = true;
+                _weekMode = true;
 
-            dayPageGrid.IsEnabled = false;
-            dayPageGrid.IsVisible = false;
-        }
+                dayPageGrid.IsEnabled = false;
+                dayPageGrid.IsVisible = false;
+            }
 
-        if (_infoTextOpen)
-        {
-            feierabendInfo.IsVisible = false;
-            dimOverlay.IsVisible = false;
-            _infoTextOpen = false;
+            if (_infoTextOpen)
+            {
+                feierabendInfo.IsVisible = false;
+                dimOverlay.IsVisible = false;
+                _infoTextOpen = false;
+            }
         }
     }
 
@@ -155,7 +167,7 @@ public partial class MainPage : ContentPage
     /// <summary>
     /// Sets come and go times when a TimePicker property from settings changes. Then recalculates Feierabend.
     /// </summary>
-    private void UsualTimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    private void SettingsTimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (_isLoadingSettings) { return; }
         if (e.PropertyName != nameof(TimePicker.Time)) { return; }
@@ -178,6 +190,7 @@ public partial class MainPage : ContentPage
 
             comeDay.Time = uComeTime;
 
+            SaveCurrentState();
             CalculateFeierabend();
         }
     }
@@ -221,7 +234,10 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void RestoreButton_Clicked(object sender, EventArgs e)
     {
-        UsualTimePicker_PropertyChanged(usualComeTime, new System.ComponentModel.PropertyChangedEventArgs(nameof(TimePicker.Time)));
+        if (sender is Button)
+        {
+            SettingsTimePicker_PropertyChanged(usualComeTime, new System.ComponentModel.PropertyChangedEventArgs(nameof(TimePicker.Time)));
+        }
     }
 
 
@@ -230,12 +246,16 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void QuestionMarkButton_Clicked(object sender, EventArgs e)
     {
-        if (!_infoTextOpen)
+        if (sender is Button)
         {
-            feierabendInfo.IsVisible = true;
-            dimOverlay.IsVisible = true;
-            _infoTextOpen = true;
+            if (!_infoTextOpen)
+            {
+                feierabendInfo.IsVisible = true;
+                dimOverlay.IsVisible = true;
+                _infoTextOpen = true;
+            }
         }
+        
     }
 
 
@@ -244,11 +264,37 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        if (_infoTextOpen)
+        if (sender is TapGestureRecognizer)
         {
-            feierabendInfo.IsVisible = false;
-            dimOverlay.IsVisible = false;
-            _infoTextOpen = false;
+            if (_infoTextOpen)
+            {
+                feierabendInfo.IsVisible = false;
+                dimOverlay.IsVisible = false;
+                _infoTextOpen = false;
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Sets lateShift boolean based on CheckBox is checked or not.
+    /// </summary>
+    private void LateShiftCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if (sender is CheckBox)
+        {
+            if (lateShiftCheckBox.IsChecked)
+            {
+                _lateShift = true;
+            }
+
+            if (!lateShiftCheckBox.IsChecked)
+            {
+                _lateShift = false;
+            }
+
+            SaveCurrentState();
+            CalculateFeierabend();
         }
     }
 
@@ -266,6 +312,8 @@ public partial class MainPage : ContentPage
         _isLoadingSettings = true;
 
         // Settings
+        lateShiftCheckBox.IsChecked = Preferences.Get(PreferenceKeys.LateShift, false);
+
         TrySetTime(usualComeTime, PreferenceKeys.UsualComeTime, "06:00");
         TrySetTime(usualGoTime, PreferenceKeys.UsualGoTime, "14:15");
 
@@ -278,8 +326,10 @@ public partial class MainPage : ContentPage
         dailyHours.Text = Preferences.Get(PreferenceKeys.DailyHours, dailyHoursDouble.ToString());
         dailyMinutes.Text = Preferences.Get(PreferenceKeys.DailyMinutes, dailyMinutesDouble.ToString());
 
-        smallBreak.Text = Preferences.Get(PreferenceKeys.SmallBreak, "15");
-        mainBreak.Text = Preferences.Get(PreferenceKeys.MainBreak, "30");
+        TrySetTime(smallBreakStart, PreferenceKeys.SmallBreakStart, "09:00");
+        TrySetTime(smallBreakEnd, PreferenceKeys.SmallBreakEnd, "09:15");
+        TrySetTime(mainBreakStart, PreferenceKeys.MainBreakStart, "12:00");
+        TrySetTime(mainBreakEnd, PreferenceKeys.MainBreakEnd, "12:30");
 
         // Come and go times
         string defaultCome = usualComeTime.Time.ToString()!;
@@ -339,10 +389,14 @@ public partial class MainPage : ContentPage
         Preferences.Set(PreferenceKeys.WeeklyMinutes, weeklyMinutes.Text);
         Preferences.Set(PreferenceKeys.DailyHours, dailyHours.Text);
         Preferences.Set(PreferenceKeys.DailyMinutes, dailyMinutes.Text);
-        Preferences.Set(PreferenceKeys.SmallBreak, smallBreak.Text);
-        Preferences.Set(PreferenceKeys.MainBreak, mainBreak.Text);
+        Preferences.Set(PreferenceKeys.SmallBreakStart, smallBreakStart.Time.ToString());
+        Preferences.Set(PreferenceKeys.SmallBreakEnd, smallBreakEnd.Time.ToString());
+        Preferences.Set(PreferenceKeys.MainBreakStart, mainBreakStart.Time.ToString());
+        Preferences.Set(PreferenceKeys.MainBreakEnd, mainBreakEnd.Time.ToString());
 
         Preferences.Set(PreferenceKeys.ComeDay, comeDay.Time.ToString());
+
+        Preferences.Set(PreferenceKeys.LateShift, lateShiftCheckBox.IsChecked);
     }
 
 
@@ -352,26 +406,44 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void CalculateFeierabend()
 	{
-        double smallBreakDouble = TimeToDouble("0", smallBreak.Text);
-		TimeSpan smallBreakTS = TimeSpan.FromHours(smallBreakDouble);
-        double mainBreakDouble = TimeToDouble("0", mainBreak.Text);
-        TimeSpan mainBreakTS = TimeSpan.FromHours(mainBreakDouble);
-		TimeSpan totalBreak = smallBreakTS + mainBreakTS;
+        // Initialization
+        TimeSpan smallBreakStartTS = (TimeSpan)smallBreakStart.Time!;
+        TimeSpan smallBreakEndTS = (TimeSpan)smallBreakEnd.Time!;
+        TimeSpan smallBreakDuration = smallBreakEndTS - smallBreakStartTS;
 
+        TimeSpan mainBreakStartTS = (TimeSpan)mainBreakStart.Time!;
+        TimeSpan mainBreakEndTS = (TimeSpan)mainBreakEnd.Time!;
+        TimeSpan mainBreakDuration = mainBreakEndTS - mainBreakStartTS;
+
+        TimeSpan totalBreakDuration = smallBreakDuration + mainBreakDuration;
+        
         double weeklyTotal = TimeToDouble(weeklyHours.Text, weeklyMinutes.Text);
         TimeSpan totalWeeklyHours = TimeSpan.FromHours(weeklyTotal);
 
         double dailyTotal = TimeToDouble(dailyHours.Text, dailyMinutes.Text);
         TimeSpan totalDailyHours = TimeSpan.FromHours(dailyTotal);
 
-        TimeSpan monDuration = (TimeSpan)goMon.Time! - (TimeSpan)comeMon.Time! - totalBreak;
-        TimeSpan tueDuration = (TimeSpan)goTue.Time! - (TimeSpan)comeTue.Time! - totalBreak;
-        TimeSpan wedDuration = (TimeSpan)goWed.Time! - (TimeSpan)comeWed.Time! - totalBreak;
-        TimeSpan thuDuration = (TimeSpan)goThu.Time! - (TimeSpan)comeThu.Time! - totalBreak;
+
+        // Come/Go & Duration Lists
+        List<TimeSpan> comeTimes = new List<TimeSpan> { (TimeSpan)comeMon.Time!, (TimeSpan)comeTue.Time!, (TimeSpan)comeWed.Time!, (TimeSpan)comeThu.Time!, (TimeSpan)comeFri.Time! };
+        List<TimeSpan> goTimes = new List<TimeSpan> { (TimeSpan)goMon.Time!, (TimeSpan)goTue.Time!, (TimeSpan)goWed.Time!, (TimeSpan)goThu.Time! };
+
+        List<TimeSpan> durations = new List<TimeSpan> { TimeSpan.Zero, TimeSpan.Zero, TimeSpan.Zero, TimeSpan.Zero };
+
+
+        // Check if small break needs to be subtracted
+        for (int i = 0; i < comeTimes.Count; i++)
+        {
+            comeTimes[i] = (comeTimes[i] > smallBreakStartTS && comeTimes[i] <= smallBreakEndTS) ? smallBreakEndTS : comeTimes[i];
+        }
+
+        for (int i = 0; i < durations.Count; i++)
+        {
+            durations[i] = (comeTimes[i] >= smallBreakEndTS) ? (goTimes[i] - comeTimes[i] - mainBreakDuration) : (goTimes[i] - comeTimes[i] - totalBreakDuration);
+        }
 
 
         // Updating delta times
-        List<TimeSpan> durations = new List<TimeSpan> { monDuration, tueDuration, wedDuration, thuDuration };
         List<(Label dayDelta, Label cumDelta)> dayList = new List<(Label, Label)> { (dayDeltaMon, cumDeltaMon), (dayDeltaTue, cumDeltaTue), (dayDeltaWed, cumDeltaWed), (dayDeltaThu, cumDeltaThu) };
 
         TimeSpan deltaTime;
@@ -388,26 +460,29 @@ public partial class MainPage : ContentPage
     
 
         // Calculating Feierabend Week
-        TimeSpan fourDayDuration = monDuration + tueDuration + wedDuration + thuDuration;
+        TimeSpan fourDayDuration = TimeSpan.Zero;
+        foreach (TimeSpan duration in durations)
+        {
+            fourDayDuration += duration;
+        }
 		TimeSpan fridayHours = totalWeeklyHours - fourDayDuration;
-		TimeSpan feierAbendWeek = (TimeSpan)comeFri.Time! + fridayHours + smallBreakTS;
+		TimeSpan feierAbendWeek = (comeTimes[4] >= smallBreakEndTS) ? comeTimes[4] + fridayHours + mainBreakDuration : comeTimes[4] + fridayHours + smallBreakDuration;
+
+
+
+
 
         TimeSpan OneOClock = new TimeSpan(13, 0, 0); // Leaving before 13:00 won't add the main break to working time
-        if (feierAbendWeek > OneOClock)
-        {
-            feierAbendWeek += mainBreakTS;
-        }
+        feierAbendWeek = (feierAbendWeek > OneOClock) ? feierAbendWeek + mainBreakDuration : feierAbendWeek;
 
         TimeSpan minimumFriday = new TimeSpan(12, 0, 0); // Can't leave before 12:00
-		if (feierAbendWeek < minimumFriday)
-		{
-            feierAbendWeek = minimumFriday;
-		}
+        feierAbendWeek = (feierAbendWeek < minimumFriday) ? minimumFriday : feierAbendWeek;
+		
         feierabendTimeWeek.Text = $"{feierAbendWeek.Hours}:{feierAbendWeek.Minutes:D2}";
 
 
         // Calculating Feierabend day
-        TimeSpan feierAbendDay = (TimeSpan)comeDay.Time! + totalDailyHours + totalBreak;
+        TimeSpan feierAbendDay = (TimeSpan)comeDay.Time! + totalDailyHours + totalBreakDuration;
         feierabendTimeDay.Text = $"{feierAbendDay.Hours}:{feierAbendDay.Minutes:D2}";
     }
 
