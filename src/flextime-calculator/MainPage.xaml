@@ -162,7 +162,7 @@
             <Grid Grid.Row="1">
                 <HorizontalStackLayout Spacing="10">
                     <Button HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="20" HeightRequest="20" Padding="0" BackgroundColor="Transparent"
-                            Text="?" FontSize="Small" TextColor="White" BorderColor="White" CornerRadius="15" Clicked="QuestionMarkButton_Clicked"/>
+                            Text="?" FontSize="Small" TextColor="White" BorderColor="White" CornerRadius="15" Clicked="QuestionMarkWeekButton_Clicked"/>
                     <Label Text="Feierabend:" HorizontalTextAlignment="End" FontSize="Title"/>
                     <Label x:Name="feierabendTimeWeek" HorizontalTextAlignment="Start" FontSize="Title"/>
                 </HorizontalStackLayout>
@@ -188,6 +188,8 @@
             </HorizontalStackLayout>
 
             <HorizontalStackLayout Grid.Row="2" Spacing="10">
+                <Button HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="20" HeightRequest="20" Padding="0" BackgroundColor="Transparent"
+                        Text="?" FontSize="Small" TextColor="White" BorderColor="White" CornerRadius="15" Clicked="QuestionMarkDayButton_Clicked"/>
                 <Label Text="Feierabend:" HorizontalTextAlignment="End" FontSize="Title"/>
                 <Label x:Name="feierabendTimeDay" HorizontalTextAlignment="Start" FontSize="Title"/>
             </HorizontalStackLayout>
@@ -300,7 +302,7 @@
         </Border>
 
         <!-- Feierabend Info text bubble -->
-        <Border Grid.Row="1" x:Name="feierabendInfo" IsVisible="False" VerticalOptions="End" Margin="25,0,25,90" Padding="8,8"
+        <Border Grid.Row="1" x:Name="feierabendInfoWeek" IsVisible="False" VerticalOptions="End" Margin="25,0,25,90" Padding="8,8"
                 BackgroundColor="{StaticResource settingsBackgroundColor}">
             <VerticalStackLayout>
 
@@ -310,7 +312,7 @@
                         <ColumnDefinition Width="90*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Text="•" VerticalOptions="Start"/>
-                    <Label Grid.Column="1" Text="Man kann nicht vor 12:00 Uhr gehen." HorizontalOptions="Start" HorizontalTextAlignment="Start"/>
+                    <Label Grid.Column="1" x:Name="bulletPoint1" Text="Man kann nicht vor 12:00 Uhr gehen." HorizontalOptions="Start" HorizontalTextAlignment="Start"/>
                 </Grid>
 
                 <Grid>
@@ -319,9 +321,34 @@
                         <ColumnDefinition Width="90*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Text="•" VerticalOptions="Start"/>
-                    <Label Grid.Column="1" Text="Geht man vor 13:00 Uhr wird die Mittagspause nicht dazu gerechnet." HorizontalOptions="Start" HorizontalTextAlignment="Start"/>
+                    <Label Grid.Column="1" x:Name="bulletPoint2" Text="Geht man vor 13:00 Uhr wird die Mittagspause nicht dazu gerechnet." HorizontalOptions="Start" HorizontalTextAlignment="Start"/>
                 </Grid>
                 
+            </VerticalStackLayout>
+        </Border>
+
+        <Border Grid.Row="1" x:Name="feierabendInfoDay" IsVisible="False" VerticalOptions="Center" Margin="25,0,25,0" Padding="8,8"
+        BackgroundColor="{StaticResource settingsBackgroundColor}">
+            <VerticalStackLayout>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="90*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="•" VerticalOptions="Start"/>
+                    <Label Grid.Column="1" Text="Hier wird allein die tägliche Stundenzahl berücksichtigt." HorizontalOptions="Start" HorizontalTextAlignment="Start"/>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="90*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="•" VerticalOptions="Start"/>
+                    <Label Grid.Column="1" Text="Kommt man nach 9:00 Uhr wird die kleine Pause nicht angerechnet." HorizontalOptions="Start" HorizontalTextAlignment="Start"/>
+                </Grid>
+
             </VerticalStackLayout>
         </Border>
 

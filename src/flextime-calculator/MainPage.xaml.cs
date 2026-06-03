@@ -45,35 +45,33 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void SettingsButton_Clicked(object sender, EventArgs e)
     {
-        if (sender is Button)
+        double panelWidth = 0.85;
+        uint animationDuration = 100;
+
+        if (_settingsOpen)
+		{
+			_settingsOpen = false;
+            dimOverlay.IsVisible = false;
+            mainPageGrid.IsEnabled = true;
+            dayPageGrid.IsEnabled = true;
+            settingsPanel.Animate("close", v => settingsPanel.WidthRequest = v, start: this.Width * panelWidth, end: 0, length: animationDuration, finished: (v, c) => settingsPanel.IsVisible = false);
+        }
+		else
+		{
+            _settingsOpen = true;
+            dimOverlay.IsVisible = true;
+            settingsPanel.IsVisible = true;
+            mainPageGrid.IsEnabled = false;
+            dayPageGrid.IsEnabled = false;
+            settingsPanel.Animate("open", v => settingsPanel.WidthRequest = v, start: 0, end: this.Width * panelWidth, length: animationDuration);
+        }
+
+        if (_infoTextOpen)
         {
-            double panelWidth = 0.85;
-            uint animationDuration = 100;
-
-            if (_settingsOpen)
-		    {
-			    _settingsOpen = false;
-                dimOverlay.IsVisible = false;
-                mainPageGrid.IsEnabled = true;
-                dayPageGrid.IsEnabled = true;
-                settingsPanel.Animate("close", v => settingsPanel.WidthRequest = v, start: this.Width * panelWidth, end: 0, length: animationDuration, finished: (v, c) => settingsPanel.IsVisible = false);
-            }
-		    else
-		    {
-                _settingsOpen = true;
-                dimOverlay.IsVisible = true;
-                settingsPanel.IsVisible = true;
-                mainPageGrid.IsEnabled = false;
-                dayPageGrid.IsEnabled = false;
-                settingsPanel.Animate("open", v => settingsPanel.WidthRequest = v, start: 0, end: this.Width * panelWidth, length: animationDuration);
-            }
-
-            if (_infoTextOpen)
-            {
-                feierabendInfo.IsVisible = false;
-                dimOverlay.IsVisible = false;
-                _infoTextOpen = false;
-            }
+            feierabendInfoWeek.IsVisible = false;
+            feierabendInfoDay.IsVisible = false;
+            dimOverlay.IsVisible = false;
+            _infoTextOpen = false;
         }
     }
 
@@ -83,12 +81,9 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void CloseSettings_Swiped(object sender, SwipedEventArgs e)
     {
-        if (sender is SwipeGestureRecognizer)
+        if (_settingsOpen)
         {
-            if (_settingsOpen)
-            {
-                SettingsButton_Clicked(sender, e);
-            }
+            SettingsButton_Clicked(sender, e);
         }
     }
 
@@ -98,12 +93,9 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void OpenSettings_Swiped(object sender, SwipedEventArgs e)
     {
-        if (sender is SwipeGestureRecognizer)
+        if (!_settingsOpen)
         {
-            if (!_settingsOpen)
-            {
-                SettingsButton_Clicked(sender, e);
-            }
+            SettingsButton_Clicked(sender, e);
         }
     }
 
@@ -113,37 +105,35 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void SwitchButton_Clicked(object sender, EventArgs e)
     {
-        if (sender is Button)
+        if (_weekMode)
         {
-            if (_weekMode)
-            {
-                switchButton.Text = "Woche";
-                switchButton.FontSize = GetNamedFontSize("Caption");
-                mainPageGrid.IsEnabled = false;
-                mainPageGrid.IsVisible = false;
-                _weekMode = false;
+            switchButton.Text = "Woche";
+            switchButton.FontSize = GetNamedFontSize("Caption");
+            mainPageGrid.IsEnabled = false;
+            mainPageGrid.IsVisible = false;
+            _weekMode = false;
 
-                dayPageGrid.IsEnabled = true;
-                dayPageGrid.IsVisible = true;
-            }
-            else
-            {
-                switchButton.Text = "Tag";
-                switchButton.FontSize = GetNamedFontSize("Medium");
-                mainPageGrid.IsEnabled = true;
-                mainPageGrid.IsVisible = true;
-                _weekMode = true;
+            dayPageGrid.IsEnabled = true;
+            dayPageGrid.IsVisible = true;
+        }
+        else
+        {
+            switchButton.Text = "Tag";
+            switchButton.FontSize = GetNamedFontSize("Medium");
+            mainPageGrid.IsEnabled = true;
+            mainPageGrid.IsVisible = true;
+            _weekMode = true;
 
-                dayPageGrid.IsEnabled = false;
-                dayPageGrid.IsVisible = false;
-            }
+            dayPageGrid.IsEnabled = false;
+            dayPageGrid.IsVisible = false;
+        }
 
-            if (_infoTextOpen)
-            {
-                feierabendInfo.IsVisible = false;
-                dimOverlay.IsVisible = false;
-                _infoTextOpen = false;
-            }
+        if (_infoTextOpen)
+        {
+            feierabendInfoWeek.IsVisible = false;
+            feierabendInfoDay.IsVisible = false;
+            dimOverlay.IsVisible = false;
+            _infoTextOpen = false;
         }
     }
 
@@ -242,20 +232,48 @@ public partial class MainPage : ContentPage
 
 
     /// <summary>
-    /// Info button opens text bubble giving information about Feierabend rules.
+    /// Info button opens text bubble giving information about Feierabend rules for the week.
     /// </summary>
-    private void QuestionMarkButton_Clicked(object sender, EventArgs e)
+    private void QuestionMarkWeekButton_Clicked(object sender, EventArgs e)
     {
         if (sender is Button)
         {
             if (!_infoTextOpen)
             {
-                feierabendInfo.IsVisible = true;
+                if (_lateShift)
+                {
+                    bulletPoint1.Text = "Man kann nicht vor 16:15 Uhr gehen.";
+                    bulletPoint2.Text = "Kommt man nach 9:00 Uhr wird die kleine Pause nicht angerechnet.";
+                }
+
+                else
+                {
+                    bulletPoint1.Text = "Man kann nicht vor 12:00 Uhr gehen.";
+                    bulletPoint2.Text = "Geht man vor 13:00 Uhr wird die Mittagspause nicht angerechnet.";
+                }
+
+                feierabendInfoWeek.IsVisible = true;
                 dimOverlay.IsVisible = true;
                 _infoTextOpen = true;
             }
         }
-        
+    }
+
+
+    /// <summary>
+    /// Info button opens text bubble giving information about Feierabend rules for the day.
+    /// </summary>
+    private void QuestionMarkDayButton_Clicked(object sender, EventArgs e)
+    {
+        if (sender is Button)
+        {
+            if (!_infoTextOpen)
+            {
+                feierabendInfoDay.IsVisible = true;
+                dimOverlay.IsVisible = true;
+                _infoTextOpen = true;
+            }
+        }
     }
 
 
@@ -264,14 +282,12 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is TapGestureRecognizer)
+        if (_infoTextOpen)
         {
-            if (_infoTextOpen)
-            {
-                feierabendInfo.IsVisible = false;
-                dimOverlay.IsVisible = false;
-                _infoTextOpen = false;
-            }
+            feierabendInfoWeek.IsVisible = false;
+            feierabendInfoDay.IsVisible = false;
+            dimOverlay.IsVisible = false;
+            _infoTextOpen = false;
         }
     }
 
@@ -281,17 +297,11 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void LateShiftCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
+        if (_isLoadingSettings) { return; }
+
         if (sender is CheckBox)
         {
-            if (lateShiftCheckBox.IsChecked)
-            {
-                _lateShift = true;
-            }
-
-            if (!lateShiftCheckBox.IsChecked)
-            {
-                _lateShift = false;
-            }
+            _lateShift = lateShiftCheckBox.IsChecked;
 
             SaveCurrentState();
             CalculateFeierabend();
@@ -348,6 +358,8 @@ public partial class MainPage : ContentPage
         TrySetTime(comeDay, PreferenceKeys.ComeDay, defaultCome);
 
         _isLoadingSettings = false;
+
+        _lateShift = lateShiftCheckBox.IsChecked;
 
         CalculateFeierabend();
     }
@@ -425,7 +437,7 @@ public partial class MainPage : ContentPage
 
 
         // Come/Go & Duration Lists
-        List<TimeSpan> comeTimes = new List<TimeSpan> { (TimeSpan)comeMon.Time!, (TimeSpan)comeTue.Time!, (TimeSpan)comeWed.Time!, (TimeSpan)comeThu.Time!, (TimeSpan)comeFri.Time! };
+        List<TimeSpan> comeTimes = new List<TimeSpan> { (TimeSpan)comeMon.Time!, (TimeSpan)comeTue.Time!, (TimeSpan)comeWed.Time!, (TimeSpan)comeThu.Time!, (TimeSpan)comeFri.Time!, (TimeSpan)comeDay.Time! };
         List<TimeSpan> goTimes = new List<TimeSpan> { (TimeSpan)goMon.Time!, (TimeSpan)goTue.Time!, (TimeSpan)goWed.Time!, (TimeSpan)goThu.Time! };
 
         List<TimeSpan> durations = new List<TimeSpan> { TimeSpan.Zero, TimeSpan.Zero, TimeSpan.Zero, TimeSpan.Zero };
@@ -466,23 +478,26 @@ public partial class MainPage : ContentPage
             fourDayDuration += duration;
         }
 		TimeSpan fridayHours = totalWeeklyHours - fourDayDuration;
-		TimeSpan feierAbendWeek = (comeTimes[4] >= smallBreakEndTS) ? comeTimes[4] + fridayHours + mainBreakDuration : comeTimes[4] + fridayHours + smallBreakDuration;
-
-
-
-
+		TimeSpan feierAbendWeek = (comeTimes[4] >= smallBreakEndTS) ? comeTimes[4] + fridayHours + mainBreakDuration : comeTimes[4] + fridayHours + totalBreakDuration;
 
         TimeSpan OneOClock = new TimeSpan(13, 0, 0); // Leaving before 13:00 won't add the main break to working time
-        feierAbendWeek = (feierAbendWeek > OneOClock) ? feierAbendWeek + mainBreakDuration : feierAbendWeek;
+        feierAbendWeek = (feierAbendWeek < OneOClock) ? feierAbendWeek - mainBreakDuration : feierAbendWeek;
 
-        TimeSpan minimumFriday = new TimeSpan(12, 0, 0); // Can't leave before 12:00
-        feierAbendWeek = (feierAbendWeek < minimumFriday) ? minimumFriday : feierAbendWeek;
-		
+        TimeSpan TwelveOClock = new TimeSpan(12, 0, 0); // Can't leave before 12:00
+        feierAbendWeek = (feierAbendWeek < TwelveOClock) ? TwelveOClock : feierAbendWeek;
+
+        TimeSpan FourFifteen = new TimeSpan(16, 15, 0); // Can't leave before 16:15 at late shift
+        if (_lateShift)
+        {
+            feierAbendWeek = (feierAbendWeek < FourFifteen) ? FourFifteen : feierAbendWeek;
+        }
+
         feierabendTimeWeek.Text = $"{feierAbendWeek.Hours}:{feierAbendWeek.Minutes:D2}";
 
 
         // Calculating Feierabend day
-        TimeSpan feierAbendDay = (TimeSpan)comeDay.Time! + totalDailyHours + totalBreakDuration;
+        TimeSpan feierAbendDay = (comeTimes[5] >= smallBreakEndTS) ? comeTimes[5] + totalDailyHours + mainBreakDuration : comeTimes[5] + totalDailyHours + totalBreakDuration;
+
         feierabendTimeDay.Text = $"{feierAbendDay.Hours}:{feierAbendDay.Minutes:D2}";
     }
 
