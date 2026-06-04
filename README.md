@@ -24,11 +24,11 @@ A cross-platform .NET MAUI app for workers to track their weekly working time. E
 
 ## Overview
 
-The first time starting the app, a setup wizard runs where the user sets their usual begin/end working times, total weekly hours, and break durations. These settings are persisted across sessions via MAUI's `Preferences`.
+The first time starting the app, a setup wizard runs where the user sets their usual begin/end working times, total weekly hours and break times. These settings are persisted across sessions via MAUI's `Preferences`.
 
 The main screen has two views:
 
-1. **Week view** — Enter working times from Monday to Friday morning. The app calculates daily and cumulative overtimes/deficits by the needed daily hours and determines the earliest time one can leave on Friday to fulfill the weekly hours.
+1. **Week view** — Enter working times from Monday to Friday morning. The app calculates daily and cumulative overtimes/deficits by the needed daily hours and determines the earliest time one can leave on Friday to fulfill the weekly hours. Optional late shift mode available.
 2. **Day view** — Enter a single begin time and get the earliest end of work time for that day based on the daily needed hours.
 
 A slide-in settings panel lets you adjust usual beginning/ending times weekly and daily hours, and break times.
@@ -42,6 +42,8 @@ A slide-in settings panel lets you adjust usual beginning/ending times weekly an
 - Day view for single-day end of work time calculation
 - Configurable usual beginning/end times, weekly hours, and break durations in settings panel
 - Restore button to reset all times to usual times.
+- Checkbox for late shift mode. Configures earliest leaving time.
+- Info text bubbles about time/break conventions.
 - All time states stored across app restarts
 
 ## Project Structure
