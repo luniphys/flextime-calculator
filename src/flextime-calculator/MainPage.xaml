@@ -148,7 +148,7 @@
                     <VerticalStackLayout Grid.Row="5" Grid.ColumnSpan="2" VerticalOptions="End" Spacing="5">
                         <Button HorizontalOptions="Center" BackgroundColor="Red"
                             Text="Standardzeiten" FontSize="Small" Clicked="RestoreButton_Clicked"/>
-                        <HorizontalStackLayout HorizontalOptions="Center">
+                        <HorizontalStackLayout HorizontalOptions="Center" Margin="13,0,0,0">
                             <Label Text="Spätschicht"/>
                             <CheckBox x:Name="lateShiftCheckBox" Color="White" CheckedChanged="LateShiftCheckBox_CheckedChanged"/>
                         </HorizontalStackLayout>
@@ -219,8 +219,8 @@
                 <Grid Grid.Row="1">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50*"/>
-                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="55*"/>
+                            <ColumnDefinition Width="45*"/>
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
@@ -260,10 +260,10 @@
                             </Grid.RowDefinitions>
 
                             <Border Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
-                                <TimePicker x:Name="usualComeTime" PropertyChanged="SettingsTimePicker_PropertyChanged"/>
+                                <TimePicker x:Name="usualComeTime" PropertyChanged="UsualTimePicker_PropertyChanged"/>
                             </Border>
                             <Border Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
-                                <TimePicker x:Name="usualGoTime" PropertyChanged="SettingsTimePicker_PropertyChanged"/>
+                                <TimePicker x:Name="usualGoTime" PropertyChanged="UsualTimePicker_PropertyChanged"/>
                             </Border>
                             <HorizontalStackLayout Grid.Row="2">
                                 <Entry x:Name="weeklyHours" Text="00" Focused="Entry_Focused" TextChanged="Entry_TextChanged"/>
@@ -278,16 +278,16 @@
                                 <Label Text="min"/>
                             </HorizontalStackLayout>
                             <Border Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
-                                <TimePicker x:Name="smallBreakStart" PropertyChanged="SettingsTimePicker_PropertyChanged"/>
+                                <TimePicker x:Name="smallBreakStart" PropertyChanged="BreakTimePicker_PropertyChanged"/>
                             </Border>
                             <Border Grid.Row="5" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
-                                <TimePicker x:Name="smallBreakEnd" PropertyChanged="SettingsTimePicker_PropertyChanged"/>
+                                <TimePicker x:Name="smallBreakEnd" PropertyChanged="BreakTimePicker_PropertyChanged"/>
                             </Border>
                             <Border Grid.Row="6" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
-                                <TimePicker x:Name="mainBreakStart" PropertyChanged="SettingsTimePicker_PropertyChanged"/>
+                                <TimePicker x:Name="mainBreakStart" PropertyChanged="BreakTimePicker_PropertyChanged"/>
                             </Border>
                             <Border Grid.Row="7" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="90">
-                                <TimePicker x:Name="mainBreakEnd" PropertyChanged="SettingsTimePicker_PropertyChanged"/>
+                                <TimePicker x:Name="mainBreakEnd" PropertyChanged="BreakTimePicker_PropertyChanged"/>
                             </Border>
                         </Grid>
 

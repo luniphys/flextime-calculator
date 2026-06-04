@@ -24,9 +24,9 @@
 
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30*"/>
+                <RowDefinition Height="20*"/>
                 <RowDefinition Height="10*"/>
-                <RowDefinition Height="30*"/>
+                <RowDefinition Height="40*"/>
                 <RowDefinition Height="30*"/>
             </Grid.RowDefinitions>
 
@@ -36,8 +36,8 @@
             <!-- come Grid -->
             <Grid Grid.Row="2" x:Name="comeGrid" IsEnabled="True" IsVisible="True">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50*"/>
-                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="60*"/>
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" VerticalOptions="Start" Text="Standard Kommen Zeit an:" FontSize="Title" LineBreakMode="WordWrap"/>
@@ -49,8 +49,8 @@
             <!-- go Grid -->
             <Grid Grid.Row="2" x:Name="goGrid" IsEnabled="False" IsVisible="False">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50*"/>
-                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="60*"/>
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" VerticalOptions="Start" Text="Standard Gehen Zeit an:" FontSize="Title" LineBreakMode="WordWrap"/>
@@ -62,8 +62,8 @@
             <!-- weekly Grid -->
             <Grid Grid.Row="2" x:Name="weeklyGrid" IsEnabled="False" IsVisible="False">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50*"/>
-                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="60*"/>
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" VerticalOptions="Start" Text="wöchentl. Stundenzahl an:" FontSize="Title" LineBreakMode="WordWrap"/>
@@ -78,9 +78,9 @@
             <!-- small break Grid -->
             <Grid Grid.Row="2" x:Name="smallBreakGrid" IsEnabled="False" IsVisible="False">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="33*"/>
-                    <RowDefinition Height="33*"/>
-                    <RowDefinition Height="33*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="35*"/>
+                    <RowDefinition Height="35*"/>
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" VerticalOptions="Start" Text="kleine Pause an:" FontSize="Title"/>
@@ -101,9 +101,9 @@
             <!-- main break Grid -->
             <Grid Grid.Row="2" x:Name="mainBreakGrid" IsEnabled="False" IsVisible="False">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="33*"/>
-                    <RowDefinition Height="33*"/>
-                    <RowDefinition Height="33*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="35*"/>
+                    <RowDefinition Height="35*"/>
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" VerticalOptions="Start" Text="Mittagspause an:" FontSize="Title"/>

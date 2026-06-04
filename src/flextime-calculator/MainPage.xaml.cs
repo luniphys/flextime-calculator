@@ -9,6 +9,7 @@ public partial class MainPage : ContentPage
     private bool _isLoadingSettings = true;
     private bool _infoTextOpen = false;
     private bool _lateShift = false;
+    private Color _defaultPurple = Color.FromRgb(80, 43, 212);
 
 
     public MainPage()
@@ -54,6 +55,7 @@ public partial class MainPage : ContentPage
             dimOverlay.IsVisible = false;
             mainPageGrid.IsEnabled = true;
             dayPageGrid.IsEnabled = true;
+            switchButton.IsEnabled = true;
             settingsPanel.Animate("close", v => settingsPanel.WidthRequest = v, start: this.Width * panelWidth, end: 0, length: animationDuration, finished: (v, c) => settingsPanel.IsVisible = false);
         }
 		else
@@ -63,6 +65,8 @@ public partial class MainPage : ContentPage
             settingsPanel.IsVisible = true;
             mainPageGrid.IsEnabled = false;
             dayPageGrid.IsEnabled = false;
+            switchButton.IsEnabled = false;
+            switchButton.BackgroundColor = _defaultPurple;
             settingsPanel.Animate("open", v => settingsPanel.WidthRequest = v, start: 0, end: this.Width * panelWidth, length: animationDuration);
         }
 
@@ -70,7 +74,6 @@ public partial class MainPage : ContentPage
         {
             feierabendInfoWeek.IsVisible = false;
             feierabendInfoDay.IsVisible = false;
-            dimOverlay.IsVisible = false;
             _infoTextOpen = false;
         }
     }
@@ -157,29 +160,55 @@ public partial class MainPage : ContentPage
     /// <summary>
     /// Sets come and go times when a TimePicker property from settings changes. Then recalculates Feierabend.
     /// </summary>
-    private void SettingsTimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    private void UsualTimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (_isLoadingSettings) { return; }
+        if (e.PropertyName != nameof(TimePicker.Time)) { return; }
+
+        if (sender is TimePicker picker)
+        {
+            _isLoadingSettings = true;
+
+            var uComeTime = usualComeTime.Time;
+            var uGoTime = usualGoTime.Time;
+
+            if (picker == usualComeTime)
+            {
+                comeMon.Time = uComeTime;
+                comeTue.Time = uComeTime;
+                comeWed.Time = uComeTime;
+                comeThu.Time = uComeTime;
+                comeFri.Time = uComeTime;
+
+                comeDay.Time = uComeTime;
+            }
+
+            if (picker == usualGoTime)
+            {
+                goMon.Time = uGoTime;
+                goTue.Time = uGoTime;
+                goWed.Time = uGoTime;
+                goThu.Time = uGoTime;
+            }
+
+            _isLoadingSettings = false;
+
+            SaveCurrentState();
+            CalculateFeierabend();
+        }
+    }
+
+
+    /// <summary>
+    /// When Timepickers watching break times change, state is saved and Feierabend recalculated.
+    /// </summary>
+    private void BreakTimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (_isLoadingSettings) { return; }
         if (e.PropertyName != nameof(TimePicker.Time)) { return; }
 
         if (sender is TimePicker)
         {
-            var uComeTime = usualComeTime.Time;
-            var uGoTime = usualGoTime.Time;
-
-			comeMon.Time = uComeTime;
-            comeTue.Time = uComeTime;
-            comeWed.Time = uComeTime;
-            comeThu.Time = uComeTime;
-            comeFri.Time = uComeTime;
-
-            goMon.Time = uGoTime;
-            goTue.Time = uGoTime;
-            goWed.Time = uGoTime;
-            goThu.Time = uGoTime;
-
-            comeDay.Time = uComeTime;
-
             SaveCurrentState();
             CalculateFeierabend();
         }
@@ -226,7 +255,8 @@ public partial class MainPage : ContentPage
     {
         if (sender is Button)
         {
-            SettingsTimePicker_PropertyChanged(usualComeTime, new System.ComponentModel.PropertyChangedEventArgs(nameof(TimePicker.Time)));
+            UsualTimePicker_PropertyChanged(usualComeTime, new System.ComponentModel.PropertyChangedEventArgs(nameof(TimePicker.Time)));
+            UsualTimePicker_PropertyChanged(usualGoTime, new System.ComponentModel.PropertyChangedEventArgs(nameof(TimePicker.Time)));
         }
     }
 
@@ -427,6 +457,13 @@ public partial class MainPage : ContentPage
         TimeSpan mainBreakEndTS = (TimeSpan)mainBreakEnd.Time!;
         TimeSpan mainBreakDuration = mainBreakEndTS - mainBreakStartTS;
 
+        if (smallBreakDuration < TimeSpan.Zero || mainBreakDuration < TimeSpan.Zero)
+        {
+            feierabendTimeWeek.Text = "Invalid break time.";
+            feierabendTimeDay.Text = "Invalid break time.";
+            return;
+        }
+
         TimeSpan totalBreakDuration = smallBreakDuration + mainBreakDuration;
         
         double weeklyTotal = TimeToDouble(weeklyHours.Text, weeklyMinutes.Text);
@@ -478,13 +515,16 @@ public partial class MainPage : ContentPage
             fourDayDuration += duration;
         }
 		TimeSpan fridayHours = totalWeeklyHours - fourDayDuration;
-		TimeSpan feierAbendWeek = (comeTimes[4] >= smallBreakEndTS) ? comeTimes[4] + fridayHours + mainBreakDuration : comeTimes[4] + fridayHours + totalBreakDuration;
+		TimeSpan feierAbendWeek = (comeTimes[4] >= smallBreakEndTS) ? comeTimes[4] + fridayHours : comeTimes[4] + fridayHours + smallBreakDuration;
 
-        TimeSpan OneOClock = new TimeSpan(13, 0, 0); // Leaving before 13:00 won't add the main break to working time
-        feierAbendWeek = (feierAbendWeek < OneOClock) ? feierAbendWeek - mainBreakDuration : feierAbendWeek;
+        TimeSpan OneOClock = new TimeSpan(13, 0, 0); // Leaving before 13:00 won't add the main break to working times
+        feierAbendWeek = (feierAbendWeek < OneOClock) ? feierAbendWeek : feierAbendWeek + mainBreakDuration;
 
         TimeSpan TwelveOClock = new TimeSpan(12, 0, 0); // Can't leave before 12:00
-        feierAbendWeek = (feierAbendWeek < TwelveOClock) ? TwelveOClock : feierAbendWeek;
+        if (!_lateShift)
+        {
+            feierAbendWeek = (feierAbendWeek < TwelveOClock) ? TwelveOClock : feierAbendWeek;
+        }
 
         TimeSpan FourFifteen = new TimeSpan(16, 15, 0); // Can't leave before 16:15 at late shift
         if (_lateShift)
