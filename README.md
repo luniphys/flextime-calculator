@@ -1,6 +1,5 @@
-[![.NET](https://img.shields.io/badge/.NET-512BD4?logo=dotnet&logoColor=fff)](https://dotnet.microsoft.com/en-us/)
 [![C#](https://custom-icon-badges.demolab.com/badge/C%23-%23239120.svg?logo=cshrp&logoColor=white)](https://learn.microsoft.com/en-us/dotnet/csharp/)
-[![MAUI](https://img.shields.io/badge/MAUI-512BD4)](https://dotnet.microsoft.com/en-us/apps/maui)
+[![.NET](https://img.shields.io/badge/MAUI-512BD4?logo=dotnet&logoColor=fff)](https://dotnet.microsoft.com/en-us/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 # Flextime Calculator
